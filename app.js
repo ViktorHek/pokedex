@@ -6,18 +6,6 @@ app.use(cors());
 
 require('./requests/index.js')(app)
 
-app.get('/test', (req,res) => {
-    res.send('test :)')
-})
-
-
-
-
-
-// insertIntoDB();
-
-
-
 app.listen(port, () => {
     console.log(`Listening to port ${port}`)
 })
