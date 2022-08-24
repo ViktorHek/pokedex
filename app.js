@@ -5,6 +5,7 @@ const cors = require('cors');
 app.use(cors());
 
 require('./requests/index.js')(app)
+// require('./requests/getDatabaseFromApi.js')(app)
 
 app.listen(port, () => {
     console.log(`Listening to port ${port}`)
