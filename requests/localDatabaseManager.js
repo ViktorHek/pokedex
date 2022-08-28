@@ -1,23 +1,52 @@
 // localDatabaseManager
 const pokemonDB = require("../dataBase/pokemons")
+const allMovesArr = require("../dataBase/AllMovesArr")
 
-getAllPokemonsFormDB = async function getAllPokemonsFormDB() {
+getAllPokemonsFormDB = function getAllPokemonsFormDB() {
 	return pokemonDB
 }
 
-getPokemonWithId = async function getPokemonWithId(id) {
-    console.log('getting to funk')
+getPokemonIdFromName = function getPokemonIdFromName(name) {
+    let returnValue = null
+    pokemonDB.forEach((el) => {
+        if(el.name == name) {
+            returnValue = el.index
+        }
+    })
+    return returnValue
+}
+
+getPokemonNameFromId = function getPokemonNameFromId(id) {
+    let returnValue = null
+    pokemonDB.forEach((el) => {
+        if(el.index == id) {
+            returnValue = el.name
+        }
+    })
+    return returnValue
+}
+
+getPokemonObject = function getPokemonObject(value, type) {
+    let returnValue = null
+    pokemonDB.forEach((el) => {
+        if(value == (type === 'string' ? el.name : el.id)) {
+            returnValue = el
+        }
+    })
+    return returnValue
+}
+
+getPokemonWithId = function getPokemonWithId(id) {
     let returnObj = {}
     pokemonDB.forEach((el) => {
         if(el.id === parseInt(id)) {
-            console.log('match', el.name)
             returnObj = el
         }
     })
     return returnObj
 }
 
-getPokemonAndStats = async function getPokemonAndStats(id) {
+getPokemonAndStats = function getPokemonAndStats(id) {
     let pokemonWithStats = {
         identifyer: 1337,
         hp: 1,
@@ -43,7 +72,7 @@ getPokemonAndStats = async function getPokemonAndStats(id) {
     return pokemonWithStats
 }
 
-getPokemonAndMoves = async function getPokemonAndMoves(id) {
+getPokemonAndMoves = function getPokemonAndMoves(id) {
     let pokemonWithMoves = {
         identifyer: 1337,
         moves: []
@@ -59,9 +88,36 @@ getPokemonAndMoves = async function getPokemonAndMoves(id) {
     return pokemonWithMoves
 }
 
+generateList = function generateList() {
+    let arr = []
+    allMovesArr.forEach((el) => {
+        if(el.meta.stat_changes) {
+            if(el.meta.stat_changes[1]) {
+                arr.push(el.name)
+            }
+        }
+    })
+    console.log(arr)
+}
+
+isMoveLearnableForPokemon = function isMoveLearnableForPokemon(pokemonName, moveName) {
+    let returnValue = false
+    let pokemon = getPokemonObject(pokemonName, 'string')
+    pokemon.moves.forEach((el) => {
+        if(el.name == moveName) {
+            returnValue = true
+        }
+    })
+    console.log(returnValue)
+    return returnValue
+}
+
 module.exports = {
     getAllPokemonsFormDB,
     getPokemonWithId,
     getPokemonAndStats,
-    getPokemonAndMoves
+    getPokemonAndMoves,
+    generateList,
+    isMoveLearnableForPokemon,
+    getPokemonObject
 }
