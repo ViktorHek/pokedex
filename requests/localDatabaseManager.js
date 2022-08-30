@@ -100,14 +100,22 @@ generateList = function generateList() {
     console.log(arr)
 }
 
-isMoveLearnableForPokemon = function isMoveLearnableForPokemon(pokemonName, moveName) {
-    let returnValue = false
-    let pokemon = getPokemonObject(pokemonName, 'string')
-    pokemon.moves.forEach((el) => {
-        if(el.name == moveName) {
-            returnValue = true
-        }
+isMoveLearnableForPokemon = function isMoveLearnableForPokemon(movename) {
+    let returnValue = []
+
+    pokemonDB.forEach((pokemon) => {
+        pokemon.moves.forEach((move) => {
+            if (move.name == movename) {
+                returnValue.push(pokemon.name)
+            }
+        })
     })
+    // let pokemon = getPokemonObject(pokemonName, 'string')
+    // pokemonDB.moves.forEach((el) => {
+    //     if(el.name == moveName) {
+    //         returnValue = true
+    //     }
+    // })
     console.log(returnValue)
     return returnValue
 }
