@@ -110,14 +110,18 @@ isMoveLearnableForPokemon = function isMoveLearnableForPokemon(movename) {
             }
         })
     })
-    // let pokemon = getPokemonObject(pokemonName, 'string')
-    // pokemonDB.moves.forEach((el) => {
-    //     if(el.name == moveName) {
-    //         returnValue = true
-    //     }
-    // })
     console.log(returnValue)
     return returnValue
+}
+
+getMultiblePokemons = function getMultiblePokemons(idArr) {
+    let returnArr = []
+    pokemonDB.forEach((mon) => {
+        if(idArr.includes(mon.id)) {
+            returnArr.push(mon.name)
+        }
+    })
+    console.log(returnArr)
 }
 
 module.exports = {
@@ -127,5 +131,6 @@ module.exports = {
     getPokemonAndMoves,
     generateList,
     isMoveLearnableForPokemon,
-    getPokemonObject
+    getPokemonObject,
+    getMultiblePokemons
 }

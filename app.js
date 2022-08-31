@@ -6,9 +6,10 @@ app.use(cors());
 
 require('./requests/index.js')(app)
 // require('./requests/getDatabaseFromApi.js')(app)
-const databaseHandler = require('./requests/localDatabaseManager')
 
-databaseHandler.isMoveLearnableForPokemon('splash')
+const databaseHandler = require('./requests/localDatabaseManager')
+// databaseHandler.isMoveLearnableForPokemon('splash')
+// databaseHandler.getMultiblePokemons([0, 150, 50])
 // databaseHandler.getPokemonObject('onix', 'string')
 
 app.listen(port, () => {

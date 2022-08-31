@@ -6,8 +6,8 @@ const ldm = require("./localDatabaseManager")
 
 module.exports = function(app) {
     app.get('/myPokemons', (req, res) => {
-        getAllMyPokemons().then(data => {
-            res.send(data[0]);
+        getAllMyPokemons(req.body).then(data => {
+            res.send(data);
         }).catch(err => {
             console.log('!!! Error when calling getAllMyPokemons(). ', err)
             res.sendStatus(500);
@@ -47,13 +47,16 @@ module.exports = function(app) {
             console.log('!!! Error @ app.get /pokemonDB')
         })
     })
+
 }
 
 async function getAllMyPokemons() {
     console.log('@@@ getAllMyPokemons funktion')
     const connection = await mysql.createConnection(mySqlKey);
     try {
-        return await connection.query("SELECT * FROM myPokemons")
+        let allMyPokemons = await connection.query("SELECT * FROM myPokemons")
+        connection.end()
+        return allMyPokemons
     } catch (error) {
         console.log('!!! Error @ getAllMyPokemons(), ', error, new Date())
     }
