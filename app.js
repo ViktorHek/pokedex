@@ -10,7 +10,7 @@ require('./requests/index.js')(app)
 const databaseHandler = require('./requests/localDatabaseManager')
 // databaseHandler.isMoveLearnableForPokemon('splash')
 // databaseHandler.getMultiblePokemons([0, 150, 50])
-// databaseHandler.getPokemonObject('onix', 'string')
+// databaseHandler.getMultibleMoves(['pound','karate-chop'])
 
 app.listen(port, () => {
     console.log(`Listening to port ${port}`)

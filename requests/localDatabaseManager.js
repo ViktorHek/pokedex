@@ -114,14 +114,30 @@ isMoveLearnableForPokemon = function isMoveLearnableForPokemon(movename) {
     return returnValue
 }
 
-getMultiblePokemons = function getMultiblePokemons(idArr) {
+getMultiblePokemons = function getMultiblePokemons(dataArray) {
     let returnArr = []
     pokemonDB.forEach((mon) => {
-        if(idArr.includes(mon.id)) {
-            returnArr.push(mon.name)
+        if(dataArray.includes(mon.id)) {
+            returnArr.push(mon)
         }
     })
     console.log(returnArr)
+}
+getMultibleMoves = function getMultibleMoves(dataArray) {
+    let returnArr = []
+    let dataType = typeof dataArray[0]
+    allMovesArr.forEach((move) => {
+        if(dataType === "number") {
+            if(dataArray.includes(move.id)) {
+                returnArr.push(move)
+            }
+        } else {
+            if(dataArray.includes(move.name)) {
+                returnArr.push(move)
+            }
+        }
+    })
+    console.log('getMultibleMoves ',returnArr)
 }
 
 module.exports = {
@@ -132,5 +148,6 @@ module.exports = {
     generateList,
     isMoveLearnableForPokemon,
     getPokemonObject,
-    getMultiblePokemons
+    getMultiblePokemons,
+    getMultibleMoves
 }
