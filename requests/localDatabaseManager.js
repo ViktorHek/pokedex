@@ -3,6 +3,7 @@ const pokemonDB = require("../dataBase/pokemons")
 const allMovesArr = require("../dataBase/AllMovesArr")
 
 getAllPokemonsFormDB = function getAllPokemonsFormDB() {
+    console.log('getting to funktion')
 	return pokemonDB
 }
 
@@ -52,8 +53,7 @@ getPokemonAndStats = function getPokemonAndStats(id) {
         hp: 1,
         attack: 1,
         defense: 1,
-        specialAttack: 1,
-        specialDefense: 1,
+        special: 1,
         speed: 1
     }
     pokemonDB.forEach((el) => {
@@ -63,8 +63,7 @@ getPokemonAndStats = function getPokemonAndStats(id) {
                 hp: el.stats.hp,
                 attack: el.stats.attack,
                 defense: el.stats.defense,
-                specialAttack: el.stats.specialAttack,
-                specialDefense: el.stats.specialDefense,
+                special: el.stats.special,
                 speed: el.stats.speed,
             }
         }
@@ -110,35 +109,53 @@ isMoveLearnableForPokemon = function isMoveLearnableForPokemon(movename) {
             }
         })
     })
-    console.log(returnValue)
     return returnValue
 }
 
 getMultiblePokemons = function getMultiblePokemons(dataArray) {
-    let returnArr = []
-    pokemonDB.forEach((mon) => {
-        if(dataArray.includes(mon.id)) {
-            returnArr.push(mon)
-        }
+    // dataArray syntax = id1&id2&id3 example 12&56&2
+    let returnArr = [];
+    let splitArr = dataArray.split('&')
+    splitArr.forEach((myPokemonId) => {
+        pokemonDB.forEach((mon) => {
+            if(parseInt(myPokemonId) === mon.id) {
+                returnArr.push(mon)
+            }
+        })
     })
-    console.log(returnArr)
+    return returnArr
 }
+
 getMultibleMoves = function getMultibleMoves(dataArray) {
-    let returnArr = []
-    let dataType = typeof dataArray[0]
-    allMovesArr.forEach((move) => {
-        if(dataType === "number") {
-            if(dataArray.includes(move.id)) {
-                returnArr.push(move)
-            }
-        } else {
-            if(dataArray.includes(move.name)) {
-                returnArr.push(move)
-            }
-        }
-    })
-    console.log('getMultibleMoves ',returnArr)
-}
+    // dataArray syntax = id1&id2&id3 example 12&56&2
+    let returnArr = [];
+    let splitArr = dataArray.split('&');
+    splitArr.forEach((myMoveId) => {
+        allMovesArr.forEach((move) => {
+            if(parseInt(myMoveId) === move.id) {
+                returnArr.push(move);
+            };
+        });
+    });
+    return returnArr;
+};
+
+// getMultibleMoves = function getMultibleMoves(dataArray) {
+//     let returnArr = []
+//     let dataType = typeof dataArray[0]
+//     allMovesArr.forEach((move) => {
+//         if(dataType === "number") {
+//             if(dataArray.includes(move.id)) {
+//                 returnArr.push(move)
+//             }
+//         } else {
+//             if(dataArray.includes(move.name)) {
+//                 returnArr.push(move)
+//             }
+//         }
+//     })
+//     return returnArr
+// }
 
 module.exports = {
     getAllPokemonsFormDB,
@@ -149,5 +166,5 @@ module.exports = {
     isMoveLearnableForPokemon,
     getPokemonObject,
     getMultiblePokemons,
-    getMultibleMoves
+    getMultibleMoves,
 }

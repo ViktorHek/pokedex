@@ -13,18 +13,51 @@ module.exports = function(app) {
             res.sendStatus(500);
         });
     });
+    app.get('/selectedPokemonList/:idArr', (req, res) => {
+        try {
+            res.send(ldm.getMultiblePokemons(req.params.idArr))
+        } catch (err) {
+            console.log(err)
+            console.log('error @ get selectedPokemonList')
+            res.sendStatus(500);
+        }
+    });
+
+    app.get('/partyMoves/:idArr', (req, res) => {
+        try {
+            res.send(ldm.getMultibleMoves(req.params.idArr))
+        } catch (err) {
+            console.log(err)
+            console.log('error @ get selectedPokemonList')
+            res.sendStatus(500);
+        }
+    });
 
     app.get('/pokemonDB/all', (req, res) => {
-        ldm.getAllPokemonsFormDB().then(data => {
-            res.send(data)
-        }).catch(err => {
-            console.log('!!! Error @ app.get /pokemonDB')
-        })
+        try {
+            res.send(
+                ldm.getAllPokemonsFormDB()
+            )
+        } catch (err) {
+            console.log(err)
+            console.log('error @ get pokemonDB/all')
+        }
+        // ldm.getAllPokemonsFormDB().then(data => {
+        //     res.send(data)
+        // }).catch(err => {
+        //     console.log('!!! Error @ app.get /pokemonDB')
+        // })
     })
+    // app.get('/pokemonDB/all', (req, res) => {
+    //     ldm.getAllPokemonsFormDB().then(data => {
+    //         res.send(data)
+    //     }).catch(err => {
+    //         console.log('!!! Error @ app.get /pokemonDB')
+    //     })
+    // })
 
     
     app.get('/pokemonDB/pokemon/:id', (req, res) => {
-        console.log('req.params.id',req.params.id)
         ldm.getPokemonWithId(req.params.id).then(data => {
             res.send(data)
         }).catch(err => {

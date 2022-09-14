@@ -1,5 +1,29 @@
 module.exports = [
-    { id: 1, name: 'pound', accuracy: 100, power: 40, type: 'normal', meta: { damage_class: "physical", effect_chance: null, effect_entries: "Inflicts regular damage.", priority: null, crit_rate: null, drain: null, flinch_chance: null, healing: null, max_hits: null, max_turns: null, mix_hits: null, mix_turns: null, stat_change: null, stat_changes: [],  target: "opponent", index: 95 } },
+    { 
+        id: 1, 
+        name: 'pound', 
+        accuracy: 100, 
+        power: 40, 
+        type: 'normal', 
+        meta: { 
+            damage_class: "physical", 
+            effect_chance: null, 
+            effect_entries: "Inflicts regular damage.", 
+            priority: null, 
+            crit_rate: null, 
+            drain: null, 
+            flinch_chance: null, 
+            healing: null, 
+            max_hits: null, 
+            max_turns: null, 
+            mix_hits: null, 
+            mix_turns: null, 
+            stat_change: null, 
+            stat_changes: [], 
+            target: "opponent", 
+            index: 95 
+        } 
+    },
 
     { id: 2, name: 'karate-chop', accuracy: 100, power: 50, type: 'fighting', meta: { damage_class: "physical", effect_chance: null, effect_entries: "Inflicts regular damage. User's critical hit rate is one level higher when using this move.", priority: null, crit_rate: 1, drain: null, flinch_chance: null, healing: null, max_hits: null, max_turns: null, mix_hits: null, mix_turns: null, stat_change: null, stat_changes: [],  target: "opponent", index: 69 } },
 
