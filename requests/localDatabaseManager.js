@@ -1,6 +1,7 @@
 // localDatabaseManager
 const pokemonDB = require("../dataBase/pokemons")
 const allMovesArr = require("../dataBase/AllMovesArr")
+const convertStringToPokemon = require('../functions/convertStringToPokemon')
 
 getAllPokemonsFormDB = function getAllPokemonsFormDB() {
     console.log('getting to funktion')
@@ -112,18 +113,9 @@ isMoveLearnableForPokemon = function isMoveLearnableForPokemon(movename) {
     return returnValue
 }
 
-getMultiblePokemons = function getMultiblePokemons(dataArray) {
-    // dataArray syntax = id1&id2&id3 example 12&56&2
-    let returnArr = [];
-    let splitArr = dataArray.split('&')
-    splitArr.forEach((myPokemonId) => {
-        pokemonDB.forEach((mon) => {
-            if(parseInt(myPokemonId) === mon.id) {
-                returnArr.push(mon)
-            }
-        })
-    })
-    return returnArr
+getMyPokemonsFromString = function getMyPokemonsFromString(dataArray) {
+    let pokelist = convertStringToPokemon(dataArray)
+    return pokelist
 }
 
 getMultibleMoves = function getMultibleMoves(dataArray) {
@@ -140,22 +132,19 @@ getMultibleMoves = function getMultibleMoves(dataArray) {
     return returnArr;
 };
 
-// getMultibleMoves = function getMultibleMoves(dataArray) {
-//     let returnArr = []
-//     let dataType = typeof dataArray[0]
-//     allMovesArr.forEach((move) => {
-//         if(dataType === "number") {
-//             if(dataArray.includes(move.id)) {
-//                 returnArr.push(move)
-//             }
-//         } else {
-//             if(dataArray.includes(move.name)) {
-//                 returnArr.push(move)
-//             }
-//         }
-//     })
-//     return returnArr
-// }
+getMultiblePokemons = function getMultiblePokemons(dataArray) {
+    // dataArray syntax = id1&id2&id3 example 12&56&2
+    let returnArr = [];
+    let splitArr = dataArray.split('&')
+    splitArr.forEach((myPokemonId) => {
+        pokemonDB.forEach((mon) => {
+            if(parseInt(myPokemonId) === mon.id) {
+                returnArr.push(mon)
+            }
+        })
+    })
+    return returnArr
+}
 
 module.exports = {
     getAllPokemonsFormDB,
@@ -165,6 +154,7 @@ module.exports = {
     generateList,
     isMoveLearnableForPokemon,
     getPokemonObject,
+    getMyPokemonsFromString,
     getMultiblePokemons,
     getMultibleMoves,
 }

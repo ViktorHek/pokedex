@@ -13,9 +13,9 @@ module.exports = function(app) {
             res.sendStatus(500);
         });
     });
-    app.get('/selectedPokemonList/:idArr', (req, res) => {
+    app.get('/playerParty/:idArr', (req, res) => {
         try {
-            res.send(ldm.getMultiblePokemons(req.params.idArr))
+            res.send(ldm.getMyPokemonsFromString(req.params.idArr))
         } catch (err) {
             console.log(err)
             console.log('error @ get selectedPokemonList')
