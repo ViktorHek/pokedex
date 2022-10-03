@@ -3,6 +3,8 @@ const calculator = require('./calculator');
 const pokemonDB = require('../dataBase/pokemons');
 const allMoves = require('../dataBase/AllMovesArr');
 
+// 15140viktor@@@@0s153502605094050030500405 & 04030jenny@@@@@0a021003411103100501004910
+
 module.exports = function(string) {
     let pokemonPartyArr = [];
     let localStorageStringsArray = string.split('&');
@@ -10,8 +12,8 @@ module.exports = function(string) {
         const ls = localStorageStringsArray[index];
         const pokemonObject = {
             id: parseInt(ls.slice(0, 3)),
-            level: parseInt(ls.slice(3, 5)),
-            name: ls.slice(5, 15).replace(/@/g, ''),
+            level: getLevel(ls.slice(3, 5)),
+            name: getName(ls),
             abilitie: parseInt(ls.slice(15, 16)),
             nature: getNatures(ls.slice(16, 17)),
             iv: parseInt(ls.slice(17, 19)),
@@ -48,6 +50,13 @@ function getMoves(move1, move2, move3, move4) {
     return returnArr
 }
 
+function getLevel(level) {
+    if (level === "00") {
+        return 100
+    }
+    return parseInt(level)
+}
+
 function getNatures(letter) {
     let key = letter.toLowerCase()
     let returnValue = {}
@@ -67,4 +76,16 @@ function getDbData(id) {
         }
     });
     return returnValue
+}
+
+function getName(val) {
+    let name = val.slice(5, 15).replace(/@/g, '')
+    if (name === "") {
+        pokemonDB.forEach((mon) => {
+            if(mon.id === parseInt(val.slice(0, 3))) {
+                name = mon.name
+            }
+        })
+    }
+    return name
 }
