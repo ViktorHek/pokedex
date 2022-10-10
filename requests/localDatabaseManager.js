@@ -2,16 +2,16 @@
 const pokemonDB = require("../dataBase/pokemons")
 const allMovesArr = require("../dataBase/AllMovesArr")
 const convertStringToPokemon = require('../functions/convertStringToPokemon')
+const calculator = require('../functions/calculator')
 
 getAllPokemonsFormDB = function getAllPokemonsFormDB() {
-    console.log('getting to funktion')
-	return pokemonDB
+    return pokemonDB
 }
 
 getPokemonIdFromName = function getPokemonIdFromName(name) {
     let returnValue = null
     pokemonDB.forEach((el) => {
-        if(el.name == name) {
+        if (el.name == name) {
             returnValue = el.index
         }
     })
@@ -21,7 +21,7 @@ getPokemonIdFromName = function getPokemonIdFromName(name) {
 getPokemonNameFromId = function getPokemonNameFromId(id) {
     let returnValue = null
     pokemonDB.forEach((el) => {
-        if(el.index == id) {
+        if (el.index == id) {
             returnValue = el.name
         }
     })
@@ -31,7 +31,7 @@ getPokemonNameFromId = function getPokemonNameFromId(id) {
 getPokemonObject = function getPokemonObject(value, type) {
     let returnValue = null
     pokemonDB.forEach((el) => {
-        if(value == (type === 'string' ? el.name : el.id)) {
+        if (value == (type === 'string' ? el.name : el.id)) {
             returnValue = el
         }
     })
@@ -41,7 +41,7 @@ getPokemonObject = function getPokemonObject(value, type) {
 getPokemonWithId = function getPokemonWithId(id) {
     let returnObj = {}
     pokemonDB.forEach((el) => {
-        if(el.id === parseInt(id)) {
+        if (el.id === parseInt(id)) {
             returnObj = el
         }
     })
@@ -58,7 +58,7 @@ getPokemonAndStats = function getPokemonAndStats(id) {
         speed: 1
     }
     pokemonDB.forEach((el) => {
-        if(el.id === parseInt(id)) {
+        if (el.id === parseInt(id)) {
             pokemonWithStats = {
                 identifyer: parseInt(id),
                 hp: el.stats.hp,
@@ -78,7 +78,7 @@ getPokemonAndMoves = function getPokemonAndMoves(id) {
         moves: []
     }
     pokemonDB.forEach((el) => {
-        if(el.id === parseInt(id)) {
+        if (el.id === parseInt(id)) {
             pokemonWithMoves = {
                 identifyer: parseInt(id),
                 moves: el.moves
@@ -91,8 +91,8 @@ getPokemonAndMoves = function getPokemonAndMoves(id) {
 generateList = function generateList() {
     let arr = []
     allMovesArr.forEach((el) => {
-        if(el.meta.stat_changes) {
-            if(el.meta.stat_changes[1]) {
+        if (el.meta.stat_changes) {
+            if (el.meta.stat_changes[1]) {
                 arr.push(el.name)
             }
         }
@@ -119,17 +119,27 @@ getMyPokemonsFromString = function getMyPokemonsFromString(dataArray) {
 }
 
 getMultibleMoves = function getMultibleMoves(dataArray) {
-    // dataArray syntax = id1&id2&id3 example 12&56&2
+    // dataArray syntax example 12&56&2
     let returnArr = [];
     let splitArr = dataArray.split('&');
     splitArr.forEach((myMoveId) => {
         allMovesArr.forEach((move) => {
-            if(parseInt(myMoveId) === move.id) {
+            if (parseInt(myMoveId) === move.id) {
                 returnArr.push(move);
             };
         });
     });
     return returnArr;
+};
+
+getMoveFromId = function getMoveFromId(id) {
+    let moveObj = {}
+    allMovesArr.forEach((move) => {
+        if (parseInt(id) === move.id) {
+            moveObj = move;
+        };
+    });
+    return moveObj;
 };
 
 getMultiblePokemons = function getMultiblePokemons(dataArray) {
@@ -138,12 +148,19 @@ getMultiblePokemons = function getMultiblePokemons(dataArray) {
     let splitArr = dataArray.split('&')
     splitArr.forEach((myPokemonId) => {
         pokemonDB.forEach((mon) => {
-            if(parseInt(myPokemonId) === mon.id) {
+            if (parseInt(myPokemonId) === mon.id) {
                 returnArr.push(mon)
             }
         })
     })
     return returnArr
+}
+
+getDamageCalc = function getDamageCalc(data) {
+    // const { playersPokemon, opponentsPokemon, moveId, playerIsAttacking, weather } = data
+    let moveObj = getMoveFromId(data.moveId)
+    let calc = calculator.damageCalc(data.playersPokemon, data.opponentsPokemon, moveObj)
+    return calc
 }
 
 module.exports = {
@@ -157,4 +174,5 @@ module.exports = {
     getMyPokemonsFromString,
     getMultiblePokemons,
     getMultibleMoves,
+    getDamageCalc
 }

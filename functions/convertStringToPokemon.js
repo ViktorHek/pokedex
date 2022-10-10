@@ -3,7 +3,7 @@ const calculator = require('./calculator');
 const pokemonDB = require('../dataBase/pokemons');
 const allMoves = require('../dataBase/AllMovesArr');
 
-// 15140viktor@@@@0s153502605094050030500405 & 04030jenny@@@@@0a021003411103100501004910
+// 15140viktor@@@@0s153502605094050030500405&04030jenny@@@@@0a021003411103100501004910
 
 module.exports = function(string) {
     let pokemonPartyArr = [];
@@ -21,9 +21,17 @@ module.exports = function(string) {
             moves: getMoves(ls.slice(21, 26), ls.slice(26, 31), ls.slice(31, 36), ls.slice(36, 41)),
             dbData: getDbData(parseInt(ls.slice(0, 3))),
             stats: {},
+            statChanges: {
+                attack: null,
+                defense: null,
+                special: null,
+                speed: null,
+                accuracy: null,
+                evasion: null
+            },
             uid: ls
         };
-        pokemonObject.stats = calculator(pokemonObject)
+        pokemonObject.stats = calculator.getPokemonStats(pokemonObject)
         pokemonPartyArr.push(pokemonObject);
     };
     return pokemonPartyArr;

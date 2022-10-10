@@ -17,7 +17,7 @@ module.exports = function (app) {
         importDbMoves(req.params.id).then(data => {
             res.send(data)
         }).catch(err => {
-            console.log('error in first funk')
+            console.log('error in second funk')
             res.sendStatus(500);
         })
     });

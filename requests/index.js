@@ -35,52 +35,21 @@ module.exports = function(app) {
 
     app.get('/pokemonDB/all', (req, res) => {
         try {
-            res.send(
-                ldm.getAllPokemonsFormDB()
-            )
+            res.send(ldm.getAllPokemonsFormDB())
         } catch (err) {
             console.log(err)
             console.log('error @ get pokemonDB/all')
         }
-        // ldm.getAllPokemonsFormDB().then(data => {
-        //     res.send(data)
-        // }).catch(err => {
-        //     console.log('!!! Error @ app.get /pokemonDB')
-        // })
-    })
-    // app.get('/pokemonDB/all', (req, res) => {
-    //     ldm.getAllPokemonsFormDB().then(data => {
-    //         res.send(data)
-    //     }).catch(err => {
-    //         console.log('!!! Error @ app.get /pokemonDB')
-    //     })
-    // })
-
-    
-    app.get('/pokemonDB/pokemon/:id', (req, res) => {
-        ldm.getPokemonWithId(req.params.id).then(data => {
-            res.send(data)
-        }).catch(err => {
-            console.log('!!! Error @ app.get /pokemonDB')
-        })
-    })
-    
-    app.get('/pokemonDB/pokemonstats/:id', (req, res) => {
-        ldm.getPokemonAndStats(req.params.id).then(data => {
-            res.send(data)
-        }).catch(err => {
-            console.log('!!! Error @ app.get /pokemonDB')
-        })
     })
 
-    app.get('/pokemonDB/pokemonmoves/:id', (req, res) => {
-        ldm.getPokemonAndMoves(req.params.id).then(data => {
-            res.send(data)
-        }).catch(err => {
-            console.log('!!! Error @ app.get /pokemonDB')
-        })
+    app.get('/damageCalc', (req, res) => {
+        try {
+            res.send(ldm.getDamageCalc(JSON.parse(req.query.data)))
+        } catch (err) {
+            console.log(err)
+            console.log('error @ get damageCalc')
+        }
     })
-
 }
 
 async function getAllMyPokemons() {

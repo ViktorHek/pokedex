@@ -13,5 +13,5 @@ const databaseHandler = require('./requests/localDatabaseManager')
 // databaseHandler.getMultibleMoves(['pound','karate-chop'])
 
 app.listen(port, () => {
-    console.log(`Listening to port ${port}`)
+    console.log(`LETS GOO ${port}`)
 })
