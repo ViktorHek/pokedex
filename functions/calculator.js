@@ -2,28 +2,27 @@ const dbTypes = require('../dataBase/types')
 
 // statsCalc start
 const getPokemonStats = function getPokemonStats(pokiObj) {
+    console.log('pokiObj: ',pokiObj)
     let calculatedStats = {
         hp: calculatingHp(pokiObj),
-        attack: calculatingNonHpStats(pokiObj.dbData.stats.attack, pokiObj),
-        defense: calculatingNonHpStats(pokiObj.dbData.stats.defense, pokiObj),
-        special: calculatingNonHpStats(pokiObj.dbData.stats.special, pokiObj),
-        speed: calculatingNonHpStats(pokiObj.dbData.stats.speed, pokiObj)
+        attack: calculatingNonHpStats(pokiObj.dbData.stats.attack, pokiObj.ev.attack, pokiObj),
+        defense: calculatingNonHpStats(pokiObj.dbData.stats.defense, pokiObj.ev.defense, pokiObj),
+        special: calculatingNonHpStats(pokiObj.dbData.stats.special, pokiObj.ev.special, pokiObj),
+        speed: calculatingNonHpStats(pokiObj.dbData.stats.speed, pokiObj.ev.speed, pokiObj)
     }
     return calculatedStats
 }
 function calculatingHp(pokiObj) {
     const { iv, ev, level } = pokiObj
     let baseHpAndIv = pokiObj.dbData.stats.hp + iv
-    let realEv = ev * 100
-    let rootEv = Math.sqrt(realEv) / 4
+    let rootEv = Math.sqrt(ev.hp) / 4
     let mainCalc = ((((baseHpAndIv * 2) + rootEv) * level) / 100) + level + 10
     return Math.floor(mainCalc)
 }
-function calculatingNonHpStats(baseStat, pokiObj) {
-    const { iv, ev, level } = pokiObj
+function calculatingNonHpStats(baseStat, evStat, pokiObj) {
+    const { iv, level } = pokiObj
     let baseStatAndIv = baseStat + iv
-    let realEv = ev * 100
-    let rootEv = Math.sqrt(realEv) / 4
+    let rootEv = Math.sqrt(evStat) / 4
     let mainCalc = ((((baseStatAndIv * 2) + rootEv) * level) / 100) + 5
     return Math.floor(mainCalc)
 }
@@ -76,16 +75,15 @@ function getAccuracyCalc(attackingPokemon, defendingPokemon, move) {
     const evasion = defendingPokemon.statChange.evasion
     let accuracyVal = 1
     let evasionVal = 1
-    let moveAccuracy = move.accuracy / 100
+    let moveAccuracy = move.accuracy / 100 // 0 - 1
     let random = generateRandomNumber(1, 255)
-    
+
     if (accuracy) {
         accuracyVal = statChangeEffectPercent(accuracy)
     }
     if (evasion) {
         evasionVal = statChangeEffectPercent(evasion)
     }
-
     let chance = moveAccuracy * 255 * accuracyVal * evasionVal
     if(random < chance) {
         return true
@@ -151,45 +149,39 @@ function getStab(attackingPokemon, move) {
 }
 
 function getattackDefenseDifferance(attackingPokemon, defendingPokemon, isCrit, move) {
-    if (move.meta.damage_class === 'physical') {
-        return attackingPokemon.stats.attack / defendingPokemon.stats.defense
-    } else if (move.meta.damage_class === 'special') {
-        return attackingPokemon.stats.special / defendingPokemon.stats.special
+    const attack = attackingPokemon.stats.attack
+    const defense = defendingPokemon.stats.defense
+    const attackingSpecial = attackingPokemon.stats.special
+    const defendingSpecial = defendingPokemon.stats.special
+    const attackAfterStatChange = attack * statChangeEffectPercent(attackingPokemon.statChange.attack)
+    const defenceAfterStatChange = attack * statChangeEffectPercent(defendingPokemon.statChange.defense)
+    const attackingSpecailAfterStatChange = attackingSpecial * statChangeEffectPercent(attackingPokemon.statChange.special)
+    const defendingSpecialAfterStatChange = defendingSpecial * statChangeEffectPercent(defendingPokemon.statChange.special)
+    const moveDamgageClass = move.meta.damage_class
+    const badgeBoost = 1
+    // add function to check for bageBoost
+
+    if (isCrit) {
+        if (moveDamgageClass === 'physical') {
+            return attack / defense
+        } else {
+            return attackingSpecial / defendingSpecial
+        }
     } else {
-        return 0
+        if (moveDamgageClass === 'physical') {
+            return attackAfterStatChange / defenceAfterStatChange
+        } else {
+            return attackingSpecailAfterStatChange / defendingSpecialAfterStatChange
+        }
     }
-
-
-    // if(isCrit === 2) {
-    //     if (move.meta.damage_class === 'physical') {
-    //         return attackingPokemon.stats.attack / defendingPokemon.stats.defense
-    //     } else if (move.meta.damage_class === 'special') {
-    //         return attackingPokemon.stats.special / defendingPokemon.stats.special
-    //     } else {
-    //         return 0
-    //     }
-    // } else {
-    //     if(attackingPokemon.statChange === {} && defendingPokemon.statChange === {}) {
-    //         if (move.meta.damage_class === 'physical') {
-    //             return attackingPokemon.stats.attack / defendingPokemon.stats.defense
-    //         } else if (move.meta.damage_class === 'special') {
-    //             return attackingPokemon.stats.special / defendingPokemon.stats.special
-    //         } else {
-    //             return 0
-    //         }
-    //     } else {
-    //         console.log('attack is not critikal and stats are changed')
-    //         return attackingPokemon.stats.attack / defendingPokemon.stats.defense // change
-    //     }
-    // }
 }
 
-function statChangeEffectPercent(stat) {
-    switch (stat) {
+function statChangeEffectPercent(statChange) {
+    switch (statChange) {
         case -6:
-            return 0.25    
+            return 0.25
         case -5:
-            return 0.28    
+            return 0.28
         case -4:
             return 0.33
         case -3:
@@ -213,7 +205,7 @@ function statChangeEffectPercent(stat) {
         case 6:
             return 4
         default:
-            console.log('no switch match in statChangeEffectPercent()', stat)
+            console.log('no switch match in statChangeEffectPercent()', statChange)
             return 1
     }
 }

@@ -113,8 +113,8 @@ isMoveLearnableForPokemon = function isMoveLearnableForPokemon(movename) {
     return returnValue
 }
 
-getMyPokemonsFromString = function getMyPokemonsFromString(dataArray) {
-    let pokelist = convertStringToPokemon(dataArray)
+getMyPokemonsFromString = function getMyPokemonsFromString(arrayString) {
+    let pokelist = convertStringToPokemon(arrayString)
     return pokelist
 }
 
