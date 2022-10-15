@@ -97,7 +97,7 @@ generateList = function generateList() {
             }
         }
     })
-    console.log(arr)
+    // console.log(arr)
 }
 
 isMoveLearnableForPokemon = function isMoveLearnableForPokemon(movename) {

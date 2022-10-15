@@ -2,7 +2,8 @@
 // object 1 = "08040viktor@@@@0s153502605094050030500405"
 // object 2 = "04030jenny@@@@@0a021003411103100501004910"
 
-module.exports = [
+const pokemonObjString = '[[80, 40, 1, "s", 143, "viktor", 15, [35000, 35000, 35000, 35000, 35000], 26, 35, 94, 35, 3, 35, 4, 35]]'
+const pokemonObjArr = [
   {
     abilitie: 0,
     dbData: {
@@ -79,7 +80,110 @@ module.exports = [
     id: 80,
     iv: 15,
     level: 40,
-    moves: ["hrj", "tjo"],
+    moves: [
+      {
+        id: 133,
+        name: "amnesia",
+        accuracy: null,
+        power: null,
+        type: "psychic",
+        meta: {
+          damage_class: "status",
+          effect_chance: null,
+          effect_entries: "Raises the user's Special Defense by two stages.",
+          priority: null,
+          crit_rate: null,
+          drain: null,
+          flinch_chance: null,
+          healing: null,
+          max_hits: null,
+          max_turns: null,
+          mix_hits: null,
+          mix_turns: null,
+          stat_change: null,
+          stat_changes: [{ change: 2, stat: "special" }],
+          target: "user",
+          index: 4,
+        },
+      },
+      {
+        id: 94,
+        name: "psychic",
+        accuracy: 100,
+        power: 90,
+        type: "psychic",
+        meta: {
+          damage_class: "special",
+          effect_chance: 10,
+          effect_entries:
+            "Inflicts regular damage. Has a $effect_chance% chance to lower the target's Special Defense by one stage.",
+          priority: null,
+          crit_rate: null,
+          drain: null,
+          flinch_chance: null,
+          healing: null,
+          max_hits: null,
+          max_turns: null,
+          mix_hits: null,
+          mix_turns: null,
+          stat_change: null,
+          stat_changes: [{ change: -1, stat: "special" }],
+          target: "opponent",
+          index: 97,
+        },
+      },
+      {
+        id: 148,
+        name: "flash",
+        accuracy: 100,
+        power: null,
+        type: "normal",
+        meta: {
+          damage_class: "status",
+          effect_chance: null,
+          effect_entries: "Lowers the target's accuracy by one stage.",
+          priority: null,
+          crit_rate: null,
+          drain: null,
+          flinch_chance: null,
+          healing: null,
+          max_hits: null,
+          max_turns: null,
+          mix_hits: null,
+          mix_turns: null,
+          stat_change: null,
+          stat_changes: [{ change: -1, stat: "accuracy" }],
+          target: "opponent",
+          index: 46,
+        },
+      },
+      {
+        id: 34,
+        name: "body-slam",
+        accuracy: 100,
+        power: 85,
+        type: "normal",
+        meta: {
+          damage_class: "physical",
+          effect_chance: 30,
+          effect_entries:
+            "Inflicts regular damage. Has a $effect_chance% chance to paralyze the target.",
+          priority: null,
+          crit_rate: null,
+          drain: null,
+          flinch_chance: null,
+          healing: null,
+          max_hits: null,
+          max_turns: null,
+          mix_hits: null,
+          mix_turns: null,
+          stat_change: null,
+          stat_changes: [],
+          target: "opponent",
+          index: 12,
+        },
+      }
+    ],
     name: "viktor",
     nature: {
       decreasedStat: "speed",
@@ -94,9 +198,9 @@ module.exports = [
       special: 86,
       speed: 46,
     },
+    battleStats: {},
     uid: "08040viktor@@@@0s153502605094050030500405",
   },
-
   {
     abilitie: 0,
     id: 40,
@@ -290,3 +394,10 @@ module.exports = [
     uid: "04030jenny@@@@@0a021003411103100501004910"
   },
 ];
+
+const pokemons = {
+  pokemonObjArr,
+  pokemonObjString
+}
+
+module.exports = pokemons

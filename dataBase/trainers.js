@@ -1,1395 +1,1071 @@
-
-// first item in trainers array (allTrainers[n].trainers[n][0]) == trainer name 
-// special trainers like rival and gym battles have the name 'name&custom' - ignore for now - then create custom moveset and/or trainer AI
-// pokemons are stored as ' pokemonName + & + pokemonLevel '
+// first item in trainers array (alltrainers[n].trainers[n][0]) == trainer name
+// special trainers like rival and gym battles have the name 'name&custom' - ignore for now - then create custom moveset and/or trainer ai
+// pokemons are stored as ' pokemonname + & + pokemonlevel '
 // use array index as identifyers
 
 module.exports = [
-    {
-        location: "Viridian Forest", 
-        trainers: [
-            [
-                'Bug Catcher',
-                'weedle&7',
-                'caterpie&6'
-            ],
-            [
-                'Bug Catcher',
-                'weedle&7',
-                'kakuna&7',
-                'weedle&7'
-            ],
-            [
-                'Bug Catcher',
-                'weedle&9'
-            ]
-        ]
-        
-    },      
-    {
-        location: "Pewter City Gym", 
-        trainers: [
-            [
-                'Jr Trainer Male',
-                'diglett&11',
-                'sandshrew&11'
-            ],
-            [
-                'Brock&custom',
-                'geodude&12',
-                'onix&14'
-            ]
-        ]
-    },
-    {
-        location: "route 3", 
-        trainers: [ 
-            [
-                'Lass', 
-                'pidgey&9',
-                'pidgey&9'
-            ],
-            [
-                'Bug Catcher',
-                'caterpie&9'
-            ],
-            [
-                'Youngster',
-                'rattata&11',
-                'ekans&11'
-            ],
-            [
-                'Bug Catcher',
-                'weedle&9',
-                'kakuna&9',
-                'caterpie&9',
-                'metapod&9'
-            ],
-            [
-                'Youngster',
-                'spearow&14'
-            ],
-            [
-                'Lass',
-                'rattata&10',
-                'nidoran-m&10'
-            ],
-            [
-                'Bug Catcher',
-                'caterpie&11',
-                'metapod&11'
-            ],
-            [
-                'Lass',
-                'jigglypuff&14'
-            ]
-        ]
-    },
-    {
-        location: 'Mt Moon 1F',
-        trainers: [
-            [
-                'Lass',
-                'clefairy&14'
-            ],
-            [
-                'Bug Catcher',
-                'weedle&11',
-                'kakuna&11'
-            ],
-            [
-                'Supernerd',
-                'magnemite&11',
-                'voltorb&14'
-            ],
-            [
-                'Bug Catcher',
-                'caterpie&10',
-                'metapod&10',
-                'caterpie&10'
-            ],
-            [
-                'Lass',
-                'oddish&11',
-                'bellsprout&11'
-            ],
-            [
-                'Youngster',
-                'rattata&10',
-                'rattata&10',
-                'zubat&10'
-            ],
-            [
-                'hiker',
-                'geodude&10',
-                'geodude&10',
-                'onix&10'
-            ],
-        ]
-    },
-    {
-        location: 'Mt Moon B2F',
-        trainers: [
-            [
-                'Rocket',
-                'sandshrew&11',
-                'rattata&11',
-                'zubat&11'
-            ],
-            [
-                'Rocket',
-                'zubat&12',
-                'ekans&12'
-            ],
-            [
-                'Rocket',
-                'raticate&16'
-            ],
-            [
-                'Rocket',
-                'rattata&13',
-                'zubat&13'
-            ],
-            [
-                'Supernerd',
-                'grimer&12',
-                'voltorb&12',
-                'koffing&12'
-            ]
-        ]
-    }
-]
+  {
+    location: "viridian forest",
+    trainers: [
+      ["bug catcher", "weedle 7", "caterpie 6"],
+      ["bug catcher", "weedle 7", "kakuna 7", "weedle 7"],
+      ["bug catcher", "weedle 9"],
+    ],
+  },
+  {
+    location: "pewter city gym",
+    trainers: [
+      ["jr trainer male", "diglett 11", "sandshrew 11"],
+      ["brock custom", "geodude 12", "onix 14"],
+    ],
+  },
+  {
+    location: "route 3",
+    trainers: [
+      ["lass", "pidgey 9", "pidgey 9"],
+      ["bug catcher", "caterpie 9"],
+      ["Youngster", "rattata 11", "ekans 11"],
+      ["bug catcher", "weedle 9", "kakuna 9", "caterpie 9", "metapod 9"],
+      ["Youngster", "spearow 14"],
+      ["lass", "rattata 10", "nidoran-m 10"],
+      ["bug catcher", "caterpie 11", "metapod 11"],
+      ["lass", "jigglypuff 14"],
+    ],
+  },
+  {
+    location: "mt moon 1f",
+    trainers: [
+      ["lass", "clefairy 14"],
+      ["bug catcher", "weedle 11", "kakuna 11"],
+      ["supernerd", "magnemite 11", "voltorb 14"],
+      ["bug catcher", "caterpie 10", "metapod 10", "caterpie 10"],
+      ["lass", "oddish 11", "bellsprout 11"],
+      ["Youngster", "rattata 10", "rattata 10", "zubat 10"],
+      ["hiker", "geodude 10", "geodude 10", "onix 10"],
+    ],
+  },
+  {
+    location: "mt moon b2f",
+    trainers: [
+      ["rocket", "sandshrew 11", "rattata 11", "zubat 11"],
+      ["rocket", "zubat 12", "ekans 12"],
+      ["rocket", "raticate 16"],
+      ["rocket", "rattata 13", "zubat 13"],
+      ["supernerd", "grimer 12", "voltorb 12", "koffing 12"],
+    ],
+  },
+  {
+    location: "cerulean city gym",
+    trainers: [
+      ["swimmer", "horsea 16", "shellder 16"],
+      ["jr trainer female", "goldeen 19"],
+      ["misty", "staryu 18", "starmie 21"],
+    ],
+  },
+  {
+    location: "route 24",
+    trainers: [
+      ["gary", "pidgeotto 18", "abra 15", "rattata 15", "varies 15"],
+      ["bug catcher", "caterpie 14", "weedle 14"],
+      ["lass", "pidgey 14", "nidoran-f 14"],
+      ["Youngster", "rattata 14", "ekans 14", "zubat 14"],
+      ["lass", "pidgey 16", "nidoran-f 16"],
+      ["junior trainer male", "mankey 18"],
+      ["rocket", "ekans 15", "zubat 15"],
+      ["junior trainer male", "rattata 14", "ekans 14"],
+    ],
+  },
+  {
+    location: "route 25",
+    trainers: [
+      ["hiker", "pidgeotto 18", "abra 15", "rattata 15", "varies 15"],
+      ["hiker", "machop 15", "geodude 15"],
+      ["Youngster", "rattata 15", "spearow 15"],
+      ["hiker", "onix 17"],
+      ["Youngster", "slowpoke 17"],
+      ["lass", "nidoran-m 15", "nidoran-f 15"],
+      ["hiker", "geodude 13", "geodude 13", "machop 13", "geodude 13"],
+      ["junior trainer male", "rattata 14", "ekans 14"],
+      ["Youngster", "ekans 14", "sandshrew 14"],
+      ["lass", "oddish 13", "pidgey 13", "oddish 13"],
+    ],
+  },
+  {
+    location: "cerulean city",
+    trainers: [["back of house - rocket", "machop 17", "drowzee 17"]],
+  },
+  {
+    location: "route 6",
+    trainers: [
+      ["junior trainer male", "squirtle 20"],
+      ["junior trainer female", "rattata 16", "pikachu 16"],
+      ["bug catcher", "butterfree 16"],
+      ["junior trainer female", "pidgey 16", "pidgey 16", "pidgey 16"],
+      ["junior trainer male", "spearow 16", "raticate 16"],
+    ],
+  },
+  {
+    location: "s.s anne main floor",
+    trainers: [
+      ["gentleman", "growlithe 18", "growlithe 18"],
+      ["gentleman", "nidoran-m 19", "nidoran-f 19"],
+      ["lass", "pidgey 18", "nidoran-f 18"],
+      ["Youngster", "nidoran-m 21"],
+    ],
+  },
+  {
+    location: "s.s anne basement",
+    trainers: [
+      ["sailor", "horsea 17", "shellder 17", "tentacool 17"],
+      ["sailor", "shellder 21"],
+      ["sailor", "horsea 17", "horsea 17"],
+      ["sailor", "tentacool 18", "staryu 18"],
+      ["fisherman", "tentacool 17", "staryu 17", "shellder 17"],
+      ["sailor", "machop 20"],
+    ],
+  },
+  {
+    location: "s.s anne second floor",
+    trainers: [
+      ["gary", "pidgeotto 19", "raticate 16", "kadabra 18", "varies 20"],
+    ],
+  },
+  {
+    location: "s.s anne top deck",
+    trainers: [["sailor", "machop 18", "shellder 18"]],
+  },
+  {
+    location: "vermillion city gym",
+    trainers: [
+      ["sailor", "pikachu 21", "pikachu 21"],
+      ["rocker", "voltorb 20", "magnemite 20", "voltorb 20"],
+      ["gentleman", "pikachu 23"],
+    ],
+  },
+  {
+    location: "route 12",
+    trainers: [
+      ["Youngster", "ekans 21"],
+      ["gambler", "poliwag 18", "horsea 18"],
+      ["Youngster", "sandshrew 19", "zubat 19"],
+      ["Youngster", "nidoran-m 18", "nidorino 18"],
+      ["gambler", "bellsprout 18", "oddish 18"],
+      ["gambler", "growlithe 18", "vulpix 18"],
+      ["engineer", "magnemite 21"],
+      ["engineer", "magnemite 18", "magnemite 18", "magneton 18"],
+      ["gambler", "voltorb 18", "magnemite 18"],
+      ["Youngster", "rattata 17", "rattata 17", "raticate 17"],
+    ],
+  },
+  {
+    location: "route 9",
+    trainers: [
+      [
+        "junior trainer female",
+        "oddish 18",
+        "bellsprout 18",
+        "oddish 18",
+        "bellsprout 18",
+      ],
+      ["hiker", "machop 20", "onix 20"],
+      ["junior trainer male", "growlithe 21", "charmander 21"],
+      ["bug catcher", "beedrill 19", "beedrill 19"],
+      ["bug catcher", "caterpie 20", "Weedle 20", "venonat 20"],
+      ["hiker", "geodude 21", "onix 21"],
+      [
+        "junior trainer male",
+        "rattata 19",
+        "diglett 19",
+        "ekans 19",
+        "sandshrew 19",
+      ],
+      ["hiker", "geodude 20", "machop 20", "geodude 20"],
+      ["junior trainer female", "meowth 23"],
+    ],
+  },
+  {
+    location: "rock tunnel",
+    trainers: [
+      ["outside - junior trainer female", "pikachu 20", "clefairy 20"],
+      ["pokomaniac", "cubone 23", "slowpoke 23"],
+      ["pokemaniac", "slowpoke 25"],
+      ["junior trainer female", "oddish 22", "bulbasaur 22"],
+      ["pokemaniac", "charmander 22", "cubone 22"],
+      ["lower - hiker", "geodude 25"],
+      ["upper - hiker", "machop 20", "onix 20"],
+      ["hiker", "geodude 19", "machop 19", "geodude 19", "geodude 19"],
+      ["left - hiker", "onix 20", "onix 20", "geodude 20"],
+      ["hiker", "geodude 21", "graveler 21"],
+      ["junior trainer female", "jigglypuff 21", "pidgey 21", "meowth 21"],
+      ["hiker", "geodude 21", "geodude 21", "graveler 21"],
+      ["pokemaniac", "slowpoke 20", "slowpoke 20", "slowpoke 20"],
+      ["junior trainer female", "bellsprout 22", "clefairy 22"],
+      [
+        "junior trainer female",
+        "pidgey 19",
+        "rattata 19",
+        "rattata 19",
+        "bellsprout 19",
+      ],
+      ["junior trainer female", "meowth 20", "oddish 20", "pidgey 20"],
+      ["outside, 1st - junior trainer female", "pidgey 21", "pidgeotto 21"],
+      ["outside, left - hiker", "geodude 21", "onix 21"],
+      ["outside, left, 2nd - hiker", "onix 19", "graveler 19"],
+      ["outside, lower - pokemaniac", "cubone 20", "slowpoke 20"],
+    ],
+  },
+  {
+    location: "pokemon tower - second floor",
+    trainers: [
+      [
+        "gary",
+        "pidgeotto 25",
+        "growlithe 23",
+        "exeggecute 22",
+        "kadabra 20",
+        "varies 25",
+      ],
+    ],
+  },
+  {
+    location: "pokemon tower - third floor",
+    trainers: [
+      ["top - channeler", "ghastly 23"],
+      ["middle - channeler", "ghastly 24"],
+      ["bottom - channeler", "ghastly 22"],
+    ],
+  },
+  {
+    location: "pokemon tower - fourth floor",
+    trainers: [
+      ["channeler", "ghastly 23", "ghastly 23"],
+      ["left - channeler", "ghastly 24"],
+      ["bottom - channeler", "ghastly 22"],
+    ],
+  },
+  {
+    location: "pokemon tower - fifth floor",
+    trainers: [
+      ["top - channeler", "ghastly 22"],
+      ["by healing area - channeler", "ghastly 24"],
+      ["bottom - channeler", "haunter 22"],
+      ["right - channeler", "haunter 23"],
+    ],
+  },
+  {
+    location: "pokemon tower - sixth floor",
+    trainers: [
+      ["middle - channeler", "ghastly 22", "ghastly 22"],
+      ["top - channeler", "ghastly 24"],
+      ["left - channeler", "ghastly 24"],
+      ["ghost", "marowak 30"],
+    ],
+  },
+  {
+    location: "pokemon tower - seventh floor",
+    trainers: [
+      ["rocket", "zubat 25", "zubat 25", "golbat 25"],
+      ["rocket", "koffing 26", "drowzee 26"],
+      ["rocket", "zubat 23", "rattata 23", "raticate 23", "zubat 23"],
+    ],
+  },
+  {
+    location: "route 8",
+    trainers: [
+      ["lass", "clefairy 22", "clefairy 22"],
+      ["gambler", "growlithe 24", "vulpix 24"],
+      ["super nerd", "grimer 22", "muk 22", "grimer 22"],
+      ["top - lass", "nidoran-f 23", "nidorina 23"],
+      ["2nd to top - super nerd", "koffing 26"],
+      ["2nd to bottom - lass", "meowth 24", "meowth 24", "meowth 24"],
+      [
+        "bottom - lass",
+        "pidgey 19",
+        "rattata 19",
+        "nidoran-m 19",
+        "meowth 19",
+        "pikachu 19",
+      ],
+      ["gambler", "poliwag 22", "poliwag 22", "poliwhirl 22"],
+      ["super nerd", "voltorb 22", "koffing 22", "voltorb 22", "magnemite 22"],
+    ],
+  },
+  {
+    location: "celadon gym",
+    trainers: [
+      ["lass", "bellsprout 23", "Weepinbell 23"],
+      ["beauty", "oddish 21", "bellsprout 21", "oddish 21", "bellsprout 21"],
+      ["right - junior trainer female", "bulbasaur 24", "ivysaur 24"],
+      ["left - beauty", "bellsprout 21"],
+      ["cool trainer female", "weepinbell 24", "gloom 24", "ivysaur 24"],
+      ["inside, right - lass", "oddish 23", "gloom 23"],
+      ["inside, left - beauty", "exeggcute 26"],
+      [
+        "inside, 2nd from left - erika",
+        "victreebel 29",
+        "tangela 24",
+        "vileplume 29",
+      ],
+    ],
+  },
+  {
+    location: "game corner - main floor",
+    trainers: [["rocket", "raticate 20", "zubat 20"]],
+  },
+  {
+    location: "game corner - basement one",
+    trainers: [
+      ["left - rocket", "raticate 21", "raticate 21"],
+      ["right - rocket", "drowzee 21", "machop 21"],
+      ["elevator - rocket", "grimer 22", "koffing 22"],
+    ],
+  },
+  {
+    location: "game corner - basement two",
+    trainers: [
+      [
+        "first - rocket",
+        "zubat 17",
+        "koffing 17",
+        "grimer 17",
+        "zubat 17",
+        "raticate 17",
+      ],
+      ["bottom - rocket", "rattata 19", "raticate 19", "rattata 19"],
+      ["bottom, 2nd - rocket", "grimer 20", "koffing 20", "koffing 20"],
+    ],
+  },
+  {
+    location: "game corner - basement three",
+    trainers: [
+      ["rocket", "rattata 20", "raticate 20", "drowzee 20"],
+      ["bottom - rocket", "machop 21", "machop 21"],
+    ],
+  },
+  {
+    location: "game corner - basement four",
+    trainers: [
+      ["top - rocket", "koffing 21", "zubat 21"],
+      ["elevator, left - rocket", "ekans 23", "sandshrew 23", "arbok 23"],
+      ["elevator, right - rocket", "sandshrew 23", "ekans 23", "sandslash 23"],
+      ["inside - giovanni", "onix 25", "rhyhorn 24", "kangaskhan 29"],
+    ],
+  },
+];
 
-
-// Cerulean City Gym
+// saffron city - dojo
 // ********************************************************************************
-// 1st - Swimmer                                  Horsea          L16
-//                                                Shellder        L16
+// 1st - blackbelt                                machop          l31
+//                                                mankey          l31
+//                                                primeape        l31
 
-// 2nd - Jr Trainer Female                        Goldeen         L19
+// 2nd - blackbelt                                machop          l32
+//                                                machoke         l32
 
-// 3rd - Misty                                    Staryu          L18
-//                                                Starmie         L21
+// 3rd - blackbelt                                primeape        l36
 
+// 4th - blackbelt                                mankey          l31
+//                                                primeape        l31
 
-// Route 24
+// 5th - blackbelt                                hitmonlee       l37
+//                                                hitmonchan      l37
+
+// silph co
 // ********************************************************************************
-// 1st - Gary                                     Pidgeotto       L18
-//                                                Abra            L15
-//                                                Rattata         L15
-//                                                (varies)        L15
-
-// 2nd - Bug Catcher                              Caterpie        L14
-//                                                Weedle          L14
-
-// 3rd - Lass                                     Pidgey          L14
-//                                                Nidoran Female  L14
-
-// 4th - Youngster                                Rattata         L14
-//                                                Ekans           L14
-//                                                Zubat           L14
-
-// 5th - Lass                                     Pidgey          L16
-//                                                Nidoran Female  L16
-
-// 6th - Junior Trainer Male                      Mankey          L18
-
-// 7th - Rocket                                   Ekans           L15
-//                                                Zubat           L15
-
-// Left - Junior Trainer Male                     Rattata         L14
-//                                                Ekans           L14
-
-
-// Route 25
-// ********************************************************************************
-// 1st - Hiker                                    Machop          L15
-//                                                Geodude         L15
-
-// 2nd up - Youngster                             Rattata         L15
-//                                                Spearow         L15
-
-// 2nd down - Hiker                               Onix            L17
-
-// 3rd up - Youngster                             Slowpoke        L17
-
-// 4th - Lass                                     Nidoran Male    L15
-//                                                Nidoran Female  L15
-
-// 5th - Hiker                                    Geodude         L13
-//                                                Geodude         L13
-//                                                Machop          L13
-//                                                Geodude         L13
-
-// 6th - Junior Trainer Male                      Rattata         L14
-//                                                Ekans           L14
-
-// 7th - Youngster                                Ekans           L14
-//                                                Sandshrew       L14
-
-// 8th - Lass                                     Oddish          L13
-//                                                Pidgey          L13
-//                                                Oddish          L13
-
-
-// Cerulean City
-// ********************************************************************************
-// Back of house - Rocket                         Machop          L17
-//                                                Drowzee         L17
-
-// Route 6
-// ********************************************************************************
-// 1st - Junior Trainer Male                      Squirtle        L20
-				
-// 2nd - Junior Trainer Female                    Rattata         L16
-//                                                Pikachu         L16
-
-// 3rd - Bug Catcher                              Butterfree      L16
-
-// 4th - Junior Trainer Female                    Pidgey          L16
-//                                                Pidgey          L16
-//                                                Pidgey          L16
-
-// 5th - Junior Trainer Male                      Spearow         L16
-//                                                Raticate        L16
-
-
-// S.S Anne
-// ********************************************************************************
-
-// Main Floor
-// ----------
-// 1st from right - Gentleman                     Growlithe       L18
-//                                                Growlithe       L18
-
-// 2nd from right - Gentleman                     Nidoran Male    L19
-//                                                Nidoran Female  L19
-
-// 2nd from left, 1st - Lass                      Pidgey          L18
-//                                                Nidoran Female  L18
-
-// 2nd from left, 2nd - Youngster                 Nidoran Male    L21
-
-
-// Basement
-// --------
-// 2nd from right, 1st - Sailor                   Horsea          L17
-//                                                Shellder        L17
-//                                                Tentacool       L17
-
-// 2nd from right, 2nd - Sailor                   Shellder        L21
-
-// 3rd from right - Sailor                        Horsea          L17
-//                                                Horsea          L17
-
-// 4th from right - Sailor                        Tentacool       L18
-//                                                Staryu          L18
-	 
-// Last, 1st - Fisherman                          Tentacool       L17
-//                                                Staryu          L17
-//                                                Shellder        L17
-
-// Last, 2nd - Sailor                             Machop          L20
-
-
-// Second Floor
+// second floor
 // ------------
-// Gary                                           Pidgeotto       L19
-//                                                Raticate        L16
-//                                                Kadabra         L18
-//                                                (varies)        L20
+// 1st - rocket                                   golbat          l25
+//                                                zubat           l25
+//                                                zubat           l25
+//                                                raticate        l25
+//                                                zubat           l25
 
-// Top Deck
-// --------
-// 1st - Sailor                                   Machop          L18
-//                                                Shellder        L18
+// center - rocket                                cubone          l29
+//                                                zubat           l29
 
+// bottom - scientist                             magnemite       l28
+//                                                voltorb         l28
+//                                                magneton        l28
 
-// Vermillion City Gym
-// ********************************************************************************
-// 1st - Sailor                                   Pikachu         L21
-//                                                Pikachu         L21
+// bottom left - scientist                        grimer          l26
+//                                                Weezing         l26
+//                                                koffing         l26
+//                                                Weezing         l26
 
-// 2nd - Rocker                                   Voltorb         L20
-//                                                Magnemite       L20
-//                                                Voltorb         L20
+// third floor
+// -----------
+// 1st - rocket                                   raticate        l28
+//                                                hypno           l28
+//                                                raticate        l28
 
-// 3rd - Gentleman                                Pikachu         L23
+// left - scientist                               electrode       l29
+//                                                Weezing         l29
 
-
-// Route 12
-// ********************************************************************************
-// 1st - Youngster                                Ekans           L21
-
-// 1st, down - Gambler                            Poliwag         L18
-//                                                Horsea          L18
-
-// 2nd, upper - Youngster                         Sandshrew       L19
-//                                                Zubat           L19
-
-// 2nd, lower - Youngster                         Nidoran Male    L18
-//                                                Nidorino        L18
-
-// 3rd - Gambler                                  Bellsprout      L18
-//                                                Oddish          L18
-
-// 4th, upper - Gambler                           Growlithe       L18
-//                                                Vulpix          L18
-
-// 4th, lower - Engineer                          Magnemite       L21
-
-// 5th - Engineer                                 Magnemite       L18
-//                                                Magnemite       L18
-//                                                Magneton        L18
-
-// 6th, lower - Gambler                           Voltorb         L18
-//                                                Magnemite       L18
-
-// 6th, upper - Youngster                         Rattata         L17
-//                                                Rattata         L17
-//                                                Raticate        L17
-
-
-// Route 9
-// ********************************************************************************
-// 1st - Junior Trainer Female                    Oddish          L18
-//                                                Bellsprout      L18
-//                                                Oddish          L18
-//                                                Bellsprout      L18
-
-// 2nd - Hiker                                    Machop          L20
-//                                                Onix            L20
-
-// 3rd, up - Junior Trainer Male                  Growlithe       L21
-//                                                Charmander      L21
-
-// 4th, left, up - Bug Catcher                    Beedrill        L19
-//                                                Beedrill        L19
-
-// 3rd, right, top - Bug Catcher                  Caterpie        L20
-//                                                Weedle          L20
-//                                                Venonat         L20
-
-// 3rd, right, bottom - Hiker                     Geodude         L21
-//                                                Onix            L21
-
-// 4th, right, left - Junior Trainer Male         Rattata         L19
-//                                                Diglett         L19
-//                                                Ekans           L19
-//                                                Sandshrew       L19
-
-// 4th, right, up - Hiker                         Geodude         L20
-//                                                Machop          L20
-//                                                Geodude         L20
-
-// 5th - Junior Trainer Female                    Meowth          L23
-
-
-
-// Rock Tunnel
-// ********************************************************************************
-// Outside - Junior Trainer Female                Pikachu         L20
-//                                                Clefairy        L20
-
-// 1st - Pokomaniac                               Cubone          L23
-//                                                Slowpoke        L23
-
-// 2nd - Pokemaniac                               Slowpoke        L25
-
-// 3rd - Junior Trainer Female                    Oddish          L22
-//                                                Bulbasaur       L22
-
-// 4th - Pokemaniac                               Charmander      L22
-//                                                Cubone          L22
-
-// 5th, lower - Hiker                             Geodude         L25
-
-// 5th, upper - Hiker                             Machop          L20
-//                                                Onix            L20
-
-// 6th - Hiker                                    Geodude         L19
-//                                                Machop          L19
-//                                                Geodude         L19
-//                                                Geodude         L19
-
-// 7th, left - Hiker                              Onix            L20
-//                                                Onix            L20
-//                                                Geodude         L20
-
-// 8th - Hiker                                    Geodude         L21
-//                                                Graveler        L21
-
-// 9th - Junior Trainer Female                    Jigglypuff      L21
-//                                                Pidgey          L21
-//                                                Meowth          L21
-
-// 10th - Hiker                                   Geodude         L21
-//                                                Geodude         L21
-//                                                Graveler        L21
-
-// 11th - Pokemaniac                              Slowpoke        L20
-//                                                Slowpoke        L20
-//                                                Slowpoke        L20
-
-// 12th - Junior Trainer Female                   Bellsprout      L22
-//                                                Clefairy        L22
-
-// 13th - Junior Trainer Female                   Pidgey          L19
-//                                                Rattata         L19
-//                                                Rattata         L19
-//                                                Bellsprout      L19
-
-// 14th - Junior Trainer Female                   Meowth          L20
-//                                                Oddish          L20
-//                                                Pidgey          L20
-
-// Outside, 1st - Junior Trainer Female           Pidgey          L21
-//                                                Pidgeotto       L21
-
-// Outside, left - Hiker                          Geodude         L21
-//                                                Onix            L21
-
-// Outside, left, 2nd - Hiker                     Onix            L19
-//                                                Graveler        L19
-
-// Outside, lower - Pokemaniac                    Cubone          L20
-//                                                Slowpoke        L20
-
-
-// Pokemon Tower 
-// ********************************************************************************
-
-// Second Floor
+// fourth floor
 // ------------
-// 1st - Gary                                     Pidgeotto       L25
-//                                                Growlithe       L23
-//                                                Exeggecute      L22
-//                                                Kadabra         L20
-//                                                (varies)        L25
+// lower left - rocket                            machop          l29
+//                                                drowzee         l29
 
-// Third Floor
+// right - rocket                                 ekans           l28
+//                                                zubat           l28
+//                                                cubone          l28
+
+// middle - scientist                             electrode       l23
+
+// fifth floor
 // -----------
-// Top - Channeler                                Ghastly         L23
+// right - rocket                                 hypno           l33
 
-// Middle - Channeler                             Ghastly         L24
+// middle - juggler                               kadabra         l29
+//                                                mr mime         l29
 
-// Bottom - Channeler                             Ghastly         L22
+// left - scientist                               magneton        l26
+//                                                koffing         l26
+//                                                Weezing         l26
+//                                                magnemite       l26
 
+// bottom - rocket                                arbok           l33
 
-// Fourth Floor
+// sixth floor
 // -----------
-// 1st - Channeler                                Ghastly         L23
-//                                                Ghastly         L23
+// top - rocket                                   machop          l29
+//                                                machoke         l29
 
-// 2nd, left - Channeler                          Ghastly         L24
+// bottom - rocket                                zubat           l28
+//                                                zubat           l28
+//                                                golbat          l28
 
-// 2nd, bottom - Channeler                        Ghastly         L22
+// middle - scientist                             voltorb         l25
+//                                                koffing         l25
+//                                                magneton        l25
+//                                                magnemite       l25
+//                                                koffing         l25
 
-
-// Fifth Floor
-// -----------
-// Top - Channeler                                Ghastly         L22
-
-// By healing area - Channeler                    Ghastly         L24
-
-// Bottom - Channeler                             Haunter         L22
-
-// Right - Channeler                              Haunter         L23
-
-
-// Sixth Floor
-// -----------
-// Middle - Channeler                             Ghastly         L22
-//                                                Ghastly         L22
-
-// Top - Channeler                                Ghastly         L24
- 
-// Left - Channeler                               Ghastly         L24
-
-// By Stairs - Ghost                              Marowak         L30
-
-
-// Seventh Floor
+// seventh floor
 // -------------
-// 1st  - Rocket                                  Zubat           L25
-//                                                Zubat           L25
-//                                                Golbat          L25
+// 1st - rocket                                   cubone          l29
+//                                                cubone          l29
 
-// 2nd - Rocket                                   Koffing         L26
-//                                                Drowzee         L26
+// left - rocket                                  raticate        l26
+//                                                arbok           l26
+//                                                koffing         l26
+//                                                golbat          l26
 
-// 3rd - Rocket                                   Zubat           L23
-//                                                Rattata         L23
-//                                                Raticate        L23
-//                                                Zubat           L23
+// bottom left - scientist                        electrode       l29
+//                                                muk             l29
 
+// bottom right - rocket                          sandshrew       l29
+//                                                sandslash       l29
 
-// Route 8
-// ********************************************************************************
+// top left - gary                                pidgeot         l37
+//                                                growlithe       l38
+//                                                exeggute        l35
+//                                                alakazam        l35
+//                                                (varies)        l40
 
-// 1st - Lass                                     Clefairy        L22
-//                                                Clefairy        L22
-
-// 2nd - Gambler                                  Growlithe       L24
-//                                                Vulpix          L24
-
-// 3rd - Super Nerd                               Grimer          L22
-//                                                Muk             L22
-//                                                Grimer          L22
-
-// 4th, top - Lass                                Nidoran Female  L23
-//                                                Nidorina        L23
-
-// 4th, 2nd to top - Super Nerd                   Koffing         L26
-
-// 4th, 2nd to bottom - Lass                      Meowth          L24
-//                                                Meowth          L24
-//                                                Meowth          L24
-
-// 4th, bottom - Lass                             Pidgey          L19
-//                                                Rattata         L19
-//                                                Nidoran Male    L19
-//                                                Meowth          L19
-//                                                Pikachu         L19
-
-// 5th - Gambler                                  Poliwag         L22
-//                                                Poliwag         L22
-//                                                Poliwhirl       L22
-
-// 6th - Super Nerd                               Voltorb         L22
-//                                                Koffing         L22
-//                                                Voltorb         L22
-//                                                Magnemite       L22
-
-
-// Celadon Gym
-// ********************************************************************************
-
-// 1st - Lass                                     Bellsprout      L23
-//                                                Weepinbell      L23
-
-// 2nd - Beauty                                   Oddish          L21
-//                                                Bellsprout      L21
-//                                                Oddish          L21
-//                                                Bellsprout      L21
-
-// Right - Junior Trainer Female                  Bulbasaur       L24
-//                                                Ivysaur         L24
-
-// Left - Beauty                                  Bellsprout      L21
-
-// 3rd - Cool Trainer Female                      Weepinbell      L24
-//                                                Gloom           L24
-//                                                Ivysaur         L24
-
-// Inside, right - Lass                           Oddish          L23
-//                                                Gloom           L23
-
-// Inside, left - Beauty                          Exeggcute       L26
-
-// Inside, 2nd from left - Erika                  Victreebel      L29
-//                                                Tangela         L24
-//                                                Vileplume       L29
-
-
-// Game Corner 
-// ********************************************************************************
-// Main Floor
-// ----------
-// 1st - Rocket                                   Raticate        L20
-//                                                Zubat           L20
-
-
-// Basement One
+// eighth floor
 // ------------
-// Left - Rocket                                  Raticate        L21
-//                                                Raticate        L21
+// top - scientist                                grimer          l29
+//                                                electrode       l29
 
-// Right - Rocket                                 Drowzee         L21
-//                                                Machop          L21
+// bottom - rocket                                Weezing         l28
+//                                                golbat          l28
+//                                                koffing         l28
 
-// Elevator - Rocket                              Grimer          L22
-//                                                Koffing         L22
+// top - rocket                                   raticate        l26
+//                                                zubat           l26
+//                                                golbat          l26
+//                                                rattata         l26
 
-// Basement Two
-// ------------
-// First - Rocket                                 Zubat           L17
-//                                                Koffing         L17
-//                                                Grimer          L17
-//                                                Zubat           L17
-//                                                Raticate        L17
+// ninth floor
+// -----------
+// bottom - rocket                                golbat          l28
+//                                                drowzee         l28
+//                                                hypno           l28
 
-// Bottom - Rocket                                Rattata         L19
-//                                                Raticate        L19
-//                                                Rattata         L19
+// right - scientist                              voltorb         l28
+//                                                koffing         l28
+//                                                magneton        l28
 
-// Bottom, 2nd - Rocket                           Grimer          L20
-//                                                Koffing         L20
-//                                                Koffing         L20
+// Upper left - rocket                            drowzee         l28
+//                                                grimer          l28
+//                                                machop          l28
 
-// Basement Three
+// tenth floor
+// -----------
+// 1st - scientist                                magnemite       l29
+//                                                koffing         l29
+
+// 2nd - rocket                                   machoke         l33
+
+// eleventh floor
 // --------------
-// 1st - Rocket                                   Rattata         L20
-//                                                Raticate        L20
-//                                                Drowzee         L20
+// 1st - rocket                                   rattata         l25
+//                                                rattata         l25
+//                                                zubat           l25
+//                                                rattata         l25
+//                                                ekans           l25
 
-// Bottom - Rocket                                Machop          L21
-//                                                Machop          L21
+// 2nd - giovanni                                 nidorino        l37
+//                                                kangaskhan      l35
+//                                                rhyhorn         l37
+//                                                nidoqueen       l41
 
-// Basement Four
-// -------------
-// Top - Rocket                                   Koffing         L21
-//                                                Zubat           L21
-
-// Elevator, left - Rocket                        Ekans           L23
-//                                                Sandshrew       L23
-//                                                Arbok           L23
-
-// Elevator, right - Rocket                       Sandshrew       L23
-//                                                Ekans           L23
-//                                                Sandslash       L23
-
-// Inside - Giovanni                              Onix            L25
-//                                                Rhyhorn         L24
-//                                                Kangaskhan      L29
-
-
-// Saffron City - Dojo
+// saffron city gym
 // ********************************************************************************
-// 1st - Blackbelt                                Machop          L31
-//                                                Mankey          L31
-//                                                Primeape        L31
+// 1st - psychic                                  slowpoke        l33
+//                                                slowpoke        l33
+//                                                slowbro         l33
 
-// 2nd - Blackbelt                                Machop          L32
-//                                                Machoke         L32
+// right side, middle - psychic                   mr mime         l34
+//                                                kadabra         l34
 
-// 3rd - Blackbelt                                Primeape        L36
+// right side, top - psychic                      kadabra         l31
+//                                                slowpoke        l31
+//                                                mr mime         l31
+//                                                kadabra         l31
 
-// 4th - Blackbelt                                Mankey          L31
-//                                                Primeape        L31
+// left, bottom - channeler                       ghastly         l30
+//                                                ghastly         l30
+//                                                haunter         l30
 
-// 5th - Blackbelt                                Hitmonlee       L37
-//                                                Hitmonchan      L37
+// left, middle - channeler                       haunter         l38
 
+// left, top - psychic                            slowbro         l38
 
-// Silph Co
+// middle, top - channeler                        ghastly         l34
+//                                                haunter         l34
+
+// middle, middle - sabrina                       kadabra         l38
+//                                                mr mime         l37
+//                                                venomoth        l38
+//                                                alakazam        l43
+
+// route 16
 // ********************************************************************************
-// Second Floor
-// ------------
-// 1st - Rocket                                   Golbat          L25
-//                                                Zubat           L25
-//                                                Zubat           L25
-//                                                Raticate        L25
-//                                                Zubat           L25
+// 1st - biker                                    grimer          l29
+//                                                koffing         l29
 
-// Center - Rocket                                Cubone          L29
-//                                                Zubat           L29
+// 2nd - cueball                                  machop          l28
+//                                                mankey          l28
+//                                                machop          l28
 
-// Bottom - Scientist                             Magnemite       L28
-//                                                Voltorb         L28
-//                                                Magneton        L28
+// 3rd - cueball                                  mankey          l29
+//                                                machop          l29
 
-// Bottom left - Scientist                        Grimer          L26
-//                                                Weezing         L26
-//                                                Koffing         L26
-//                                                Weezing         L26
+// 4th, top - cueball                             machop          l33
 
+// 4th, bottom - biker                            Weezing         l33
 
-// Third Floor
-// -----------
-// 1st - Rocket                                   Raticate        L28
-//                                                Hypno           L28
-//                                                Raticate        L28
+// 5th - biker                                    grimer          l26
+//                                                grimer          l26
+//                                                grimer          l26
+//                                                grimer          l26
 
-// Left - Scientist                               Electrode       L29
-//                                                Weezing         L29
-
-
-// Fourth Floor
-// ------------
-// Lower left - Rocket                            Machop          L29
-//                                                Drowzee         L29
-
-// Right - Rocket                                 Ekans           L28
-//                                                Zubat           L28
-//                                                Cubone          L28
-
-// Middle - Scientist                             Electrode       L23
-
-
-// Fifth Floor
-// -----------
-// Right - Rocket                                 Hypno           L33
-
-// Middle - Juggler                               Kadabra         L29
-//                                                Mr Mime         L29
-
-// Left - Scientist                               Magneton        L26
-//                                                Koffing         L26
-//                                                Weezing         L26
-//                                                Magnemite       L26
-
-// Bottom - Rocket                                Arbok           L33
-
-
-// Sixth Floor
-// -----------
-// Top - Rocket                                   Machop          L29
-//                                                Machoke         L29
-
-// Bottom - Rocket                                Zubat           L28
-//                                                Zubat           L28
-//                                                Golbat          L28
-
-// Middle - Scientist                             Voltorb         L25
-//                                                Koffing         L25
-//                                                Magneton        L25
-//                                                Magnemite       L25
-//                                                Koffing         L25
-
-// Seventh Floor
-// -------------
-// 1st - Rocket                                   Cubone          L29
-//                                                Cubone          L29
-
-// Left - Rocket                                  Raticate        L26
-//                                                Arbok           L26
-//                                                Koffing         L26
-//                                                Golbat          L26
-
-// Bottom left - Scientist                        Electrode       L29
-//                                                Muk             L29
-
-// Bottom right - Rocket                          Sandshrew       L29
-//                                                Sandslash       L29
-
-// Top left - Gary                                Pidgeot         L37
-//                                                Growlithe       L38
-//                                                Exeggute        L35
-//                                                Alakazam        L35
-//                                                (varies)        L40
-
-// Eighth Floor
-// ------------
-// Top - Scientist                                Grimer          L29
-//                                                Electrode       L29
-
-// Bottom - Rocket                                Weezing         L28
-//                                                Golbat          L28
-//                                                Koffing         L28
-
-// Top - Rocket                                   Raticate        L26
-//                                                Zubat           L26
-//                                                Golbat          L26
-//                                                Rattata         L26
-
-
-// Ninth Floor
-// -----------
-// Bottom - Rocket                                Golbat          L28
-//                                                Drowzee         L28
-//                                                Hypno           L28
-
-// Right - Scientist                              Voltorb         L28
-//                                                Koffing         L28
-//                                                Magneton        L28
-
-// Upper left - Rocket                            Drowzee         L28
-//                                                Grimer          L28
-//                                                Machop          L28
-
-// Tenth Floor
-// -----------
-// 1st - Scientist                                Magnemite       L29
-//                                                Koffing         L29
-
-// 2nd - Rocket                                   Machoke         L33
-
-
-// Eleventh Floor 
-// --------------
-// 1st - Rocket                                   Rattata         L25
-//                                                Rattata         L25
-//                                                Zubat           L25
-//                                                Rattata         L25
-//                                                Ekans           L25
-
-// 2nd - Giovanni                                 Nidorino        L37
-//                                                Kangaskhan      L35
-//                                                Rhyhorn         L37
-//                                                Nidoqueen       L41
-
-
-// Saffron City Gym
+// route 17
 // ********************************************************************************
-// 1st - Psychic                                  Slowpoke        L33
-//                                                Slowpoke        L33 
-//                                                Slowbro         L33
+// left side, 1st - biker                         Weezing         l28
+//                                                koffing         l28
+//                                                Weezing         l28
 
-// Right side, middle - Psychic                   Mr Mime         L34
-//                                                Kadabra         L34
+// left side, 2nd - biker                         muk             l33
 
-// Right side, top - Psychic                      Kadabra         L31
-//                                                Slowpoke        L31
-//                                                Mr Mime         L31 
-//                                                Kadabra         L31
+// left side, 3rd - cueball                       mankey          l26
+//                                                mankey          l26
+//                                                machoke         l26
+//                                                machop          l26
 
-// Left, bottom - Channeler                       Ghastly         L30
-//                                                Ghastly         L30
-//                                                Haunter         L30
+// left side, 4th - biker                         Weezing         l29
+//                                                muk             l29
 
-// Left, middle - Channeler                       Haunter         L38
+// right side, 1st - cueball                      machop          l29
+//                                                machoke         l29
 
-// Left, top - Psychic                            Slowbro         L38
+// right side, 2nd - cueball                      mankey          l29
+//                                                primeape        l29
 
-// Middle, top - Channeler                        Ghastly         L34
-//                                                Haunter         L34
+// right side, 3rd - biker                        voltorb         l29
+//                                                voltorb         l29
 
-// Middle, middle - Sabrina                       Kadabra         L38
-//                                                Mr Mime         L37
-//                                                Venomoth        L38
-//                                                Alakazam        L43
+// right side, 4th - cueball                      machoke         l33
 
+// right side, 5th - cueball                      primeape        l29
+//                                                machoke         l29
 
-// Route 16
+// bottom - biker                                 koffing         l25
+//                                                Weezing         l25
+//                                                koffing         l25
+//                                                koffing         l25
+//                                                Weezing         l25
+
+// route 18
 // ********************************************************************************
-// 1st - Biker                                    Grimer          L29
-//                                                Koffing         L29
+// left - birdkeeper                              spearow         l29
+//                                                fearow          l29
 
-// 2nd - Cueball                                  Machop          L28
-//                                                Mankey          L28
-//                                                Machop          L28
+// middle - birdkeeper                            spearow         l26
+//                                                spearow         l26
+//                                                fearow          l26
+//                                                spearow         l26
 
-// 3rd - Cueball                                  Mankey          L29
-//                                                Machop          L29
+// bottom - birdkeeper                            dodrio          l34
 
-// 4th, top - Cueball                             Machop          L33
-
-// 4th, bottom - Biker                            Weezing         L33
-
-// 5th - Biker                                    Grimer          L26
-//                                                Grimer          L26
-//                                                Grimer          L26
-//                                                Grimer          L26
-
-
-// Route 17
+// fuchsia city gym
 // ********************************************************************************
-// Left side, 1st - Biker                         Weezing         L28
-//                                                Koffing         L28
-//                                                Weezing         L28
+// 1st, right - juggler                           hypno           l38
 
-// Left side, 2nd - Biker                         Muk             L33
+// 1st, left - juggler                            drowzee         l34
+//                                                kadabra         l34
 
-// Left side, 3rd - Cueball                       Mankey          L26
-//                                                Mankey          L26
-//                                                Machoke         L26
-//                                                Machop          L26
+// 2nd, right - juggler                           drowzee         l31
+//                                                drowzee         l31
+//                                                kadabra         l31
+//                                                drowzee         l31
 
-// Left side, 4th - Biker                         Weezing         L29
-//                                                Muk             L29
+// 3rd, right - tamer                             arbok           l33
+//                                                sandslash       l33
+//                                                arbok           l33
 
-// Right side, 1st - Cueball                      Machop          L29
-//                                                Machoke         L29
+// 4th, top, left - tamer                         sandslash       l34
+//                                                arbok           l34
 
-// Right side, 2nd - Cueball                      Mankey          L29
-//                                                Primeape        L29
+// 4th, middle, left - juggler                    drowzee         l34
+//                                                hypno           l34
 
-// Right side, 3rd - Biker                        Voltorb         L29
-//                                                Voltorb         L29
+// 5th, center - koga                             koffing         l37
+//                                                muk             l39
+//                                                koffing         l37
+//                                                Weezing         l43
 
-// Right side, 4th - Cueball                      Machoke         L33
-
-// Right side, 5th - Cueball                      Primeape        L29
-//                                                Machoke         L29
-
-// Bottom - Biker                                 Koffing         L25
-//                                                Weezing         L25
-//                                                Koffing         L25
-//                                                Koffing         L25
-//                                                Weezing         L25
-
-
-// Route 18
+// route 15
 // ********************************************************************************
-// Left - Birdkeeper                              Spearow         L29
-//                                                Fearow          L29
+// 1st - junior trainer female                    bellsprout      l29
+//                                                oddish          l29
+//                                                tangela         l29
 
-// Middle - Birdkeeper                            Spearow         L26
-//                                                Spearow         L26
-//                                                Fearow          L26
-//                                                Spearow         L26
+// 2nd - bird keeper                              pidgeotto       l26
+//                                                farfetch'd      l26
+//                                                doduo           l26
+//                                                pidgey          l26
 
-// Bottom - Birdkeeper                            Dodrio          L34
+// 3rd - bird keeper                              dodrio          l28
+//                                                doduo           l28
+//                                                doduo           l28
 
+// 4th, bottom - junior trainer female            gloom           l28
+//                                                oddish          l28
+//                                                oddish          l28
 
+// 4th, top - beauty                              bulbasaur       l29
+//                                                ivysaur         l29
 
-// Fuchsia City Gym
+// 5th - biker                                    koffing         l28
+//                                                grimer          l28
+//                                                Weezing         l28
+
+// 6th - biker                                    koffing         l28
+//                                                koffing         l28
+//                                                Weezing         l28
+//                                                koffing         l28
+//                                                grimer          l28
+
+// 7th, top - junior trainer female               pikachu         l29
+//                                                raichu          l29
+
+// 7th, bottom - beauty                           pidgeotto       l29
+//                                                Wigglytuff      l29
+
+// 8th - bird keeper                              spearow         l29
+//                                                fearow          l29
+
+// back, top level - junior trainer female        clefairy        l33
+
+// route 14
 // ********************************************************************************
-// 1st, right - Juggler                           Hypno           L38
+// 1st, left side - biker                         grimer          l28
+//                                                grimer          l28
+//                                                koffing         l28
 
-// 1st, left - Juggler                            Drowzee         L34
-//                                                Kadabra         L34
+// 2nd, left side - biker                         koffing         l29
+//                                                grimer          l29
 
-// 2nd, right - Juggler                           Drowzee         L31
-//                                                Drowzee         L31
-//                                                Kadabra         L31
-//                                                Drowzee         L31
+// 3rd, left side - biker                         koffing         l26
+//                                                koffing         l26
+//                                                grimer          l26
+//                                                koffing         l26
 
-// 3rd, right - Tamer                             Arbok           L33
-//                                                Sandslash       L33
-//                                                Arbok           L33
+// 1st, right side - bird keeper                  farfetch'd      l33
 
-// 4th, top, left - Tamer                         Sandslash       L34
-//                                                Arbok           L34
+// 2nd, right side - biker                        koffing         l29
+//                                                muk             l29
 
-// 4th, middle, left - Juggler                    Drowzee         L34
-//                                                Hypno           L34
+// 3rd, right side - bird keeper                  spearow         l28
+//                                                doduo           l28
+//                                                spearow         l28
 
-// 5th, center - Koga                             Koffing         L37
-//                                                Muk             L39
-//                                                Koffing         L37
-//                                                Weezing         L43
+// 4th, right side - bird keeper                  pidgeotto       l29
+//                                                fearow          l29
 
-
-// Route 15
+// route 13
 // ********************************************************************************
-// 1st - Junior Trainer Female                    Bellsprout      L29
-//                                                Oddish          L29
-//                                                Tangela         L29
-
-// 2nd - Bird Keeper                              Pidgeotto       L26
-//                                                Farfetch'd      L26
-//                                                Doduo           L26
-//                                                Pidgey          L26
-
-// 3rd - Bird Keeper                              Dodrio          L28
-//                                                Doduo           L28
-//                                                Doduo           L28
-
-// 4th, bottom - Junior Trainer Female            Gloom           L28
-//                                                Oddish          L28
-//                                                Oddish          L28
-
-// 4th, top - Beauty                              Bulbasaur       L29
-//                                                Ivysaur         L29
-
-// 5th - Biker                                    Koffing         L28
-//                                                Grimer          L28
-//                                                Weezing         L28
-
-// 6th - Biker                                    Koffing         L28
-//                                                Koffing         L28
-//                                                Weezing         L28
-//                                                Koffing         L28
-//                                                Grimer          L28
-
-// 7th, top - Junior Trainer Female               Pikachu         L29
-//                                                Raichu          L29
-
-// 7th, bottom - Beauty                           Pidgeotto       L29
-//                                                Wigglytuff      L29
-
-// 8th - Bird Keeper                              Spearow         L29
-//                                                Fearow          L29
-
-// Back, top level - Junior Trainer Female        Clefairy        L33
-
-
-// Route 14
-// ********************************************************************************
-// 1st, left side - Biker                         Grimer          L28
-//                                                Grimer          L28
-//                                                Koffing         L28
-
-// 2nd, left side - Biker                         Koffing         L29
-//                                                Grimer          L29
- 
-// 3rd, left side - Biker                         Koffing         L26
-//                                                Koffing         L26
-//                                                Grimer          L26
-//                                                Koffing         L26
-
-// 1st, right side - Bird Keeper                  Farfetch'd      L33
-
-// 2nd, right side - Biker                        Koffing         L29
-//                                                Muk             L29
-
-// 3rd, right side - Bird Keeper                  Spearow         L28
-//                                                Doduo           L28
-//                                                Spearow         L28
-
-// 4th, right side - Bird Keeper                  Pidgeotto       L29
-//                                                Fearow          L29
-
-
-// Route 13
-// ********************************************************************************
-// Left Section
+// left section
 // ------------
 
-// Left, bottom - Bird Keeper                     Pidgey          L26
-//                                                Pidgeotto       L26
-//                                                Spearow         L26
-//                                                Fearow          L26
+// left, bottom - bird keeper                     pidgey          l26
+//                                                pidgeotto       l26
+//                                                spearow         l26
+//                                                fearow          l26
 
-// Right, bottom - Junior Trainer Female          Pidgey          L27
-//                                                Meowth          L27
-//                                                Pidgey          L27
-//                                                Pidgeotto       L27
+// right, bottom - junior trainer female          pidgey          l27
+//                                                meowth          l27
+//                                                pidgey          l27
+//                                                pidgeotto       l27
 
-// Farther right, middle - Junior Trainer Female  Poliwag         L30
-//                                                Poliwag         L30
+// farther right, middle - junior trainer female  poliwag         l30
+//                                                poliwag         l30
 
-// Farthest right, top, left one - Beauty         Clefairy        L29
-//                                                Meowth          L29
+// farthest right, top, left one - beauty         clefairy        l29
+//                                                meowth          l29
 
-// Farthest right, top, right one - Beauty        Rattata         L27
-//                                                Pikachu         L27
-//                                                Rattata         L27
+// farthest right, top, right one - beauty        rattata         l27
+//                                                pikachu         l27
+//                                                rattata         l27
 
-// Right Section
+// right section
 // -------------
 
-// 1st - Junior Trainer Female                    Pidgey          L24
-//                                                Meowth          L24
-//                                                Rattata         L24
-//                                                Pikachu         L24
-//                                                Meowth          L24
+// 1st - junior trainer female                    pidgey          l24
+//                                                meowth          l24
+//                                                rattata         l24
+//                                                pikachu         l24
+//                                                meowth          l24
 
-// 2nd - Bird Keeper                              Pidgey          L29
-//                                                Pidgeotto       L29
+// 2nd - bird keeper                              pidgey          l29
+//                                                pidgeotto       l29
 
-// 3rd - Junior Trainer Female                    Goldeen         L28
-//                                                Poliwag         L28
-//                                                Horsea          L28
+// 3rd - junior trainer female                    goldeen         l28
+//                                                poliwag         l28
+//                                                horsea          l28
 
-// 4th - Junior Trainer Male                      Nidoran Male    L29
-//                                                Nidorino        L29
+// 4th - junior trainer male                      nidoran male    l29
+//                                                nidorino        l29
 
-// 5th - Fisherman                                Magikarp        L24
-//                                                Magikarp        L24
+// 5th - fisherman                                magikarp        l24
+//                                                magikarp        l24
 
-// 6th - Rocker                                   Voltorb         L29
-//                                                Electrode       L29
+// 6th - rocker                                   voltorb         l29
+//                                                electrode       l29
 
-// Route 12
+// route 12
 // ********************************************************************************
-// 1st - Fisherman                                Poliwag         L21
-//                                                Shellder        L21
-//                                                Goldeen         L21
-//                                                Horsea          L21
+// 1st - fisherman                                poliwag         l21
+//                                                shellder        l21
+//                                                goldeen         l21
+//                                                horsea          l21
 
-// 2nd - Fisherman                                Goldeen         L27
+// 2nd - fisherman                                goldeen         l27
 
-// 3rd - Fisherman                                Tentacool       L24
-//                                                Goldeen         L24
+// 3rd - fisherman                                tentacool       l24
+//                                                goldeen         l24
 
-// 4th - Fisherman                                Goldeen         L22
-//                                                Poliwag         L22
-//                                                Goldeen         L22
+// 4th - fisherman                                goldeen         l22
+//                                                poliwag         l22
+//                                                goldeen         l22
 
-// Route 19 
+// route 19
 // ********************************************************************************
-// Down
+// down
 // ----
 
-// 1st, right, land - Swimmer                     Goldeen         L29
-//                                                Horsea          L29
-//                                                Staryu          L29
+// 1st, right, land - swimmer                     goldeen         l29
+//                                                horsea          l29
+//                                                staryu          l29
 
-// 1st, left, land - Swimmer                      Tentacool       L30
-//                                                Shellder        L30
+// 1st, left, land - swimmer                      tentacool       l30
+//                                                shellder        l30
 
-// 1st, water - Swimmer                           Horsea          L30
-//                                                Horsea          L30
+// 1st, water - swimmer                           horsea          l30
+//                                                horsea          l30
 
-// 2nd - Swimmer                                  Poliwag         L30
-//                                                Poliwag         L30
-//                                                Poliwhirl       L30
+// 2nd - swimmer                                  poliwag         l30
+//                                                poliwag         l30
+//                                                poliwhirl       l30
 
-// 3rd - Swimmer                                  Horsea          L27
-//                                                Tentacool       L27
-//                                                Tentacool       L27
-//                                                Goldeen         L27
+// 3rd - swimmer                                  horsea          l27
+//                                                tentacool       l27
+//                                                tentacool       l27
+//                                                goldeen         l27
 
-// 4th - Swimmer                                  Goldeen         L29
-//                                                Shellder        L29
-//                                                Seaking         L29
+// 4th - swimmer                                  goldeen         l29
+//                                                shellder        l29
+//                                                seaking         l29
 
-// 5th, top - Swimmer                             Tentacool       L27
-//                                                Tentacool       L27
-//                                                Staryu          L27
-//                                                Horsea          L27
-//                                                Tentacruel      L27
+// 5th, top - swimmer                             tentacool       l27
+//                                                tentacool       l27
+//                                                staryu          l27
+//                                                horsea          l27
+//                                                tentacruel      l27
 
-// 5th, left - Beauty                             Poliwag         L27
-//                                                Goldeen         L27
-//                                                Seaking         L27
-//                                                Goldeen         L27
-//                                                Poliwag         L27
+// 5th, left - beauty                             poliwag         l27
+//                                                goldeen         l27
+//                                                seaking         l27
+//                                                goldeen         l27
+//                                                poliwag         l27
 
-// 5th, right - Beauty                            Goldeen         L30
-//                                                Seaking         L30
+// 5th, right - beauty                            goldeen         l30
+//                                                seaking         l30
 
-// 5th, bottom - Beauty                           Staryu          L29
-//                                                Staryu          L29
-//                                                Staryu          L29
+// 5th, bottom - beauty                           staryu          l29
+//                                                staryu          l29
+//                                                staryu          l29
 
-// Left
+// left
 // ----
-// 1st, bottom - Swimmer                          Horsea          L28
-//                                                Horsea          L28
-//                                                Seadra          L28
-//                                                Horsea          L28
+// 1st, bottom - swimmer                          horsea          l28
+//                                                horsea          l28
+//                                                seadra          l28
+//                                                horsea          l28
 
-// 1st, top - Swimmer                             Shellder        L31
-//                                                Cloyster        L31
+// 1st, top - swimmer                             shellder        l31
+//                                                cloyster        l31
 
-// 2nd - Beauty                                   Seadra          L30
-//                                                Horsea          L30
-//                                                Seadra          L30
+// 2nd - beauty                                   seadra          l30
+//                                                horsea          l30
+//                                                seadra          l30
 
-// 3rd, outside cave - Beauty                     Seaking         L35
+// 3rd, outside cave - beauty                     seaking         l35
 
-
-// After Seafoam Island Cave
+// after seafoam island cave
 // --------------------------
-// 1st - Junior Trainer Female                    Tentacool       L30
-//                                                Horsea          L30
-//                                                Seel            L30
+// 1st - junior trainer female                    tentacool       l30
+//                                                horsea          l30
+//                                                seel            l30
 
-// 2nd - Swimmer                                  Staryu          L35
- 
-// 3rd, platform - Birdkeeper                     Fearow          L30
-//                                                Fearow          L30
-//                                                Pidgeotto       L30
+// 2nd - swimmer                                  staryu          l35
 
-// 4th - Junior Trainer Female                    Goldeen         L31
-//                                                Seaking         L31
+// 3rd, platform - birdkeeper                     fearow          l30
+//                                                fearow          l30
+//                                                pidgeotto       l30
 
-// 5th - Beauty                                   Poliwag         L31
-//                                                Seaking         L31
+// 4th - junior trainer female                    goldeen         l31
+//                                                seaking         l31
 
+// 5th - beauty                                   poliwag         l31
+//                                                seaking         l31
 
-// Cinnabar Island - Pokemon Mansion
+// cinnabar island - pokemon mansion
 // ********************************************************************************
-// 2nd floor, 1st - Burglar                       Charmander      L34
-//                                                Charmeleon      L34
+// 2nd floor, 1st - burglar                       charmander      l34
+//                                                charmeleon      l34
 
-// 3rd floor, right - Scientist                   Magnemite       L33
-//                                                Magneton        L33
-//                                                Voltorb         L33
+// 3rd floor, right - scientist                   magnemite       l33
+//                                                magneton        l33
+//                                                voltorb         l33
 
-// 1st floor - Scientist                          Electrode       L29
-//                                                Weezing         L29
+// 1st floor - scientist                          electrode       l29
+//                                                Weezing         l29
 
-// Basement, 1st - Burglar                        Growlithe       L34
-//                                                Ponyta          L34
+// basement, 1st - burglar                        growlithe       l34
+//                                                ponyta          l34
 
-// Basement, 2nd - Scientist                      Magnemite       L34
-//                                                Electrode       L34
+// basement, 2nd - scientist                      magnemite       l34
+//                                                electrode       l34
 
-// 2nd floor, east to get to - Burglar            Ninetales       L38
+// 2nd floor, east to get to - burglar            ninetales       l38
 
-
-// Cinnabar Island - Gym
+// cinnabar island - gym
 // ********************************************************************************
-// 1st - Burglar                                  Growlithe       L36
-//                                                Vulpix          L36
-//                                                Ninetales       L36
+// 1st - burglar                                  growlithe       l36
+//                                                vulpix          l36
+//                                                ninetales       l36
 
-// 2nd - Supernerd                                Vulpix          L36
-//                                                Vulpix          L36
-//                                                Ninetales       L36
+// 2nd - supernerd                                vulpix          l36
+//                                                vulpix          l36
+//                                                ninetales       l36
 
-// 3rd - Supernerd                                Ponyta          L34
-//                                                Charmander      L34
-//                                                Vulpix          L34
-//                                                Growlithe       L34
+// 3rd - supernerd                                ponyta          l34
+//                                                charmander      l34
+//                                                vulpix          l34
+//                                                growlithe       l34
 
-// 4th - Burglar                                  Ponyta          L41
+// 4th - burglar                                  ponyta          l41
 
-// 5th - Supernerd                                Rapidash        L41
+// 5th - supernerd                                rapidash        l41
 
-// 6th - Burglar                                  Vulpix          L37
-//                                                Growlithe       L37
+// 6th - burglar                                  vulpix          l37
+//                                                growlithe       l37
 
-// 7th - Supernerd                                Growlithe       L37
-//                                                Vulpix          L37
+// 7th - supernerd                                growlithe       l37
+//                                                vulpix          l37
 
-// 8th - Blaine                                   Growlithe       L42
-//                                                Ponyta          L40
-//                                                Rapidash        L42
-//                                                Arcanine        L47
+// 8th - blaine                                   growlithe       l42
+//                                                ponyta          l40
+//                                                rapidash        l42
+//                                                arcanine        l47
 
-
-// Route 21
+// route 21
 // ********************************************************************************
-// 1st, left - Swimmer                            Staryu          L33
-//                                                Wartortle       L33
+// 1st, left - swimmer                            staryu          l33
+//                                                Wartortle       l33
 
-// 1st, right - Swimmer                           Poliwhirl       L32
-//                                                Tentacool       L32
-//                                                Seadra          L32
+// 1st, right - swimmer                           poliwhirl       l32
+//                                                tentacool       l32
+//                                                seadra          l32
 
-// 2nd, right - Swimmer                           Starmie         L37
+// 2nd, right - swimmer                           starmie         l37
 
-// 3rd, right - Fisherman                         Seaking         L33
-//                                                Goldeen         L33
+// 3rd, right - fisherman                         seaking         l33
+//                                                goldeen         l33
 
-// 3rd, left - Fisherman                          Shellder        L31
-//                                                Cloyster        L31
+// 3rd, left - fisherman                          shellder        l31
+//                                                cloyster        l31
 
-// 4th, bottom - Swimmer                          Seadra          L33
-//                                                Tentacruel      L33
+// 4th, bottom - swimmer                          seadra          l33
+//                                                tentacruel      l33
 
-// 4th, top - Cueball                             Tentacool       L31
-//                                                Tentacool       L31
-//                                                Tentacruel      L31
+// 4th, top - cueball                             tentacool       l31
+//                                                tentacool       l31
+//                                                tentacruel      l31
 
-// 5th, bottom - Fisherman                        Magikarp        L27
-//                                                Magikarp        L27
-//                                                Magikarp        L27
-//                                                Magikarp        L27
-//                                                Magikarp        L27
-//                                                Magikarp        L27
+// 5th, bottom - fisherman                        magikarp        l27
+//                                                magikarp        l27
+//                                                magikarp        l27
+//                                                magikarp        l27
+//                                                magikarp        l27
+//                                                magikarp        l27
 
-// 5th, top - Fisherman                           Seaking         L28
-//                                                Goldeen         L28
-//                                                Seaking         L28
-//                                                Seaking         L28
+// 5th, top - fisherman                           seaking         l28
+//                                                goldeen         l28
+//                                                seaking         l28
+//                                                seaking         l28
 
-// Viridian City Gym
+// viridian city gym
 // ********************************************************************************
-// Top - Blackbelt                                Machoke         L38
-//                                                Machop          L38
-//                                                Machoke         L38
+// top - blackbelt                                machoke         l38
+//                                                machop          l38
+//                                                machoke         l38
 
-// Bottom left - Tamer                            Arbok           L39
-//                                                Tauros          L39
+// bottom left - tamer                            arbok           l39
+//                                                tauros          l39
 
-// Left, middle - Blackbelt                       Machoke         L43
+// left, middle - blackbelt                       machoke         l43
 
-// Center, 1st - Cooltrainer Male                 Sandslash       L39
-//                                                Dugtrio         L39
+// center, 1st - cooltrainer male                 sandslash       l39
+//                                                dugtrio         l39
 
-// Center, 2nd - Blackbelt                        Machop          L40
-//                                                Machoke         L40
+// center, 2nd - blackbelt                        machop          l40
+//                                                machoke         l40
 
-// Center, 3rd - Tamer                            Rhyhorn         L43
+// center, 3rd - tamer                            rhyhorn         l43
 
-// Above center, 1st - Cooltrainer Male           Rhyhorn         L43
+// above center, 1st - cooltrainer male           rhyhorn         l43
 
-// Above center, 2nd - Cooltrainer Male           Nidorino        L39
-//                                                Nidoking        L39
+// above center, 2nd - cooltrainer male           nidorino        l39
+//                                                nidoking        l39
 
-// Center - Giovanni                              Rhyhorn         L45
-//                                                Dugtrio         L42
-//                                                Nidoqueen       L44
-//                                                Nidoking        L45
-//                                                Rhydon          L50
+// center - giovanni                              rhyhorn         l45
+//                                                dugtrio         l42
+//                                                nidoqueen       l44
+//                                                nidoking        l45
+//                                                rhydon          l50
 
-
-// Route 22
+// route 22
 // ********************************************************************************
-// 1st - Gary                                     Pidgeotto       L47
-//                                                Rhyhorn         L45
-//                                                Growlithe       L45
-//                                                Exeggcute       L47
-//                                                Alakazam        L50
-//                                                (varies)        L53
+// 1st - gary                                     pidgeotto       l47
+//                                                rhyhorn         l45
+//                                                growlithe       l45
+//                                                exeggcute       l47
+//                                                alakazam        l50
+//                                                (varies)        l53
 
-
-// Victory Road
+// victory road
 // ********************************************************************************
-// First Floor
+// first floor
 // -----------
-// Middle - Cooltrainer Female                    Persian         L44
-//                                                Ninetales       L44
+// middle - cooltrainer female                    persian         l44
+//                                                ninetales       l44
 
-// Top corner - Cooltrainer Male                  Ivysaur         L42
-//                                                Wartortle       L42
-//                                                Charmeleon      L42
-//                                                Charizard       L42
+// top corner - cooltrainer male                  ivysaur         l42
+//                                                Wartortle       l42
+//                                                charmeleon      l42
+//                                                charizard       l42
 
-// Second Floor
+// second floor
 // ------------
-// 1st - Blackbelt                                Machoke         L43
-//                                                Machop          L43
-//                                                Machoke         L43
+// 1st - blackbelt                                machoke         l43
+//                                                machop          l43
+//                                                machoke         l43
 
-// 2nd - Juggler                                  Drowzee         L41
-//                                                Hypno           L41
-//                                                Kadabra         L41
-//                                                Kadabra         L41
+// 2nd - juggler                                  drowzee         l41
+//                                                hypno           l41
+//                                                kadabra         l41
+//                                                kadabra         l41
 
-// 3rd - Tamer                                    Persian         L44
-//                                                Golduck         L44
+// 3rd - tamer                                    persian         l44
+//                                                golduck         l44
 
-// 4th - Juggler                                  Mr Mime         L48
- 
-// 5th, top right corner - Pokemaniac             Charmeleon      L40
-//                                                Lapras          L40
-//                                                Lickitung       L40
+// 4th - juggler                                  mr mime         l48
 
-// Third Floor
+// 5th, top right corner - pokemaniac             charmeleon      l40
+//                                                lapras          l40
+//                                                lickitung       l40
+
+// third floor
 // -----------
-// Right, by item - Cooltrainer Male              Executor        L43
-//                                                Cloyster        L43
-//                                                Arcanine        L43
+// right, by item - cooltrainer male              executor        l43
+//                                                cloyster        l43
+//                                                arcanine        l43
 
-// Platform, center - Cooltrainer Female          Parasect        L43
-//                                                Dewgong         L43
-//                                                Chansey         L43
+// platform, center - cooltrainer female          parasect        l43
+//                                                dewgong         l43
+//                                                chansey         l43
 
-// Bottom, lower - Cooltrainer Male               Kingler         L43
-//                                                Tentacruel      L43
-//                                                Blastoise       L43
+// bottom, lower - cooltrainer male               kingler         l43
+//                                                tentacruel      l43
+//                                                blastoise       l43
 
-// Bottom, upper - Cooltrainer Female             Bellsprout      L43
-//                                                Weepinbell      L43
-//                                                Victreebel      L43
+// bottom, upper - cooltrainer female             bellsprout      l43
+//                                                Weepinbell      l43
+//                                                victreebel      l43
 
-
-// Indigo Plateau
+// indigo plateau
 // ********************************************************************************
-// 1st - Lorelei                                  Dewgong         L54
-//                                                Cloyster        L53
-//                                                Slowbro         L54
-//                                                Jynx            L56
-//                                                Lapras          L56
+// 1st - lorelei                                  dewgong         l54
+//                                                cloyster        l53
+//                                                slowbro         l54
+//                                                jynx            l56
+//                                                lapras          l56
 
-// 2nd - Bruno                                    Onix            L53
-//                                                Hitmonchan      L55
-//                                                Hitmonlee       L55
-//                                                Onix            L56
-//                                                Machamp         L58
+// 2nd - bruno                                    onix            l53
+//                                                hitmonchan      l55
+//                                                hitmonlee       l55
+//                                                onix            l56
+//                                                machamp         l58
 
-// 3rd - Agatha                                   Gengar          L56
-//                                                Golbat          L56
-//                                                Haunter         L55
-//                                                Arbok           L58
-//                                                Gengar          L60
+// 3rd - agatha                                   gengar          l56
+//                                                golbat          l56
+//                                                haunter         l55
+//                                                arbok           l58
+//                                                gengar          l60
 
-// 4th - Lance                                    Gyarados        L58
-//                                                Dragonair       L56
-//                                                Dragonair       L56
-//                                                Aerodactyl      L60
-//                                                Dragonite       L62
+// 4th - lance                                    gyarados        l58
+//                                                dragonair       l56
+//                                                dragonair       l56
+//                                                aerodactyl      l60
+//                                                dragonite       l62
 
-// 5th - Gary                                     Pidgeot         L61
-//                                                Alakazam        L59
-//                                                Rhydon          L61
+// 5th - gary                                     pidgeot         l61
+//                                                alakazam        l59
+//                                                rhydon          l61
 
-// At the beginning, if you took Bulbasaur        Gyrados         L61
-//                                                Arcanine        L63
-//                                                Venusaur        L65
+// at the beginning, if you took bulbasaur        gyrados         l61
+//                                                arcanine        l63
+//                                                venusaur        l65
 
-// At the beginning, if you took Charmander       Exeggutor       L61
-//                                                Gyrados         L63
-//                                                Charizard       L65
+// at the beginning, if you took charmander       exeggutor       l61
+//                                                gyrados         l63
+//                                                charizard       l65
 
-// At the beginning, if you took Squirtle         Arcanine        L61
-//                                                Gyrados         L63
-//                                                Blastoise       L65
+// at the beginning, if you took squirtle         arcanine        l61
+//                                                gyrados         l63
+//                                                blastoise       l65

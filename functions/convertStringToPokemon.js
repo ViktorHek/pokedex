@@ -33,15 +33,17 @@ module.exports = function(pokemonStrings) {
             moves: getMoves(pokemon),
             dbData: getDbData(parseInt(pokemon[0])),
             stats: {},
-            statChanges: {
-                attack: 0,
-                defense: 0,
-                special: 0,
-                speed: 0,
-                accuracy: 0,
-                evasion: 0,
-                badgeBoost: 0
-            },
+            status: 'fine',
+            statChanges: [],
+            // statChanges: {
+            //     attack: {change: 0, val: null},
+            //     defense: {change: 0, val: null},
+            //     special: {change: 0, val: null},
+            //     speed: {change: 0, val: null},
+            //     accuracy: {change: 0, val: null},
+            //     evasion: {change: 0, val: null},
+            //     badgeBoost: {change: 0, val: null}
+            // },
             uid: pokemonStrings
         };
         pokemonObject.stats = calculator.getPokemonStats(pokemonObject)
@@ -50,7 +52,7 @@ module.exports = function(pokemonStrings) {
     return pokemonPartyArr;
 }
 
-// [080, 40, 1, 's', 143, 'viktor', 15, [35000, 35000, 35000, 35000, 35000], 26, 35, 94, 35, 3, 35, 4, 35]
+// [80, 40, 1, 's', 143, 'viktor', 15, [35000, 35000, 35000, 35000, 35000], 26, 35, 94, 35, 3, 35, 4, 35]
 
 function getMoves(pokemonArr) {
     let returnArr = [];
