@@ -22,7 +22,14 @@ module.exports = function(pokemonStrings) {
             nature: getNatures(pokemon[3]),
             currentHp: parseInt(pokemon[4]),
             name: pokemon[5],
-            iv: parseInt(pokemon[6]),
+            // iv: parseInt(pokemon[6]),
+            iv: {
+                hp: parseInt(pokemon[6][0]),
+                attack: parseInt(pokemon[6][1]),
+                defense: parseInt(pokemon[6][2]),
+                special: parseInt(pokemon[6][3]),
+                speed: parseInt(pokemon[6][4]),
+            },
             ev: {
                 hp: parseInt(pokemon[7][0]),
                 attack: parseInt(pokemon[7][1]),
@@ -47,6 +54,7 @@ module.exports = function(pokemonStrings) {
             uid: pokemonStrings
         };
         pokemonObject.stats = calculator.getPokemonStats(pokemonObject)
+        console.log('full', pokemonObject)
         pokemonPartyArr.push(pokemonObject);
     };
     return pokemonPartyArr;

@@ -8,11 +8,12 @@ const runAllTests = function runAllTests() {
 }
 
 const runBattleTest = function runBattleTest() {
+    console.log('move is: ', moves[13].name)
+
     const testString = testMon.pokemonObjString
     let moddedPokiArr = convert(testString)
-    let calc = calculator.damageCalc(moddedPokiArr[0],moddedPokiArr[0],moves[93])
+    let calc = calculator.damageCalc(moddedPokiArr[0],moddedPokiArr[0],moves[13])
     console.log('calc: ',calc)
-    console.log('move is: ', moves[93].name)
 }
 
 const tests = {

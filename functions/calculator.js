@@ -2,41 +2,26 @@ const dbTypes = require("../dataBase/types");
 
 // statsCalc start
 const getPokemonStats = function getPokemonStats(pokiObj) {
+  const { iv, ev, level } = pokiObj;
+  const base = pokiObj.dbData.stats;
   let calculatedStats = {
     hp: calculatingHp(pokiObj),
-    attack: calculatingNonHpStats(
-      pokiObj.dbData.stats.attack,
-      pokiObj.ev.attack,
-      pokiObj
-    ),
-    defense: calculatingNonHpStats(
-      pokiObj.dbData.stats.defense,
-      pokiObj.ev.defense,
-      pokiObj
-    ),
-    special: calculatingNonHpStats(
-      pokiObj.dbData.stats.special,
-      pokiObj.ev.special,
-      pokiObj
-    ),
-    speed: calculatingNonHpStats(
-      pokiObj.dbData.stats.speed,
-      pokiObj.ev.speed,
-      pokiObj
-    ),
+    attack: calculatingNonHpStats(base.attack, iv.attack, ev.attack, level),
+    defense: calculatingNonHpStats(base.defense, iv.defense, ev.defense, level),
+    special: calculatingNonHpStats(base.special, iv.special, ev.special, level),
+    speed: calculatingNonHpStats(base.speed, iv.speed, ev.speed, level),
   };
   return calculatedStats;
 };
 function calculatingHp(pokiObj) {
-  const { iv, ev, level } = pokiObj;
-  let baseHpAndIv = pokiObj.dbData.stats.hp + iv;
-  let rootEv = Math.sqrt(ev.hp) / 4;
-  let mainCalc = ((baseHpAndIv * 2 + rootEv) * level) / 100 + level + 10;
+  let baseHpAndIv = pokiObj.dbData.stats.hp + pokiObj.iv.hp;
+  let rootEv = Math.sqrt(pokiObj.ev.hp) / 4;
+  let mainCalc =
+    ((baseHpAndIv * 2 + rootEv) * pokiObj.level) / 100 + pokiObj.level + 10;
   return Math.floor(mainCalc);
 }
-function calculatingNonHpStats(baseStat, evStat, pokiObj) {
-  const { iv, level } = pokiObj;
-  let baseStatAndIv = baseStat + iv;
+function calculatingNonHpStats(baseStat, ivStat, evStat, level) {
+  let baseStatAndIv = baseStat + ivStat;
   let rootEv = Math.sqrt(evStat) / 4;
   let mainCalc = ((baseStatAndIv * 2 + rootEv) * level) / 100 + 5;
   return Math.floor(mainCalc);
@@ -52,6 +37,7 @@ const damageCalc = function damageCalc(
   move
 ) {
   const playerIsAttacking = true;
+  const gymBadges = { attack: true, defense: true, special: true, speed: true };
   // damage = ((((2 * level * critical) / 5 + 2) * (power * (attack / deffence))) / 50 + 2) * stab * type1 * type2 * random
   let returnValue = { damage: 0, status: {}, message: "" };
   // let attackingBattleStats = {
@@ -70,21 +56,24 @@ const damageCalc = function damageCalc(
   attackingPokemon.statChanges.push(moveStatChanges);
 
   if (attackingPokemon.statChanges.length) {
-    let playerStatsWithStatChange = getStatsWithStatChange(attackingPokemon);
+    let playerStatsWithStatChange = getStatsWithStatChange(
+      attackingPokemon,
+      gymBadges
+    );
     console.log("playerStatsWithStatChange", playerStatsWithStatChange);
   }
 
-  if (
-    move.meta.damage_class === "physical" ||
-    move.meta.damage_class === "special"
-  ) {
-    var attackDamageCalc = getAttackDamageCalc(
-      attackingPokemon,
-      defendingPokemon,
-      move
-    );
-    returnValue.damage = attackDamageCalc;
-  }
+  //   if (
+  //     move.meta.damage_class === "physical" ||
+  //     move.meta.damage_class === "special"
+  //   ) {
+  //     var attackDamageCalc = getAttackDamageCalc(
+  //       attackingPokemon,
+  //       defendingPokemon,
+  //       move
+  //     );
+  //     returnValue.damage = attackDamageCalc;
+  //   }
 
   return returnValue;
 };
@@ -106,7 +95,7 @@ function getAttackDamageCalc(attackingPokemon, defendingPokemon, move) {
   let fourthCalc = thirdCalc / 50 + 2;
   let fifthCalc = fourthCalc * STAB * typingCalc * random;
 
-  console.log("damage crit and random: ", isCrit, random);
+  // console.log("damage crit and random: ", isCrit, random);
   if (Math.floor(fifthCalc) < 1) {
     return 1;
   } else {
@@ -114,16 +103,27 @@ function getAttackDamageCalc(attackingPokemon, defendingPokemon, move) {
   }
 }
 
-function getStatsWithStatChange(pokemon) {
+function getStatsWithStatChange(pokemon, gymBadges) {
+  const { statChanges } = pokemon;
   const stats = {
     attack: pokemon.stats.attack,
     defense: pokemon.stats.defense,
     special: pokemon.stats.special,
     speed: pokemon.stats.speed,
   };
-  for (let index = 0; index < array.length; index++) {
-    const element = array[index];
+  console.log("stats: ", stats);
+  console.log("statChanges: ", pokemon.statChanges);
+  for (let index = 0; index < statChanges.length; index++) {
+    const change = statChanges[index];
+    stats[change.stat] =
+      stats[change.stat] * statChangesEffectPercent(change.change);
+    for (const x in gymBadges) {
+      if (gymBadges[x] === true) {
+        stats[x] = stats[x] * 1.125;
+      }
+    }
   }
+  console.log("new stats: ", stats);
 }
 
 function getAccuracyCalc(attackingPokemon, defendingPokemon, move) {
@@ -152,19 +152,13 @@ function getAccuracyCalc(attackingPokemon, defendingPokemon, move) {
 function getStatChange(move, playerIsAttacking) {
   const statChange = move.meta.stat_changes;
   const effectChance = move.meta.effect_chance;
-  let target = getTarget(move, playerIsAttacking);
   if (!statChange) return false;
-
+  if (generateRandomNumber(0, 100) < effectChance === true) return false;
   let statChangeObj = {
     change: statChange.change,
     stat: statChange.stat,
-    target: target,
+    target: getTarget(move, playerIsAttacking),
   };
-  let random = generateRandomNumber(0, 100);
-  if (random < effectChance === false) {
-    return false;
-  }
-
   return statChangeObj;
 }
 
