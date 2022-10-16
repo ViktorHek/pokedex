@@ -54,7 +54,6 @@ module.exports = function(pokemonStrings) {
             uid: pokemonStrings
         };
         pokemonObject.stats = calculator.getPokemonStats(pokemonObject)
-        console.log('full', pokemonObject)
         pokemonPartyArr.push(pokemonObject);
     };
     return pokemonPartyArr;

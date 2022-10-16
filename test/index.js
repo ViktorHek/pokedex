@@ -3,6 +3,14 @@ const moves = require('../dataBase/AllMovesArr')
 const convert = require('../functions/convertStringToPokemon')
 const testMon = require('./pokemons')
 
+const battleObj = {
+    playerIsAttacking: true,
+    items: [],
+    weather: null,
+    statChanges: [],
+    move: 1
+}
+
 const runAllTests = function runAllTests() {
     runBattleTest()
 }
