@@ -6,7 +6,6 @@ const testMon = require('./pokemons')
 const battleObj = {
     playerIsAttacking: true,
     items: [],
-    weather: null,
     statChanges: [],
     move: 1
 }
@@ -16,11 +15,11 @@ const runAllTests = function runAllTests() {
 }
 
 const runBattleTest = function runBattleTest() {
-    console.log('move is: ', moves[13].name)
+    console.log('move is: ', moves[110].name)
 
     const testString = testMon.pokemonObjString
     let moddedPokiArr = convert(testString)
-    let calc = calculator.damageCalc(moddedPokiArr[0],moddedPokiArr[0],moves[13])
+    let calc = calculator.damageCalc(moddedPokiArr[0],moddedPokiArr[0],moves[110])
     console.log('calc: ',calc)
 }
 

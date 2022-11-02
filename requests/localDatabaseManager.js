@@ -91,8 +91,8 @@ getPokemonAndMoves = function getPokemonAndMoves(id) {
 generateList = function generateList() {
     let arr = []
     allMovesArr.forEach((el) => {
-        if (el.meta.stat_changes) {
-            if (el.meta.stat_changes[1]) {
+        if (el.meta.stat_change) {
+            if (el.meta.stat_change[1]) {
                 arr.push(el.name)
             }
         }

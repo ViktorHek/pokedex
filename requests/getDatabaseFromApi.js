@@ -141,7 +141,7 @@ function orderMoves(data, index) {
             min_hits: data.meta.min_hits,
             min_turns: data.meta.min_turns,
             stat_chance: data.stat_chance,
-            stat_changes: getStatChanges(data.stat_changes),
+            stat_change: getStatChanges(data.stat_changes),
             target: data.target.name,
             index: index
         }
