@@ -1,4 +1,4 @@
-const calculator = require('../functions/calculator')
+const calculator = require('../functions/battleCalculator')
 const moves = require('../dataBase/AllMovesArr')
 const convert = require('../functions/convertStringToPokemon')
 const testMon = require('./pokemons')
@@ -15,11 +15,12 @@ const runAllTests = function runAllTests() {
 }
 
 const runBattleTest = function runBattleTest() {
-    console.log('move is: ', moves[110].name)
+    console.log('move is: ', moves[93].name)
 
     const testString = testMon.pokemonObjString
     let moddedPokiArr = convert(testString)
-    let calc = calculator.damageCalc(moddedPokiArr[0],moddedPokiArr[0],moves[110])
+    battleObject = { move: moves[93], playerIsAttacking: true, gymBadges: [true, true, true, true], statChanges: {} }
+    let calc = calculator(moddedPokiArr[0],moddedPokiArr[0],battleObject)
     console.log('calc: ',calc)
 }
 

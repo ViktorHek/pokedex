@@ -1,22 +1,25 @@
 const dbTypes = require("../dataBase/types");
 
 // battleObject = { move, playerIsAttacking, gymBadges, statChanges }
-
-const battleCalculator = function battleCalculator(playersPokemon, opponentsPokemon, battleObject) {
+module.exports = function battleCalculator(playersPokemon, opponentsPokemon, battleObject) {
   const { move, playerIsAttacking, statChanges } = battleObject;
   let attackingMon = {};
   let defendingMon = {};
   let returnValue = { damage: 0, status: {}, message: "", statChangesArray: [] };
   if (playerIsAttacking) {
     attackingMon = playersPokemon;
-    attackingMon.changedStats = statChanges.filter((el) => el.target === "player");
     defendingMon = opponentsPokemon;
-    defendingMon.changedStats = statChanges.filter((el) => el.target === "opponent");
+    if (statChanges.length) {
+      attackingMon.changedStats = statChanges.filter((el) => el.target === "player");
+      defendingMon.changedStats = statChanges.filter((el) => el.target === "opponent");
+    }
   } else {
     attackingMon = opponentsPokemon;
-    attackingMon.changedStats = statChanges.filter((el) => el.target === "opponent");
     defendingMon = playersPokemon;
-    defendingMon.changedStats = statChanges.filter((el) => el.target === "player");
+    if (statChanges.length) {
+      attackingMon.changedStats = statChanges.filter((el) => el.target === "opponent");
+      defendingMon.changedStats = statChanges.filter((el) => el.target === "player");
+    }
   }
   let accuracy = getChangeForSpecificStat(attackingMon, "accuracy");
   let evasion = getChangeForSpecificStat(defendingMon, "evasion");
@@ -71,8 +74,8 @@ function useStatusAttack(move, playerIsAttacking) {
 }
 /**
  * used for moves that deel damage and have an additional stat change
- * @param {{meta: {stat_change: {}, effect_chance: number, target: string}}} move 
- * @param {Boolean} playerIsAttacking 
+ * @param {{meta: {stat_change: {}, effect_chance: number, target: string}}} move
+ * @param {Boolean} playerIsAttacking
  * @returns {{change: number, stat: string, target: string}}
  */
 function getAdditionalStatusChange(move, playerIsAttacking) {
@@ -140,6 +143,7 @@ function applyStatChanges(pokemon, gymBadges) {
     special: pokemon.stats.special,
     speed: pokemon.stats.speed,
   };
+  if(!statChanges) return stats
   for (let index = 0; index < statChanges.length; index++) {
     const el = statChanges[index];
     stats[el.stat] = stats[el.stat] * statChangesEffectPercent(el.change);
@@ -159,8 +163,8 @@ function applyStatChanges(pokemon, gymBadges) {
  */
 function getChangeForSpecificStat(pokemon, statName) {
   let returnValue = 0;
-  let StatChageList = pokemon.changedStats.filter((el) => el.stat === statName);
-  if (StatChageList.length) {
+  if (pokemon.changedStats) {
+    let StatChageList = pokemon.changedStats.filter((el) => el.stat === statName);
     StatChageList.forEach((el) => {
       returnValue = returnValue + el.change;
     });
@@ -275,6 +279,10 @@ function calcTyping(moveType, targetType) {
     return 1;
   }
 }
+function getRandomDamage() {
+  let randomNumber = generateRandomNumber(217, 255);
+  return randomNumber / 255;
+}
 function generateRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -316,5 +324,3 @@ function statChangesEffectPercent(statChanges) {
       return 1;
   }
 }
-
-module.exports = battleCalculator;
