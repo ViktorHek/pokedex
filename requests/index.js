@@ -42,12 +42,12 @@ module.exports = function(app) {
         }
     })
 
-    app.get('/damageCalc', (req, res) => {
+    app.get('/battleCalc', (req, res) => {
         try {
-            res.send(ldm.getDamageCalc(JSON.parse(req.query.data)))
+            res.send(ldm.getbattleCalc(JSON.parse(req.query.data)))
         } catch (err) {
             console.log(err)
-            console.log('error @ get damageCalc')
+            console.log('error @ get battleCalc')
         }
     })
 }

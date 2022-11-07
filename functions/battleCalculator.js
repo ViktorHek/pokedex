@@ -10,8 +10,8 @@ module.exports = function battleCalculator(playersPokemon, opponentsPokemon, bat
     attackingMon = playersPokemon;
     defendingMon = opponentsPokemon;
     if (statChanges.length) {
-      attackingMon.changedStats = statChanges.filter((el) => el.target === "player");
-      defendingMon.changedStats = statChanges.filter((el) => el.target === "opponent");
+      attackingMon.changedStats = statChanges.filter(el => el.target == "player");
+      defendingMon.changedStats = statChanges.filter((el) => el.target == "opponent");
     }
   } else {
     attackingMon = opponentsPokemon;
@@ -45,6 +45,7 @@ module.exports = function battleCalculator(playersPokemon, opponentsPokemon, bat
     }
   }
   console.log(returnValue);
+  return returnValue
 };
 /**
  * Status attacks includes moves that change stats & status
@@ -137,6 +138,7 @@ function useDamageAttack(attackingMon, defendingMon, battleObject) {
  */
 function applyStatChanges(pokemon, gymBadges) {
   let statChanges = pokemon.changedStats;
+  console.log('statChanges: ',statChanges)
   let stats = {
     attack: pokemon.stats.attack,
     defense: pokemon.stats.defense,
@@ -234,6 +236,9 @@ function getattackDefenseDifferance(attackingMon, boostedStatsAttackingMon, defe
   const defense = defendingMon.stats.defense;
   const defenseSpecial = defendingMon.stats.special;
   const moveDamgageClass = move.meta.damage_class;
+
+  console.log('base stat', attack)
+  console.log('boostedStatsAttacking', boostedStatsAttackingMon.attack)
 
   if (isCrit) {
     if (moveDamgageClass === "physical") {

@@ -8,7 +8,7 @@ app.use(cors());
 
 require('./requests/index.js')(app)
 
-test.runAllTests()
+// test.runAllTests() 
 
 app.listen(config.port, () => {
     console.log(`LETS GOO ${config.port}`)
