@@ -2,7 +2,7 @@
 const pokemonDB = require("../dataBase/pokemons");
 const allMovesArr = require("../dataBase/AllMovesArr");
 const convertStringToPokemon = require("../functions/convertStringToPokemon");
-// const calculator = require("../functions/calculator");
+const calculator = require("../functions/calculator");
 const battleCalculator = require("../functions/battleCalculator");
 
 getAllPokemonsFormDB = function getAllPokemonsFormDB() {
@@ -158,16 +158,32 @@ getMultiblePokemons = function getMultiblePokemons(dataArray) {
 };
 
 getbattleCalc = function getbattleCalc(data) {
-  const { playersPokemon, opponentsPokemon, battleObject } = data;
-  let moveObj = getMoveFromId(battleObject.moveId);
-  let newObj = {
+  const { playersPokemon, opponentsPokemon, moveId, gymBadges, statChanges } = data;
+  let moveObj = getMoveFromId(moveId);
+  let playerAttackingObj = {
     move: moveObj,
-    playerIsAttacking: battleObject.playerIsAttacking,
-    gymBadges: battleObject.gymBadges,
-    statChanges: battleObject.statChanges
+    playerIsAttacking: true,
+    gymBadges: gymBadges,
+    statChanges: statChanges
   };
-  let calc = battleCalculator(playersPokemon, opponentsPokemon, newObj);
-  return calc;
+  let opponentAttackingObj = {
+    move: moveObj,
+    playerIsAttacking: false,
+    gymBadges: gymBadges,
+    statChanges: statChanges
+  };
+  let playerAttackingCalc = {}
+  let opponentAttackingCalc = {}
+  let playerAttacksFirst = calculator.playerAttacksFirst(playersPokemon, opponentsPokemon, gymBadges, statChanges)
+  if(playerAttacksFirst) {
+    opponentAttackingObj.statChanges = playerAttackingCalc.statChangesArray
+    opponentAttackingCalc = battleCalculator(playersPokemon, opponentsPokemon, opponentAttackingObj);
+  } else {
+    opponentAttackingCalc = battleCalculator(playersPokemon, opponentsPokemon, opponentAttackingObj);
+    playerAttackingCalc.statChanges = opponentAttackingObj.statChangesArray
+    playerAttackingCalc = battleCalculator(playersPokemon, opponentsPokemon, playerAttackingObj);
+  }
+  return {playerAttack: playerAttackingCalc, opponentAttack: opponentAttackingCalc};
 };
 
 module.exports = {

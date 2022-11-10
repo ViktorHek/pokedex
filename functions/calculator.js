@@ -16,8 +16,7 @@ const getPokemonStats = function getPokemonStats(pokiObj) {
 function calculatingHp(pokiObj) {
   let baseHpAndIv = pokiObj.dbData.stats.hp + pokiObj.iv.hp;
   let rootEv = Math.sqrt(pokiObj.ev.hp) / 4;
-  let mainCalc =
-    ((baseHpAndIv * 2 + rootEv) * pokiObj.level) / 100 + pokiObj.level + 10;
+  let mainCalc = ((baseHpAndIv * 2 + rootEv) * pokiObj.level) / 100 + pokiObj.level + 10;
   return Math.floor(mainCalc);
 }
 function calculatingNonHpStats(baseStat, ivStat, evStat, level) {
@@ -32,37 +31,22 @@ const damageCalc = function damageCalc(attackingMon, opponentMon, move) {
   const playerIsAttacking = true;
   const gymBadges = { attack: true, defense: true, special: true, speed: true };
   const target = getTarget(move, playerIsAttacking);
-  let statChangeArr = []
+  let statChangeArr = [];
   let returnValue = { damage: 0, status: {}, message: "" };
 
   let moveStatChanges = getStatChange(move, playerIsAttacking);
-  if(moveStatChanges) {
+  if (moveStatChanges) {
     statChangeArr.push(moveStatChanges);
-    returnValue.status = moveStatChanges
+    returnValue.status = moveStatChanges;
   }
-  let isHitting = getAccuracyCalc(
-    attackingMon,
-    opponentMon,
-    move,
-    target,
-    playerIsAttacking,
-    statChangeArr
-  );
+  let isHitting = getAccuracyCalc(attackingMon, opponentMon, move, target, playerIsAttacking, statChangeArr);
   if (!isHitting) {
     returnValue.message = "attack missed";
     return returnValue;
   }
 
-  if (
-    move.meta.damage_class === "physical" ||
-    move.meta.damage_class === "special"
-  ) {
-    var attackDamageCalc = getAttackDamageCalc(
-      attackingMon,
-      opponentMon,
-      move,
-      gymBadges
-    );
+  if (move.meta.damage_class === "physical" || move.meta.damage_class === "special") {
+    var attackDamageCalc = getAttackDamageCalc(attackingMon, opponentMon, move, gymBadges);
     returnValue.damage = attackDamageCalc;
   }
 
@@ -73,20 +57,14 @@ function getAttackDamageCalc(attackingMon, opponentMon, move, gymBadges) {
   // damage = ((((2 * level * critical) / 5 + 2) * (power * (attack / deffence))) / 50 + 2) * stab * type1 * type2 * random
   let isCrit = calculateIfCrit(attackingMon, move); // is crit = 2, is not crit = 1
 
-  let AD = getattackDefenseDifferance(
-    attackingMon,
-    opponentMon,
-    isCrit,
-    move,
-    gymBadges
-  );
+  let AD = getattackDefenseDifferance(attackingMon, opponentMon, isCrit, move, gymBadges);
   let STAB = getStab(attackingMon, move);
   let typingCalc = getTypingCalc(move, opponentMon);
   let random = getRandomDamage();
   let firstCalc = 2 * attackingMon.level * isCrit;
-  let secondCalc = (firstCalc / 5) + 2;
+  let secondCalc = firstCalc / 5 + 2;
   let thirdCalc = secondCalc * move.power * AD;
-  let fourthCalc = (thirdCalc / 50) + 2;
+  let fourthCalc = thirdCalc / 50 + 2;
   let fifthCalc = fourthCalc * STAB * typingCalc * random;
 
   // console.log("damage crit and random: ", isCrit, random);
@@ -107,8 +85,7 @@ function getStatsWithStatChange(pokemon, gymBadges) {
   };
   for (let index = 0; index < statChanges.length; index++) {
     const change = statChanges[index];
-    stats[change.stat] =
-      stats[change.stat] * statChangesEffectPercent(change.change);
+    stats[change.stat] = stats[change.stat] * statChangesEffectPercent(change.change);
     for (const x in gymBadges) {
       if (gymBadges[x] === true) {
         stats[x] = stats[x] * 1.125;
@@ -118,14 +95,7 @@ function getStatsWithStatChange(pokemon, gymBadges) {
   return stats;
 }
 
-function getAccuracyCalc(
-  attackingMon,
-  opponentMon,
-  move,
-  target,
-  playerIsAttacking,
-  statChangeArr
-) {
+function getAccuracyCalc(attackingMon, opponentMon, move, target, playerIsAttacking, statChangeArr) {
   // const modefiedAccuracy = 1
   // const modefiedEvasion = 1
   // if (playerIsAttacking) {
@@ -137,9 +107,9 @@ function getAccuracyCalc(
   let evasionVal = 1;
   let moveAccuracy = move.accuracy / 100; // 0 - 1
   let random = generateRandomNumber(1, 255);
-  
+
   if (playerIsAttacking) {
-    accuracyVal = 1
+    accuracyVal = 1;
   }
 
   if (move.accuracy === null) return true; // if accuracy is null then target is always opponent
@@ -162,14 +132,14 @@ function getStatChange(move, playerIsAttacking) {
   const statChange = move.meta.stat_change;
   if (!statChange) return false;
   const effectChance = move.meta.effect_chance;
-  const random = generateRandomNumber(0, 100)
+  const random = generateRandomNumber(0, 100);
   let statChangeObj = {
     change: statChange.change,
     stat: statChange.stat,
     target: getTarget(move, playerIsAttacking),
   };
-  if ( move.accuracy === null) return statChangeObj
-  if ( random < effectChance === true) return statChangeObj
+  if (move.accuracy === null) return statChangeObj;
+  if (random < effectChance === true) return statChangeObj;
   return false;
 }
 
@@ -249,13 +219,7 @@ function getStab(attackingMon, move) {
   }
 }
 
-function getattackDefenseDifferance(
-  attackingMon,
-  opponentMon,
-  isCrit,
-  move,
-  gymBadges
-) {
+function getattackDefenseDifferance(attackingMon, opponentMon, isCrit, move, gymBadges) {
   const attack = attackingMon.stats.attack;
   const attackingSpecial = attackingMon.stats.special;
   const defense = opponentMon.stats.defense;
@@ -271,13 +235,9 @@ function getattackDefenseDifferance(
     }
   } else {
     if (moveDamgageClass === "physical") {
-      return (
-        playerStatsWithStatChange.attack / playerStatsWithStatChange.defense
-      );
+      return playerStatsWithStatChange.attack / playerStatsWithStatChange.defense;
     } else {
-      return (
-        playerStatsWithStatChange.special / playerStatsWithStatChange.special
-      );
+      return playerStatsWithStatChange.special / playerStatsWithStatChange.special;
     }
   }
 }
@@ -316,10 +276,52 @@ function statChangesEffectPercent(statChanges) {
   }
 }
 
+function playerAttacksFirst(playerPokemon, opponentPokemon, gymBadges, statChanges) {
+  let playerSpeed = playerPokemon.stats.speed;
+  let opponentSpeed = opponentPokemon.stats.speed;
+  let playerSpeedChange = []
+  let opponentSpeedChange = []
+  if (statChanges.length) {
+    let changedStats = statChanges.filter((el) => el.stat === "speed");
+    playerSpeedChange = changedStats.filter((el) => el.target === "player");
+    opponentSpeedChange = changedStats.filter((el) => el.target === "opponent");
+  }
+  if (!playerSpeedChange.length) {
+    for (let index = 0; index < playerSpeedChange.length; index++) {
+      const el = playerSpeedChange[index];
+      playerSpeed = playerSpeed * statChangesEffectPercent(el.change);
+      for (const x in gymBadges) {
+        if (gymBadges[x] === true) {
+          playerSpeed = playerSpeed * 1.125;
+        }
+      }
+    }
+  }
+  if (opponentSpeedChange.length) {
+    for (let index = 0; index < opponentSpeedChange.length; index++) {
+      opponentSpeed = opponentSpeed * statChangesEffectPercent(opponentSpeedChange[index].change);
+    }
+  }
+  playerSpeed = Math.floor(playerSpeed)
+  opponentSpeed = Math.floor(opponentSpeed)
+  console.log('playerSpeed: ',playerSpeedChange, ' opponentSpeed: ',opponentSpeedChange)
+  if(playerSpeed === opponentSpeed) {
+    if(Math.random() < 0.5) {
+      return true
+    } else {
+      return false
+    }
+  } else if (playerSpeed > opponentSpeed) {
+    return true
+  } else {
+    return false
+  }
+}
 const calculator = {
   getPokemonStats,
   damageCalc,
   generateRandomNumber,
+  playerAttacksFirst,
 };
 
 module.exports = calculator;

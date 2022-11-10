@@ -25,7 +25,7 @@ module.exports = function battleCalculator(playersPokemon, opponentsPokemon, bat
   let evasion = getChangeForSpecificStat(defendingMon, "evasion");
   let isHitting = checkIfMoveHitts(move, accuracy, evasion);
   if (!isHitting) {
-    returnValue = { damage: 0, status: {}, message: "", statChangesArray: statChanges };
+    returnValue = { damage: 0, status: {}, message: "Attack missed", statChangesArray: statChanges };
     return returnValue;
   }
 
@@ -44,6 +44,8 @@ module.exports = function battleCalculator(playersPokemon, opponentsPokemon, bat
       returnValue.status = status;
     }
   }
+  // let message = getMessage(returnValue)
+  // returnValue.message = message
   console.log(returnValue);
   return returnValue
 };
@@ -236,10 +238,6 @@ function getattackDefenseDifferance(attackingMon, boostedStatsAttackingMon, defe
   const defense = defendingMon.stats.defense;
   const defenseSpecial = defendingMon.stats.special;
   const moveDamgageClass = move.meta.damage_class;
-
-  console.log('base stat', attack)
-  console.log('boostedStatsAttacking', boostedStatsAttackingMon.attack)
-
   if (isCrit) {
     if (moveDamgageClass === "physical") {
       return attack / defense;
