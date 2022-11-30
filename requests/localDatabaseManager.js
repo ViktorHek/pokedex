@@ -158,33 +158,64 @@ getMultiblePokemons = function getMultiblePokemons(dataArray) {
 };
 
 getbattleCalc = function getbattleCalc(data) {
+  const { playersPokemon, opponentsPokemon, gymBadges, statChanges } = data;
+  let message = "not implemented";
+  let playerAttacksFirst = calculator.playerAttacksFirst(playersPokemon, opponentsPokemon, gymBadges, statChanges);
+  const { playerAttackCalcDamage, opponentAttackingCalcDamage, statChangesAfterCalc } = getBothPlayersDamageCalc(data);
+  let returnObj = {
+    playerAttack: playerAttackCalcDamage,
+    opponentAttack: opponentAttackingCalcDamage,
+    playerIsAttackingFirst: playerAttacksFirst,
+    statChanges: statChangesAfterCalc,
+    message: message,
+  };
+  return returnObj;
+};
+
+function getBothPlayersDamageCalc(data, playerAttacksFirst) {
   const { playersPokemon, opponentsPokemon, moveId, gymBadges, statChanges } = data;
-  let moveObj = getMoveFromId(moveId);
   let playerAttackingObj = {
-    move: moveObj,
+    move: getMoveFromId(moveId),
     playerIsAttacking: true,
     gymBadges: gymBadges,
-    statChanges: statChanges
+    statChanges: statChanges,
   };
   let opponentAttackingObj = {
-    move: moveObj,
+    move: getOpponentsMove(data),
     playerIsAttacking: false,
-    gymBadges: gymBadges,
-    statChanges: statChanges
+    gymBadges: [],
+    statChanges: statChanges,
   };
-  let playerAttackingCalc = {}
-  let opponentAttackingCalc = {}
-  let playerAttacksFirst = calculator.playerAttacksFirst(playersPokemon, opponentsPokemon, gymBadges, statChanges)
-  if(playerAttacksFirst) {
-    opponentAttackingObj.statChanges = playerAttackingCalc.statChangesArray
+  let playerAttackingCalc = {};
+  let opponentAttackingCalc = {};
+  let statChangesReturnList = statChanges;
+
+  if (playerAttacksFirst) {
+    playerAttackingCalc = battleCalculator(playersPokemon, opponentsPokemon, playerAttackingObj);
+    if (playerAttackingCalc.status !== {}) {
+      opponentAttackingObj.statChanges.push(playerAttackingCalc.status);
+      statChangesReturnList.push(playerAttackingCalc.status);
+    }
     opponentAttackingCalc = battleCalculator(playersPokemon, opponentsPokemon, opponentAttackingObj);
   } else {
     opponentAttackingCalc = battleCalculator(playersPokemon, opponentsPokemon, opponentAttackingObj);
-    playerAttackingCalc.statChanges = opponentAttackingObj.statChangesArray
+    if (playerAttackingCalc.status !== {}) {
+      opponentAttackingObj.statChanges.push(opponentAttackingCalc.status);
+      statChangesReturnList.push(opponentAttackingCalc.status);
+    }
     playerAttackingCalc = battleCalculator(playersPokemon, opponentsPokemon, playerAttackingObj);
   }
-  return {playerAttack: playerAttackingCalc, opponentAttack: opponentAttackingCalc};
-};
+  return {
+    playerAttackCalcDamage: playerAttackingCalc.damage,
+    opponentAttackingCalcDamage: opponentAttackingCalc.damage,
+    statChangesAfterCalc: statChangesReturnList,
+  };
+}
+
+function getOpponentsMove(data) {
+  const { playersPokemon, opponentsPokemon, moveId, gymBadges, statChanges } = data;
+  return getMoveFromId(moveId)
+}
 
 module.exports = {
   getAllPokemonsFormDB,

@@ -286,7 +286,7 @@ function playerAttacksFirst(playerPokemon, opponentPokemon, gymBadges, statChang
     playerSpeedChange = changedStats.filter((el) => el.target === "player");
     opponentSpeedChange = changedStats.filter((el) => el.target === "opponent");
   }
-  if (!playerSpeedChange.length) {
+  if (playerSpeedChange.length) {
     for (let index = 0; index < playerSpeedChange.length; index++) {
       const el = playerSpeedChange[index];
       playerSpeed = playerSpeed * statChangesEffectPercent(el.change);
@@ -304,7 +304,6 @@ function playerAttacksFirst(playerPokemon, opponentPokemon, gymBadges, statChang
   }
   playerSpeed = Math.floor(playerSpeed)
   opponentSpeed = Math.floor(opponentSpeed)
-  console.log('playerSpeed: ',playerSpeedChange, ' opponentSpeed: ',opponentSpeedChange)
   if(playerSpeed === opponentSpeed) {
     if(Math.random() < 0.5) {
       return true

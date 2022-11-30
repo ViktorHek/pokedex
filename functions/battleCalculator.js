@@ -3,32 +3,18 @@ const dbTypes = require("../dataBase/types");
 // battleObject = { move, playerIsAttacking, gymBadges, statChanges }
 module.exports = function battleCalculator(playersPokemon, opponentsPokemon, battleObject) {
   const { move, playerIsAttacking, statChanges } = battleObject;
-  let attackingMon = {};
-  let defendingMon = {};
-  let returnValue = { damage: 0, status: {}, message: "", statChangesArray: [] };
-  if (playerIsAttacking) {
-    attackingMon = playersPokemon;
-    defendingMon = opponentsPokemon;
-    if (statChanges.length) {
-      attackingMon.changedStats = statChanges.filter(el => el.target == "player");
-      defendingMon.changedStats = statChanges.filter((el) => el.target == "opponent");
-    }
-  } else {
-    attackingMon = opponentsPokemon;
-    defendingMon = playersPokemon;
-    if (statChanges.length) {
-      attackingMon.changedStats = statChanges.filter((el) => el.target === "opponent");
-      defendingMon.changedStats = statChanges.filter((el) => el.target === "player");
-    }
-  }
-  let accuracy = getChangeForSpecificStat(attackingMon, "accuracy");
-  let evasion = getChangeForSpecificStat(defendingMon, "evasion");
-  let isHitting = checkIfMoveHitts(move, accuracy, evasion);
+  let { attackingMon, defendingMon } = getAttackingAndDefendingMon(
+    playersPokemon,
+    opponentsPokemon,
+    playerIsAttacking,
+    statChanges
+  );
+  let returnValue = { damage: 0, status: {}, message: "" };
+  let isHitting = checkIfMoveHitts(move, attackingMon, defendingMon);
   if (!isHitting) {
-    returnValue = { damage: 0, status: {}, message: "Attack missed", statChangesArray: statChanges };
+    returnValue = { damage: 0, status: {}, message: "Attack missed" };
     return returnValue;
   }
-
   if (move.meta.damage_class === "status") {
     let res = useStatusAttack(move, playerIsAttacking);
     returnValue.status = res;
@@ -47,26 +33,46 @@ module.exports = function battleCalculator(playersPokemon, opponentsPokemon, bat
   // let message = getMessage(returnValue)
   // returnValue.message = message
   console.log(returnValue);
-  return returnValue
+  return returnValue;
 };
+function getAttackingAndDefendingMon(playersPokemon, opponentsPokemon, playerIsAttacking, statChanges) {
+  let attackingMon = {};
+  let defendingMon = {};
+  if (playerIsAttacking) {
+    attackingMon = playersPokemon;
+    defendingMon = opponentsPokemon;
+    if (statChanges.length) {
+      attackingMon.changedStats = statChanges.filter((el) => el.target == "player");
+      defendingMon.changedStats = statChanges.filter((el) => el.target == "opponent");
+    }
+  } else {
+    attackingMon = opponentsPokemon;
+    defendingMon = playersPokemon;
+    if (statChanges.length) {
+      attackingMon.changedStats = statChanges.filter((el) => el.target === "opponent");
+      defendingMon.changedStats = statChanges.filter((el) => el.target === "player");
+    }
+  }
+  return { attackingMon, defendingMon };
+}
 /**
  * Status attacks includes moves that change stats & status
- * @param {{meta: {stat_change: {change: ...number, stat: string},target: string}}} move
+ * @param {{meta: {stat_change: {change: number, stat: string},target: string}}} move
  * @param {Boolean} playerIsAttacking
- * @returns {{change: number, stat: number, target: string}}
+ * @returns {{change: number, stat: number, target: string}|{}} returns
  */
 function useStatusAttack(move, playerIsAttacking) {
   const statChange = move.meta.stat_change;
+  if (!statChange) {
+    console.log("status attack");
+    return {};
+  }
   let target = "opponent";
-  if (!statChange) return {};
-  if (playerIsAttacking === true) {
-    if (move.meta.target === "player") {
-      target = "player";
-    }
-  } else {
-    if (move.meta.target === "opponent") {
-      target = "player";
-    }
+  if (
+    (playerIsAttacking === true && move.meta.target === "player") ||
+    (playerIsAttacking === false && move.meta.target === "opponent")
+  ) {
+    target = "player";
   }
   let statChangeObj = {
     change: statChange.change,
@@ -116,7 +122,14 @@ function useDamageAttack(attackingMon, defendingMon, battleObject) {
   let boostedStatsdeffendingMon = applyStatChanges(defendingMon, gymBadges);
   // damage = ((((2 * level * critical) / 5 + 2) * (power * (attack / deffence))) / 50 + 2) * stab * type1 * type2 * random
   let isCrit = calculateIfCrit(boostedStatsAttackingMon.speed, move); // is crit = 2, is not crit = 1
-  let AD = getattackDefenseDifferance(attackingMon, boostedStatsAttackingMon, defendingMon, boostedStatsdeffendingMon, isCrit, move);
+  let AD = getattackDefenseDifferance(
+    attackingMon,
+    boostedStatsAttackingMon,
+    defendingMon,
+    boostedStatsdeffendingMon,
+    isCrit,
+    move
+  );
   let STAB = getStab(attackingMon, move);
   let typingCalc = getTypingCalc(move, defendingMon);
   let random = getRandomDamage();
@@ -125,7 +138,7 @@ function useDamageAttack(attackingMon, defendingMon, battleObject) {
   let thirdCalc = secondCalc * move.power * AD;
   let fourthCalc = thirdCalc / 50 + 2;
   let fifthCalc = fourthCalc * STAB * typingCalc * random;
-  console.log("useDamageAttack isCrit and random: ", isCrit, random);
+  // console.log("useDamageAttack isCrit and random: ", isCrit, random);
   if (Math.floor(fifthCalc) < 1) {
     return 1;
   } else {
@@ -140,14 +153,14 @@ function useDamageAttack(attackingMon, defendingMon, battleObject) {
  */
 function applyStatChanges(pokemon, gymBadges) {
   let statChanges = pokemon.changedStats;
-  console.log('statChanges: ',statChanges)
+  // console.log('statChanges: ',statChanges)
   let stats = {
     attack: pokemon.stats.attack,
     defense: pokemon.stats.defense,
     special: pokemon.stats.special,
     speed: pokemon.stats.speed,
   };
-  if(!statChanges) return stats
+  if (!statChanges) return stats;
   for (let index = 0; index < statChanges.length; index++) {
     const el = statChanges[index];
     stats[el.stat] = stats[el.stat] * statChangesEffectPercent(el.change);
@@ -188,8 +201,10 @@ function getChangeForSpecificStat(pokemon, statName) {
  * @param {Number} evasion defending pokemons evasion
  * @returns {Boolean} if true the move hitts, if false the move miss
  */
-function checkIfMoveHitts(move, accuracy, evasion) {
+function checkIfMoveHitts(move, attackingMon, defendingMon) {
   if (move.accuracy === null) return true; // if accuracy is null then target is always opponent
+  let accuracy = getChangeForSpecificStat(attackingMon, "accuracy");
+  let evasion = getChangeForSpecificStat(defendingMon, "evasion");
   let accuracyVal = 1 * statChangesEffectPercent(accuracy);
   let evasionVal = 1 * statChangesEffectPercent(evasion);
   let moveAccuracy = move.accuracy / 100; // 0 - 1
@@ -232,7 +247,14 @@ function calculateIfCrit(speedStat, move) {
  * @param {"physical"|"special"} move
  * @returns {Number}
  */
-function getattackDefenseDifferance(attackingMon, boostedStatsAttackingMon, defendingMon, boostedStatsdeffendingMon, isCrit, move) {
+function getattackDefenseDifferance(
+  attackingMon,
+  boostedStatsAttackingMon,
+  defendingMon,
+  boostedStatsdeffendingMon,
+  isCrit,
+  move
+) {
   const attack = attackingMon.stats.attack;
   const attackSpecial = attackingMon.stats.special;
   const defense = defendingMon.stats.defense;
@@ -253,17 +275,17 @@ function getattackDefenseDifferance(attackingMon, boostedStatsAttackingMon, defe
   }
 }
 function getStab(attackingMon, move) {
-  if (attackingMon.dbData.types.includes(move.type)) {
+  if (attackingMon.types.includes(move.type)) {
     return 1.5;
   } else {
     return 1;
   }
 }
 function getTypingCalc(move, opponentMon) {
-  let firstTyping = calcTyping(move.type, opponentMon.dbData.types[0]);
+  let firstTyping = calcTyping(move.type, opponentMon.types[0]);
   let secondTyping = 1;
-  if (opponentMon.dbData.types[1]) {
-    secondTyping = calcTyping(move.type, opponentMon.dbData.types[1]);
+  if (opponentMon.types[1]) {
+    secondTyping = calcTyping(move.type, opponentMon.types[1]);
   }
   return firstTyping * secondTyping;
 }
