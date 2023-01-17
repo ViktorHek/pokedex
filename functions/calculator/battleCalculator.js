@@ -1,54 +1,214 @@
-const dbTypes = require("../dataBase/types");
+const dbTypes = require("../../dataBase/types");
+const specialMovesList = require("../../dataBase/nameLists/specialMoves");
 
 // battleObject = { move, playerIsAttacking, gymBadges, statChanges }
 module.exports = function battleCalculator(playersPokemon, opponentsPokemon, battleObject) {
   const { move, playerIsAttacking, statChanges } = battleObject;
+  let returnValue = {
+    damage: 0,
+    status: { name: "", target: "" },
+    statChange: { value: 0, target: "", stat: "" },
+    addedEffects: [],
+    message: "",
+  };
   let { attackingMon, defendingMon } = getAttackingAndDefendingMon(
     playersPokemon,
     opponentsPokemon,
     playerIsAttacking,
     statChanges
   );
-  let returnValue = { damage: 0, status: {}, message: "" };
   let isHitting = checkIfMoveHitts(move, attackingMon, defendingMon);
   if (!isHitting) {
-    returnValue = { damage: 0, status: {}, message: "Attack missed" };
+    returnValue.message = "Attack missed";
     return returnValue;
   }
-  if (move.meta.damage_class === "status") {
-    let res = useStatusAttack(move, playerIsAttacking);
-    returnValue.status = res;
-  } else {
-    // move is a damege dealing move
-    if (move.meta.stat_change === null) {
-      let res = useDamageAttack(attackingMon, defendingMon, battleObject);
-      returnValue.damage = res;
-    } else {
-      let damageVal = useDamageAttack(attackingMon, defendingMon, battleObject);
-      let status = getAdditionalStatusChange(move, playerIsAttacking);
-      returnValue.damage = damageVal;
-      returnValue.status = status;
-    }
-  }
-  // let message = getMessage(returnValue)
-  // returnValue.message = message
-  console.log(returnValue);
+
+  let typeOfMove = getTypeOfMove(move);
+
+  let data = {
+    attackingMon: attackingMon,
+    defendingMon: defendingMon,
+    battleObject: battleObject,
+    typeOfMove: typeOfMove,
+  };
+
+  returnValue.damage = getDamage(data);
+  returnValue.status = getStatus(data);
+  returnValue.statChange = getStatChange(data);
+  returnValue.addedEffects = getAddedEffects(data);
+  // returnValue.message = getMessage(returnValue);
+
+  // ---------
+  // add a function for effects like poison
+  // ---------
+
+  // if (move.meta.damage_class === "status") {
+  //   if (isSpecailMove(move)) {
+  //     returnValue.status = useSpecailStatusAttack(move, playerIsAttacking);
+  //   } else {
+  //     returnValue.status = useStatusAttack(move, playerIsAttacking);
+  //   }
+  // } else {
+  //   // move is a damege dealing move
+  //   if (move.meta.stat_change === null) {
+  //     let res = useDamageAttack(attackingMon, defendingMon, battleObject);
+  //     returnValue.damage = res;
+  //   } else {
+  //     let damageVal = useDamageAttack(attackingMon, defendingMon, battleObject);
+  //     let status = getAdditionalStatusChange(move, playerIsAttacking);
+  //     returnValue.damage = damageVal;
+  //     returnValue.status = status;
+  //   }
+  // }
+
+  console.log("returnValue: ", returnValue);
   return returnValue;
 };
+
+/**
+ * Used to categorice moves to make it easyer for customized functionality.
+ * @returns {"psysical"|"psysical_stat_change"|"psysical_custom"|"special"|"special_stat_change"|"special_custom"|"status"|"status_stat_change"|"status_custom"} categorized by physical or specail damage, status or stat change & custom (meaning unique) or effect (meaning the move has an secondary effect)
+ */
+function getTypeOfMove(move) {
+  let damage_class = move.meta.damage_class;
+  let isSpecail = isSpecailMove(move);
+  let stat_change = move.meta.stat_change;
+  if (isSpecail) {
+    return damage_class + "_custom";
+  } else if (stat_change) {
+    return damage_class + "_stat_change";
+  } else return damage_class;
+}
+function isSpecailMove(move) {
+  const name = move.name;
+  if (specialMovesList.all.includes(name)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+function getDamage(data) {
+  const { attackingMon, defendingMon, battleObject, typeOfMove } = data;
+  let moveBaseType = typeOfMove.split("_")[0];
+  if (moveBaseType === "status") return 0;
+  if (specialMovesList.all.includes(battleObject.move.name)) {
+    console.log("this is a specail move from specialDamageMoves arr. No function jet");
+  }
+  let res = useDamageAttack(attackingMon, defendingMon, battleObject);
+  return res;
+}
+function getStatus(data) {
+  const { attackingMon, defendingMon, battleObject } = data;
+  let name = battleObject.move.name;
+  target = "opponent";
+  // the following if stament is in order to exclude all the moves that inflict status to the user AKA rest.
+  // later this if statment shuld be usable for moves like "thrash" and "petal-dance"
+  // the move rest is unique cuz it removes prev status.
+  if (name === "rest") {
+    if (battleObject.playerIsAttacking) {
+      target = "player";
+    }
+    return { name: "sleep", target: target };
+  }
+
+  if (battleObject.playerIsAttacking === false) {
+    target = "player";
+  }
+  const nonReplacableStatus = ["sleep", "paralyze", "poison", "burn", "frozen"];
+  if (
+    (target === "opponent" && nonReplacableStatus.includes(defendingMon.status)) ||
+    (target === "player" && nonReplacableStatus.includes(attackingMon.status))
+  ) {
+    return null;
+  }
+  if (specialMovesList.statusinflictingMoves.includes(name)) {
+    let name = inflictStatus(battleObject.move);
+    return { name: name, target: target };
+  }
+  if (specialMovesList.damageMovesWithStatusChange.includes(name)) {
+    let chans = generateRandomNumber(1, 100);
+    if (battleObject.move.meta.effect_chance < chans) {
+      let name = inflictStatus(battleObject.move);
+      let target = "opponent";
+      return { name: name, target: target };
+    }
+  }
+  return null;
+}
+function getStatChange(data) {
+  const { battleObject, typeOfMove } = data;
+  let statChange = {};
+  let target = "opponent";
+  let chanse = generateRandomNumber(1, 100);
+  if (typeOfMove.includes("_stat_change") === false) return null;
+  const moveStatChange = battleObject.move.meta.stat_change;
+  const moveEffectChanse = battleObject.move.meta.effect_chance;
+  if (
+    (battleObject.playerIsAttacking === true && battleObject.move.meta.target === "player") ||
+    (battleObject.playerIsAttacking === false && battleObject.move.meta.target === "opponent")
+  ) {
+    target = "player";
+  }
+  statChange = {
+    change: moveStatChange.change,
+    stat: moveStatChange.stat,
+    target: target,
+  };
+
+  if (moveEffectChanse === null) return statChange;
+  if (chanse < moveEffectChanse) {
+    return statChange;
+  } else {
+    return false;
+  }
+}
+
+function getAddedEffects(data) {
+  const { playersPokemon, opponentMon, battleObject, typeOfMove } = data;
+  const moveName = battleObject.move.name;
+  let target = "opponent";
+  let type = "";
+  switch (moveName) {
+    case "disable":
+      // need acces to the last move used by the opponent
+      let random = generateRandomNumber(0, 3); // replace this random number with the index number of whatever move the other pokemon used last
+      if (battleObject.playerIsAttacking === false) {
+        target = "player";
+        type = `disable_${playersPokemon.moves[random]}`;
+      } else {
+        type = `disable_${opponentMon.moves[random]}`;
+      }
+      return { type: type, target: target };
+    case "mist":
+    case "mimic":
+    case "light-screen":
+    case "reflect":
+    case "focus-energy":
+    case "transform":
+    case "conversion":
+    case "substitute":
+      // do shit
+      console.log("this move have a added effect - ", moveName);
+      return null;
+    default:
+      return null;
+  }
+}
+
 function getAttackingAndDefendingMon(playersPokemon, opponentsPokemon, playerIsAttacking, statChanges) {
   let attackingMon = {};
   let defendingMon = {};
   if (playerIsAttacking) {
     attackingMon = playersPokemon;
     defendingMon = opponentsPokemon;
-    if (statChanges.length) {
+    if (statChanges.length || statChanges[0] === null) {
       attackingMon.changedStats = statChanges.filter((el) => el.target == "player");
       defendingMon.changedStats = statChanges.filter((el) => el.target == "opponent");
     }
   } else {
     attackingMon = opponentsPokemon;
     defendingMon = playersPokemon;
-    if (statChanges.length) {
+    if (statChanges.length || statChanges[0] === null) {
       attackingMon.changedStats = statChanges.filter((el) => el.target === "opponent");
       defendingMon.changedStats = statChanges.filter((el) => el.target === "player");
     }
@@ -56,71 +216,86 @@ function getAttackingAndDefendingMon(playersPokemon, opponentsPokemon, playerIsA
   return { attackingMon, defendingMon };
 }
 /**
- * Status attacks includes moves that change stats & status
- * @param {{meta: {stat_change: {change: number, stat: string},target: string}}} move
- * @param {Boolean} playerIsAttacking
- * @returns {{change: number, stat: number, target: string}|{}} returns
+ *
+ * @param {{name: string}} move only the name is used
+ * @returns {"sleep"|"paralyze"|"poison"|"badly poison"|"burn"|"confusion"|"frozen"}
  */
-function useStatusAttack(move, playerIsAttacking) {
-  const statChange = move.meta.stat_change;
-  if (!statChange) {
-    console.log("status attack");
-    return {};
+function inflictStatus(move) {
+  let status = "";
+  if (move.name === "tri-attack") {
+    let random = generateRandomNumber(1, 3);
+    if (random === 1) return "paralyze";
+    if (random === 2) return "burn";
+    return "frozen";
   }
-  let target = "opponent";
-  if (
-    (playerIsAttacking === true && move.meta.target === "player") ||
-    (playerIsAttacking === false && move.meta.target === "opponent")
-  ) {
-    target = "player";
+  switch (move.name) {
+    case "sing":
+    case "sleep-powder":
+    case "hypnosis":
+    case "spore":
+    case "rest":
+      status = "sleep";
+      break;
+    case "stun-powder":
+    case "thunder-wava":
+    case "glare":
+    case "body-slam":
+    case "thunder-shock":
+    case "thunderbolt":
+    case "thunder":
+    case "lick":
+      status = "paralyze";
+      break;
+    case "poison-powder":
+    case "poison-gas":
+    case "poison-sting":
+    case "twineedle":
+    case "smog":
+    case "sludge":
+    case "toxic":
+      status = "poison";
+      break;
+    case "toxic":
+      status = "badly poison";
+      break;
+    case "ember":
+    case "flamethrower":
+    case "fire-blast":
+      status = "burn";
+      break;
+    case "supersonic":
+    case "confuse-ray":
+    case "lovely-kiss":
+    case "psybeam":
+    case "confusion":
+      status = "confusion";
+      break;
+    case "ice-beam":
+    case "blizzard":
+      status = "frozen";
+      break;
+    case "leech-seed":
+      status = "seeded";
+      break;
+    default:
+      console.log("error in inflictStatus function, ", move.name);
+      break;
   }
-  let statChangeObj = {
-    change: statChange.change,
-    stat: statChange.stat,
-    target: target,
-  };
-  return statChangeObj;
+  return status;
 }
 /**
- * used for moves that deel damage and have an additional stat change
- * @param {{meta: {stat_change: {}, effect_chance: number, target: string}}} move
- * @param {Boolean} playerIsAttacking
- * @returns {{change: number, stat: string, target: string}}
- */
-function getAdditionalStatusChange(move, playerIsAttacking) {
-  const statChange = move.meta.stat_change;
-  const effectChance = move.meta.effect_chance;
-  let random = generateRandomNumber(0, 100);
-  let target = "opponent";
-  if (playerIsAttacking === true && move.meta.target === "player") {
-    target = "player";
-  }
-  if (playerIsAttacking === false && move.meta.target === "opponent") {
-    target = "player";
-  }
-  let statChangeObj = {
-    change: statChange.change,
-    stat: statChange.stat,
-    target: target,
-  };
-  if (random < effectChance) {
-    return statChangeObj;
-  } else {
-    return {};
-  }
-}
-/**
+ * ((((2 * level * critical) / 5 + 2) * (power * (attack / deffence))) / 50 + 2) * stab * type1 * type2 * random       
  * this function is for moves that only deel damage and do not have added effects
- * @param {{}} attackingMon
- * @param {{}} defendingMon
- * @param {{move: {}, playerIsAttacking: boolean, gymBadges: [], statChanges: []}} battleObject
+ * @param {{}} attackingMon the attacking mon i only usede to get attack or special attack stats
+ * @param {{}} defendingMon the defending mon i only usede to get defence or special defence stats
+ * @param {{move: {}, playerIsAttacking: boolean, gymBadges: [], statChanges: []}} battleObject only uses gymBadges and move. where gym badges is only used for stat modification calc
  * @returns {Number} damage of move. Is rounded down and can not be below 1
  */
 function useDamageAttack(attackingMon, defendingMon, battleObject) {
+  // damage = ((((2 * level * critical) / 5 + 2) * (power * (attack / deffence))) / 50 + 2) * stab * type1 * type2 * random
   const { gymBadges, move } = battleObject;
   let boostedStatsAttackingMon = applyStatChanges(attackingMon, gymBadges);
   let boostedStatsdeffendingMon = applyStatChanges(defendingMon, gymBadges);
-  // damage = ((((2 * level * critical) / 5 + 2) * (power * (attack / deffence))) / 50 + 2) * stab * type1 * type2 * random
   let isCrit = calculateIfCrit(boostedStatsAttackingMon.speed, move); // is crit = 2, is not crit = 1
   let AD = getattackDefenseDifferance(
     attackingMon,
@@ -138,7 +313,7 @@ function useDamageAttack(attackingMon, defendingMon, battleObject) {
   let thirdCalc = secondCalc * move.power * AD;
   let fourthCalc = thirdCalc / 50 + 2;
   let fifthCalc = fourthCalc * STAB * typingCalc * random;
-  // console.log("useDamageAttack isCrit and random: ", isCrit, random);
+  console.log("useDamageAttack isCrit and random: ", isCrit, random);
   if (Math.floor(fifthCalc) < 1) {
     return 1;
   } else {

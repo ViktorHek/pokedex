@@ -2,8 +2,8 @@
 const pokemonDB = require("../dataBase/pokemons");
 const allMovesArr = require("../dataBase/AllMovesArr");
 const convertStringToPokemon = require("../functions/convertStringToPokemon");
-const calculator = require("../functions/calculator");
-const battleCalculator = require("../functions/battleCalculator");
+const calculator = require("../functions/calculator/calculator");
+const battleCalculator = require("../functions/calculator/battleCalculator");
 
 getAllPokemonsFormDB = function getAllPokemonsFormDB() {
   return pokemonDB;
@@ -192,14 +192,16 @@ function getBothPlayersDamageCalc(data, playerAttacksFirst) {
 
   if (playerAttacksFirst) {
     playerAttackingCalc = battleCalculator(playersPokemon, opponentsPokemon, playerAttackingObj);
-    if (playerAttackingCalc.status !== {}) {
+    console.log('playerAttackingCalc: ', playerAttackingCalc.status)
+    if (playerAttackingCalc.status) {
       opponentAttackingObj.statChanges.push(playerAttackingCalc.status);
       statChangesReturnList.push(playerAttackingCalc.status);
     }
     opponentAttackingCalc = battleCalculator(playersPokemon, opponentsPokemon, opponentAttackingObj);
   } else {
     opponentAttackingCalc = battleCalculator(playersPokemon, opponentsPokemon, opponentAttackingObj);
-    if (playerAttackingCalc.status !== {}) {
+    console.log('opponentAttackingCalc: ', opponentAttackingCalc.status)
+    if (playerAttackingCalc.status) {
       opponentAttackingObj.statChanges.push(opponentAttackingCalc.status);
       statChangesReturnList.push(opponentAttackingCalc.status);
     }

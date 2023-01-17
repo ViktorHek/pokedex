@@ -1,10 +1,12 @@
 const natures = require('../dataBase/natures');
-const calculator = require('./calculator');
+const calculator = require('./calculator/calculator');
 const pokemonDB = require('../dataBase/pokemons');
 const allMoves = require('../dataBase/AllMovesArr');
 
 // 15140viktor@@@@0s153502605094050030500405&04030jenny@@@@@0a021003411103100501004910
 // [080, 40, 1, 's', 143, 'viktor', 15, 35000, 02635, 09435, 00335, 00435]
+
+// [080, 40, 1, 's', 143, 'viktor', [15, 15, 15, 15, 15, 35000, 35000, 35000, 35000, 35000], 26, 35, 94, 35, 3, 35, 4, 35]
 
 // [080, 40, 1, 's', 143, 'viktor', 15, [35000, 35000, 35000, 35000, 35000], 26, 35, 94, 35, 3, 35, 4, 35]
 // '[80,40,1,"s",143,"viktor",15,35000,35000,35000,35000,35000,2635,9435,335,435]'

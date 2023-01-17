@@ -1,4 +1,4 @@
-const dbTypes = require("../dataBase/types");
+const dbTypes = require("../../dataBase/types");
 
 // statsCalc start
 const getPokemonStats = function getPokemonStats(pokiObj) {

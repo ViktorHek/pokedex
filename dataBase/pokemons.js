@@ -3704,7 +3704,7 @@ module.exports = [
   },
   {
     id: 83,
-    name: "farfetchd",
+    name: "farfetch-d",
     abilities: ["keen-eye", "inner-focus"],
     base_experience: 94,
     growth_rate: 3,

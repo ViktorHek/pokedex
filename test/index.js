@@ -1,4 +1,4 @@
-const calculator = require("../functions/battleCalculator");
+const calculator = require("../functions/calculator/battleCalculator");
 const moves = require("../dataBase/AllMovesArr");
 const convert = require("../functions/convertStringToPokemon");
 const testMon = require("./pokemons");
