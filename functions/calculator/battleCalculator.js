@@ -3,6 +3,7 @@ const specialMovesList = require("../../dataBase/nameLists/specialMoves");
 
 // battleObject = { move, playerIsAttacking, gymBadges, statChanges }
 module.exports = function battleCalculator(playersPokemon, opponentsPokemon, battleObject) {
+  console.log('playersPokemon', playersPokemon)
   const { move, playerIsAttacking, statChanges } = battleObject;
   let returnValue = {
     damage: 0,
@@ -61,7 +62,6 @@ module.exports = function battleCalculator(playersPokemon, opponentsPokemon, bat
   //   }
   // }
 
-  console.log("returnValue: ", returnValue);
   return returnValue;
 };
 

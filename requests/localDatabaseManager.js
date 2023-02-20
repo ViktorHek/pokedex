@@ -158,10 +158,10 @@ getMultiblePokemons = function getMultiblePokemons(dataArray) {
 };
 
 getbattleCalc = function getbattleCalc(data) {
-  const { playersPokemon, opponentsPokemon, gymBadges, statChanges } = data;
   let message = "not implemented";
-  let playerAttacksFirst = calculator.playerAttacksFirst(playersPokemon, opponentsPokemon, gymBadges, statChanges);
-  const { playerAttackCalcDamage, opponentAttackingCalcDamage, statChangesAfterCalc } = getBothPlayersDamageCalc(data);
+  let playerAttacksFirst = calculator.playerAttacksFirst(data);
+  const { playerAttackCalcDamage, opponentAttackingCalcDamage, statChangesAfterCalc } =
+    getBothPlayersDamageCalc(data);
   let returnObj = {
     playerAttack: playerAttackCalcDamage,
     opponentAttack: opponentAttackingCalcDamage,
@@ -170,6 +170,13 @@ getbattleCalc = function getbattleCalc(data) {
     message: message,
   };
   return returnObj;
+};
+
+initBattleAndGetID = function initBattleAndGetID(data) {
+  // const { playersPokemon, opponentsPokemon, gymBadges, statChanges } = data;
+  calculator.battleDataArray.push(data);
+  let id = calculator.battleDataArray.length - 1;
+  return { battleID: id };
 };
 
 function getBothPlayersDamageCalc(data, playerAttacksFirst) {
@@ -192,15 +199,23 @@ function getBothPlayersDamageCalc(data, playerAttacksFirst) {
 
   if (playerAttacksFirst) {
     playerAttackingCalc = battleCalculator(playersPokemon, opponentsPokemon, playerAttackingObj);
-    console.log('playerAttackingCalc: ', playerAttackingCalc.status)
+    console.log("playerAttackingCalc: ", playerAttackingCalc.status);
     if (playerAttackingCalc.status) {
       opponentAttackingObj.statChanges.push(playerAttackingCalc.status);
       statChangesReturnList.push(playerAttackingCalc.status);
     }
-    opponentAttackingCalc = battleCalculator(playersPokemon, opponentsPokemon, opponentAttackingObj);
+    opponentAttackingCalc = battleCalculator(
+      playersPokemon,
+      opponentsPokemon,
+      opponentAttackingObj
+    );
   } else {
-    opponentAttackingCalc = battleCalculator(playersPokemon, opponentsPokemon, opponentAttackingObj);
-    console.log('opponentAttackingCalc: ', opponentAttackingCalc.status)
+    opponentAttackingCalc = battleCalculator(
+      playersPokemon,
+      opponentsPokemon,
+      opponentAttackingObj
+    );
+    console.log("opponentAttackingCalc: ", opponentAttackingCalc.status);
     if (playerAttackingCalc.status) {
       opponentAttackingObj.statChanges.push(opponentAttackingCalc.status);
       statChangesReturnList.push(opponentAttackingCalc.status);
@@ -216,7 +231,7 @@ function getBothPlayersDamageCalc(data, playerAttacksFirst) {
 
 function getOpponentsMove(data) {
   const { playersPokemon, opponentsPokemon, moveId, gymBadges, statChanges } = data;
-  return getMoveFromId(moveId)
+  return getMoveFromId(moveId);
 }
 
 module.exports = {
@@ -231,4 +246,5 @@ module.exports = {
   getMultiblePokemons,
   getMultibleMoves,
   getbattleCalc,
+  initBattleAndGetID,
 };

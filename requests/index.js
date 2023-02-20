@@ -50,10 +50,18 @@ module.exports = function(app) {
             console.log('error @ get battleCalc')
         }
     })
+
+    app.put('/initBattle', (req, res) => {
+        try {
+            res.send(ldm.initBattleAndGetID(req.body.data));
+        } catch (err) {
+            console.log(err)
+            console.log('error @ put initBattle')
+        }
+    })
 }
 
 async function getAllMyPokemons() {
-    console.log('@@@ getAllMyPokemons funktion')
     const connection = await mysql.createConnection(mySqlKey);
     try {
         let allMyPokemons = await connection.query("SELECT * FROM myPokemons")
