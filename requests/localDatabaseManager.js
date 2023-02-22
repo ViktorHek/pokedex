@@ -3,7 +3,6 @@ const pokemonDB = require("../dataBase/pokemons");
 const allMovesArr = require("../dataBase/AllMovesArr");
 const convertStringToPokemon = require("../functions/convertStringToPokemon");
 const calculator = require("../functions/calculator/calculator");
-const battleCalculator = require("../functions/calculator/battleCalculator");
 
 getAllPokemonsFormDB = function getAllPokemonsFormDB() {
   return pokemonDB;
@@ -158,81 +157,25 @@ getMultiblePokemons = function getMultiblePokemons(dataArray) {
 };
 
 getbattleCalc = function getbattleCalc(data) {
-  let message = "not implemented";
-  let playerAttacksFirst = calculator.playerAttacksFirst(data);
-  const { playerAttackCalcDamage, opponentAttackingCalcDamage, statChangesAfterCalc } =
-    getBothPlayersDamageCalc(data);
-  let returnObj = {
-    playerAttack: playerAttackCalcDamage,
-    opponentAttack: opponentAttackingCalcDamage,
-    playerIsAttackingFirst: playerAttacksFirst,
-    statChanges: statChangesAfterCalc,
-    message: message,
-  };
+  let playerAttacksFirst = calculator.playerAttacksFirst(data.battleId);
+  let returnObj = calculator.getBothPlayersDamageCalc(
+    data.battleId,
+    data.moveId,
+    playerAttacksFirst
+  );
   return returnObj;
 };
 
+// FYI: This function might break the game if two different clients starts a battle at the same time.
+// BattleId is the same as the length of the battleDataArray
+// aka the battleId is the same as the battleDataArray index.
+// So the risk is that two differnet battleObjects have the same battleId
+// where one does not match the battleDataArray index.
 initBattleAndGetID = function initBattleAndGetID(data) {
-  // const { playersPokemon, opponentsPokemon, gymBadges, statChanges } = data;
-  calculator.battleDataArray.push(data);
-  let id = calculator.battleDataArray.length - 1;
-  return { battleID: id };
+  let battleObject = calculator.createBattleObject(data);
+  calculator.battleDataArray.push(battleObject);
+  return { battleId: battleObject.battleId };
 };
-
-function getBothPlayersDamageCalc(data, playerAttacksFirst) {
-  const { playersPokemon, opponentsPokemon, moveId, gymBadges, statChanges } = data;
-  let playerAttackingObj = {
-    move: getMoveFromId(moveId),
-    playerIsAttacking: true,
-    gymBadges: gymBadges,
-    statChanges: statChanges,
-  };
-  let opponentAttackingObj = {
-    move: getOpponentsMove(data),
-    playerIsAttacking: false,
-    gymBadges: [],
-    statChanges: statChanges,
-  };
-  let playerAttackingCalc = {};
-  let opponentAttackingCalc = {};
-  let statChangesReturnList = statChanges;
-
-  if (playerAttacksFirst) {
-    playerAttackingCalc = battleCalculator(playersPokemon, opponentsPokemon, playerAttackingObj);
-    console.log("playerAttackingCalc: ", playerAttackingCalc.status);
-    if (playerAttackingCalc.status) {
-      opponentAttackingObj.statChanges.push(playerAttackingCalc.status);
-      statChangesReturnList.push(playerAttackingCalc.status);
-    }
-    opponentAttackingCalc = battleCalculator(
-      playersPokemon,
-      opponentsPokemon,
-      opponentAttackingObj
-    );
-  } else {
-    opponentAttackingCalc = battleCalculator(
-      playersPokemon,
-      opponentsPokemon,
-      opponentAttackingObj
-    );
-    console.log("opponentAttackingCalc: ", opponentAttackingCalc.status);
-    if (playerAttackingCalc.status) {
-      opponentAttackingObj.statChanges.push(opponentAttackingCalc.status);
-      statChangesReturnList.push(opponentAttackingCalc.status);
-    }
-    playerAttackingCalc = battleCalculator(playersPokemon, opponentsPokemon, playerAttackingObj);
-  }
-  return {
-    playerAttackCalcDamage: playerAttackingCalc.damage,
-    opponentAttackingCalcDamage: opponentAttackingCalc.damage,
-    statChangesAfterCalc: statChangesReturnList,
-  };
-}
-
-function getOpponentsMove(data) {
-  const { playersPokemon, opponentsPokemon, moveId, gymBadges, statChanges } = data;
-  return getMoveFromId(moveId);
-}
 
 module.exports = {
   getAllPokemonsFormDB,

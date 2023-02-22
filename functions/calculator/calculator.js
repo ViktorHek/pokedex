@@ -1,8 +1,9 @@
 const dbTypes = require("../../dataBase/types");
+const battleCalculator = require("./battleCalculator.js");
+const allMovesArr = require("../../dataBase/AllMovesArr");
 
 const battleDataArray = [];
 
-// statsCalc start
 const getPokemonStats = function getPokemonStats(pokiObj) {
   const { iv, ev, level } = pokiObj;
   const base = pokiObj.dbData.stats;
@@ -34,6 +35,80 @@ const generateRandomNumber = function generateRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
+function playerAttacksFirst(id) {
+  const { playerMon, opponentMon } = battleDataArray[id];
+  let playerSpeed = playerMon.battleStats.speed;
+  let opponentSpeed = opponentMon.battleStats.speed;
+  let speedTie = playerSpeed === opponentSpeed && Math.random() < 0.5;
+  if (speedTie || playerSpeed > opponentSpeed) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+const getBothPlayersDamageCalc = function getBothPlayersDamageCalc(
+  battleId,
+  moveId,
+  playerAttacksFirst
+) {
+  let playerAttackCalc = {};
+  let opponentAttackCalc = {};
+  let playerMove = getMoveFromId(moveId);
+  let opponentMove = getMoveFromtrainerAI(battleId);
+  if (playerAttacksFirst) {
+    playerAttackCalc = battleCalculator(battleDataArray[battleId], playerMove, true);
+    uppdateBattleDataArray(battleId, playerAttackCalc.statChange);
+    opponentAttackCalc = battleCalculator(battleDataArray[battleId], opponentMove, false);
+    uppdateBattleDataArray(battleId, opponentAttackCalc.statChange);
+  } else {
+    opponentAttackCalc = battleCalculator(battleDataArray[battleId], opponentMove, false);
+    uppdateBattleDataArray(battleId, playerAttackCalc.statChange);
+    playerAttackCalc = battleCalculator(battleDataArray[battleId], playerMove, true);
+    uppdateBattleDataArray(battleId, opponentAttackCalc.statChange);
+  }
+  return { playerAttackCalc, opponentAttackCalc };
+};
+
+function uppdateBattleDataArray(battleId, statChange) {
+  if (!statChange) return;
+  if (statChange.target === "player") {
+    for (const el in battleDataArray[battleId].playerMon.battleStats) {
+      let newVal = battleDataArray[battleId].playerMon.battleStats[el];
+      let hasBadgeBoost = battleDataArray[battleId].gymBadges[el];
+      if (statChange.type === el) {
+        newVal = newVal * statChangesEffectPercent(statChange.value) * (hasBadgeBoost ? 1.125 : 1);
+      } else {
+        newVal = newVal * (hasBadgeBoost ? 1.125 : 1);
+      }
+      battleDataArray[battleId].playerMon.battleStats[el] = newVal;
+    }
+  } else {
+    for (const el in battleDataArray[battleId].opponentMon.battleStats) {
+      let newVal = battleDataArray[battleId].opponentMon.battleStats[el];
+      if (statChange.type === el) {
+        newVal = newVal * statChangesEffectPercent(statChange.value);
+      }
+      battleDataArray[battleId].opponentMon.battleStats[el] = newVal;
+    }
+  }
+}
+
+function getMoveFromId(id) {
+  let moveObj = {};
+  allMovesArr.forEach((move) => {
+    if (parseInt(id) === move.id) {
+      moveObj = move;
+    }
+  });
+  return moveObj;
+}
+
+function getMoveFromtrainerAI(battleId) {
+  // future project. the move Tackle have the ID 33
+  return getMoveFromId(33);
+}
+
 function statChangesEffectPercent(statChanges) {
   switch (statChanges) {
     case -6:
@@ -53,9 +128,9 @@ function statChangesEffectPercent(statChanges) {
     case 1:
       return 1.5;
     case 2:
-      return 1.2;
-    case 3:
       return 2;
+    case 3:
+      return 2.5;
     case 4:
       return 3;
     case 5:
@@ -68,53 +143,60 @@ function statChangesEffectPercent(statChanges) {
   }
 }
 
-function playerAttacksFirst(data) {
-  const { playersPokemon, opponentsPokemon, gymBadges, statChanges } = data;
+const createBattleObject = function createBattleObject(data) {
+  const { playersPokemon, opponentsPokemon, user } = data;
+  let returnValue = {
+    battleId: battleDataArray.length,
+    playerMon: {
+      id: playersPokemon.id,
+      level: playersPokemon.level,
+      abilitie: playersPokemon.abilitie,
+      currentHp: playersPokemon.currentHp,
+      moves: playersPokemon.moves,
+      unBuffedStats: playersPokemon.stats,
+      battleStats: {
+        attack: playersPokemon.attack,
+        defense: playersPokemon.defense,
+        special: playersPokemon.special,
+        speed: playersPokemon.speed,
+        evasion: 1,
+        accuracy: 1,
+      },
+      status: playersPokemon.status,
+      types: playersPokemon.dbData.types,
+    },
+    opponentMon: {
+      id: opponentsPokemon.id,
+      level: opponentsPokemon.level,
+      abilitie: opponentsPokemon.abilitie,
+      currentHp: opponentsPokemon.currentHp,
+      moves: opponentsPokemon.moves,
+      unBuffedStats: opponentsPokemon.stats,
+      battleStats: {
+        attack: opponentsPokemon.attack,
+        defense: opponentsPokemon.defense,
+        special: opponentsPokemon.special,
+        speed: opponentsPokemon.speed,
+        evasion: 1,
+        accuracy: 1,
+      },
+      status: null, // null means no status aka "Fine"
+      types: opponentsPokemon.dbData.types,
+    },
+    gymBadges: user.gymBadges,
+    extra: [],
+    opponentId: 0, // used later to determent if player is facing a wild pokemon or a trainer. and if so, what trainer
+  };
 
-  let playerSpeed = applyStatChangesForSpecificStat(
-    playersPokemon.stats.speed,
-    gymBadges.speed,
-    statChanges,
-    "speed",
-    "player"
-  );
-  let opponentSpeed = applyStatChangesForSpecificStat(
-    opponentsPokemon.stats.speed,
-    false,
-    statChanges,
-    "speed",
-    "opponent"
-  );
-
-  playerSpeed = Math.floor(playerSpeed);
-  opponentSpeed = Math.floor(opponentSpeed);
-  if (playerSpeed === opponentSpeed && Math.random() < 0.5) {
-    return true;
-  }
-  if (playerSpeed > opponentSpeed) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function applyStatChangesForSpecificStat(playerSpeed, gymBadge, statChanges, type, applyStatsFor) {
-  let returnValue = playerSpeed;
-  let gymBadgeBoost = gymBadge ? 1 : 1.125;
-  // if (gymBadge) gymBadgeBoost = 1.125;
-  if (!statChanges.length) return returnValue * gymBadgeBoost;
-  let changedStats = statChanges.filter((el) => el.stat === type);
-  let speedChange = changedStats.filter((el) => el.target === applyStatsFor);
-  for (let index = 0; index < speedChange.length; index++) {
-    returnValue = returnValue * statChangesEffectPercent(speedChange[index].change) * gymBadgeBoost;
-  }
   return returnValue;
-}
+};
 
 const calculator = {
   getPokemonStats,
   generateRandomNumber,
   playerAttacksFirst,
+  getBothPlayersDamageCalc,
+  createBattleObject,
   battleDataArray,
 };
 

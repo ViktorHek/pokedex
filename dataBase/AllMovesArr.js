@@ -6,6 +6,7 @@ module.exports = [
     power: 40,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries: "Inflicts regular damage.",
@@ -31,6 +32,7 @@ module.exports = [
     power: 50,
     type: "fighting",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -57,6 +59,7 @@ module.exports = [
     power: 15,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -83,6 +86,7 @@ module.exports = [
     power: 18,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -109,6 +113,7 @@ module.exports = [
     power: 80,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries: "Inflicts regular damage.",
@@ -134,6 +139,7 @@ module.exports = [
     power: 40,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -160,10 +166,10 @@ module.exports = [
     power: 75,
     type: "fire",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: 10,
-      effect_entries:
-        "Inflicts regular damage. Has a $effect_chance% chance to burn the target.",
+      effect_entries: "Inflicts regular damage. Has a $effect_chance% chance to burn the target.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -186,10 +192,10 @@ module.exports = [
     power: 75,
     type: "ice",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: 10,
-      effect_entries:
-        "Inflicts regular damage. Has a $effect_chance% chance to freeze the target.",
+      effect_entries: "Inflicts regular damage. Has a $effect_chance% chance to freeze the target.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -212,6 +218,7 @@ module.exports = [
     power: 75,
     type: "electric",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: 10,
       effect_entries:
@@ -238,6 +245,7 @@ module.exports = [
     power: 40,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries: "Inflicts regular damage.",
@@ -263,6 +271,7 @@ module.exports = [
     power: 55,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries: "Inflicts regular damage.",
@@ -288,6 +297,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -314,6 +324,7 @@ module.exports = [
     power: 80,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -340,6 +351,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Raises the user's Attack by two stages.",
@@ -365,6 +377,7 @@ module.exports = [
     power: 50,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries: "Inflicts regular damage.",
@@ -390,6 +403,7 @@ module.exports = [
     power: 40,
     type: "flying",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -416,6 +430,7 @@ module.exports = [
     power: 60,
     type: "flying",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries: "Inflicts regular damage.",
@@ -441,6 +456,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries:
@@ -467,6 +483,7 @@ module.exports = [
     power: 90,
     type: "flying",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -493,6 +510,7 @@ module.exports = [
     power: 15,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: 100,
       effect_entries:
@@ -519,6 +537,7 @@ module.exports = [
     power: 80,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries: "Inflicts regular damage.",
@@ -544,6 +563,7 @@ module.exports = [
     power: 45,
     type: "grass",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: null,
       effect_entries: "Inflicts regular damage.",
@@ -569,10 +589,10 @@ module.exports = [
     power: 65,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: 30,
-      effect_entries:
-        "Inflicts regular damage. Has a chance to make the target flinch.",
+      effect_entries: "Inflicts regular damage. Has a chance to make the target flinch.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -595,6 +615,7 @@ module.exports = [
     power: 30,
     type: "fighting",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries: "Inflicts regular damage. Hits twice in one turn.",
@@ -620,6 +641,7 @@ module.exports = [
     power: 120,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries: "Inflicts regular damage.",
@@ -645,6 +667,7 @@ module.exports = [
     power: 100,
     type: "fighting",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -671,10 +694,10 @@ module.exports = [
     power: 60,
     type: "fighting",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: 30,
-      effect_entries:
-        "Inflicts regular damage. Has a chance to make the target flinch.",
+      effect_entries: "Inflicts regular damage. Has a chance to make the target flinch.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -697,6 +720,7 @@ module.exports = [
     power: null,
     type: "ground",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Lowers the target's accuracy by one stage.",
@@ -722,6 +746,7 @@ module.exports = [
     power: 70,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: 30,
       effect_entries:
@@ -748,6 +773,7 @@ module.exports = [
     power: 65,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries: "Inflicts regular damage.",
@@ -773,6 +799,7 @@ module.exports = [
     power: 15,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -799,6 +826,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -825,6 +853,7 @@ module.exports = [
     power: 40,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries: "Inflicts regular damage.",
@@ -850,10 +879,10 @@ module.exports = [
     power: 85,
     type: "normal",
     meta: {
+      status: "paralyze",
       damage_class: "physical",
       effect_chance: 30,
-      effect_entries:
-        "Inflicts regular damage. Has a chance to paralyze the target.",
+      effect_entries: "Inflicts regular damage. Has a chance to paralyze the target.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -876,6 +905,7 @@ module.exports = [
     power: 15,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: 100,
       effect_entries:
@@ -902,10 +932,10 @@ module.exports = [
     power: 90,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
-      effect_entries:
-        "Inflicts regular damage. User takes 1/4 the damage it inflicts in recoil.",
+      effect_entries: "Inflicts regular damage. User takes 1/4 the damage it inflicts in recoil.",
       priority: null,
       crit_rate: null,
       drain: -25,
@@ -928,6 +958,7 @@ module.exports = [
     power: 120,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -954,10 +985,10 @@ module.exports = [
     power: 120,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
-      effect_entries:
-        "Inflicts regular damage. User takes 1/3 the damage it inflicts in recoil.",
+      effect_entries: "Inflicts regular damage. User takes 1/3 the damage it inflicts in recoil.",
       priority: null,
       crit_rate: null,
       drain: -33,
@@ -980,6 +1011,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Lowers the target's Defense by one stage.",
@@ -1005,10 +1037,10 @@ module.exports = [
     power: 15,
     type: "poison",
     meta: {
+      status: "poison",
       damage_class: "physical",
       effect_chance: 30,
-      effect_entries:
-        "Inflicts regular damage. Has a chance to poison the target.",
+      effect_entries: "Inflicts regular damage. Has a chance to poison the target.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -1031,6 +1063,7 @@ module.exports = [
     power: 25,
     type: "bug",
     meta: {
+      status: "poison",
       damage_class: "physical",
       effect_chance: 20,
       effect_entries:
@@ -1057,6 +1090,7 @@ module.exports = [
     power: 25,
     type: "bug",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -1083,6 +1117,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Lowers the target's Defense by one stage.",
@@ -1108,10 +1143,10 @@ module.exports = [
     power: 60,
     type: "dark",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: 30,
-      effect_entries:
-        "Inflicts regular damage. Has a chance to make the target flinch.",
+      effect_entries: "Inflicts regular damage. Has a chance to make the target flinch.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -1134,6 +1169,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Lowers the target's Attack by one stage.",
@@ -1159,6 +1195,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries:
@@ -1185,6 +1222,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: "sleep",
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Puts the target to sleep.",
@@ -1210,6 +1248,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: "confuse",
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Confuses the target.",
@@ -1235,6 +1274,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries: "Inflicts exactly 20 damage.",
@@ -1260,6 +1300,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries:
@@ -1286,6 +1327,7 @@ module.exports = [
     power: 40,
     type: "poison",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: 10,
       effect_entries:
@@ -1312,10 +1354,10 @@ module.exports = [
     power: 40,
     type: "fire",
     meta: {
+      status: "burn",
       damage_class: "special",
       effect_chance: 10,
-      effect_entries:
-        "Inflicts regular damage. Has a $effect_chance% chance to burn the target.",
+      effect_entries: "Inflicts regular damage. Has a $effect_chance% chance to burn the target.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -1338,10 +1380,10 @@ module.exports = [
     power: 90,
     type: "fire",
     meta: {
+      status: "burn",
       damage_class: "special",
       effect_chance: 10,
-      effect_entries:
-        "Inflicts regular damage. Has a $effect_chance% chance to burn the target.",
+      effect_entries: "Inflicts regular damage. Has a $effect_chance% chance to burn the target.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -1364,6 +1406,7 @@ module.exports = [
     power: null,
     type: "ice",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries:
@@ -1390,6 +1433,7 @@ module.exports = [
     power: 40,
     type: "water",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: null,
       effect_entries: "Inflicts regular damage.",
@@ -1415,6 +1459,7 @@ module.exports = [
     power: 110,
     type: "water",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: null,
       effect_entries: "Inflicts regular damage.",
@@ -1440,6 +1485,7 @@ module.exports = [
     power: 90,
     type: "water",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: null,
       effect_entries:
@@ -1466,10 +1512,10 @@ module.exports = [
     power: 90,
     type: "ice",
     meta: {
+      status: "freeze",
       damage_class: "special",
       effect_chance: 10,
-      effect_entries:
-        "Inflicts regular damage. Has a $effect_chance% chance to freeze the target.",
+      effect_entries: "Inflicts regular damage. Has a $effect_chance% chance to freeze the target.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -1492,6 +1538,7 @@ module.exports = [
     power: 110,
     type: "ice",
     meta: {
+      status: "freeze",
       damage_class: "special",
       effect_chance: 10,
       effect_entries:
@@ -1518,6 +1565,7 @@ module.exports = [
     power: 65,
     type: "psychic",
     meta: {
+      status: "confuse",
       damage_class: "special",
       effect_chance: 10,
       effect_entries:
@@ -1544,6 +1592,7 @@ module.exports = [
     power: 65,
     type: "water",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: 10,
       effect_entries:
@@ -1570,6 +1619,7 @@ module.exports = [
     power: 65,
     type: "ice",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: 10,
       effect_entries:
@@ -1596,6 +1646,7 @@ module.exports = [
     power: 150,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -1622,6 +1673,7 @@ module.exports = [
     power: 35,
     type: "flying",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries: "Inflicts regular damage.",
@@ -1647,6 +1699,7 @@ module.exports = [
     power: 80,
     type: "flying",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries: "Inflicts regular damage.",
@@ -1672,10 +1725,10 @@ module.exports = [
     power: 80,
     type: "fighting",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
-      effect_entries:
-        "Inflicts regular damage. User takes 1/4 the damage it inflicts in recoil.",
+      effect_entries: "Inflicts regular damage. User takes 1/4 the damage it inflicts in recoil.",
       priority: null,
       crit_rate: null,
       drain: -25,
@@ -1698,6 +1751,7 @@ module.exports = [
     power: null,
     type: "fighting",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -1724,6 +1778,7 @@ module.exports = [
     power: null,
     type: "fighting",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -1750,6 +1805,7 @@ module.exports = [
     power: null,
     type: "fighting",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -1776,6 +1832,7 @@ module.exports = [
     power: 80,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries: "Inflicts regular damage.",
@@ -1801,10 +1858,10 @@ module.exports = [
     power: 20,
     type: "grass",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: null,
-      effect_entries:
-        "Inflicts regular damage. Drains half the damage inflicted to heal the user.",
+      effect_entries: "Inflicts regular damage. Drains half the damage inflicted to heal the user.",
       priority: null,
       crit_rate: null,
       drain: 50,
@@ -1827,10 +1884,10 @@ module.exports = [
     power: 40,
     type: "grass",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: null,
-      effect_entries:
-        "Inflicts regular damage. Drains half the damage inflicted to heal the user.",
+      effect_entries: "Inflicts regular damage. Drains half the damage inflicted to heal the user.",
       priority: null,
       crit_rate: null,
       drain: 50,
@@ -1853,6 +1910,7 @@ module.exports = [
     power: null,
     type: "grass",
     meta: {
+      status: "seeded",
       damage_class: "status",
       effect_chance: null,
       effect_entries:
@@ -1879,6 +1937,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries:
@@ -1905,6 +1964,7 @@ module.exports = [
     power: 55,
     type: "grass",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: null,
       effect_entries:
@@ -1931,6 +1991,7 @@ module.exports = [
     power: 120,
     type: "grass",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: null,
       effect_entries:
@@ -1957,6 +2018,7 @@ module.exports = [
     power: null,
     type: "poison",
     meta: {
+      status: "poison",
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Poisons the target.",
@@ -1982,6 +2044,7 @@ module.exports = [
     power: null,
     type: "grass",
     meta: {
+      status: "paralyze",
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Paralyzes the target.",
@@ -2007,6 +2070,7 @@ module.exports = [
     power: null,
     type: "grass",
     meta: {
+      status: "sleep",
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Puts the target to sleep.",
@@ -2032,6 +2096,7 @@ module.exports = [
     power: 120,
     type: "grass",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: null,
       effect_entries:
@@ -2058,6 +2123,7 @@ module.exports = [
     power: null,
     type: "bug",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Lowers the target's Speed by one stages.",
@@ -2083,6 +2149,7 @@ module.exports = [
     power: null,
     type: "dragon",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: null,
       effect_entries: "Inflicts exactly 40 damage.",
@@ -2108,6 +2175,7 @@ module.exports = [
     power: 35,
     type: "fire",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: 100,
       effect_entries:
@@ -2134,10 +2202,10 @@ module.exports = [
     power: 40,
     type: "electric",
     meta: {
+      status: "paralyze",
       damage_class: "special",
       effect_chance: 10,
-      effect_entries:
-        "Inflicts regular damage. Has a chance to paralyze the target.",
+      effect_entries: "Inflicts regular damage. Has a chance to paralyze the target.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -2160,10 +2228,10 @@ module.exports = [
     power: 90,
     type: "electric",
     meta: {
+      status: "paralyze",
       damage_class: "special",
       effect_chance: 10,
-      effect_entries:
-        "Inflicts regular damage. Has a chance to paralyze the target.",
+      effect_entries: "Inflicts regular damage. Has a chance to paralyze the target.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -2186,6 +2254,7 @@ module.exports = [
     power: null,
     type: "electric",
     meta: {
+      status: "paralyze",
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Paralyzes the target.",
@@ -2211,6 +2280,7 @@ module.exports = [
     power: 110,
     type: "electric",
     meta: {
+      status: "paralyze",
       damage_class: "special",
       effect_chance: 30,
       effect_entries:
@@ -2237,6 +2307,7 @@ module.exports = [
     power: 50,
     type: "rock",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries: "Inflicts regular damage.",
@@ -2262,6 +2333,7 @@ module.exports = [
     power: 100,
     type: "ground",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -2288,6 +2360,7 @@ module.exports = [
     power: null,
     type: "ground",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -2314,6 +2387,7 @@ module.exports = [
     power: 80,
     type: "ground",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -2340,10 +2414,10 @@ module.exports = [
     power: null,
     type: "poison",
     meta: {
+      status: "badly poison",
       damage_class: "status",
       effect_chance: null,
-      effect_entries:
-        "Badly poisons the target. Never misses when used by a poison-type Pokémon.",
+      effect_entries: "Badly poisons the target. Never misses when used by a poison-type Pokémon.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -2366,6 +2440,7 @@ module.exports = [
     power: 50,
     type: "psychic",
     meta: {
+      status: "confuse",
       damage_class: "special",
       effect_chance: 10,
       effect_entries:
@@ -2392,6 +2467,7 @@ module.exports = [
     power: 90,
     type: "psychic",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: 10,
       effect_entries:
@@ -2418,6 +2494,7 @@ module.exports = [
     power: null,
     type: "psychic",
     meta: {
+      status: "sleep",
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Puts the target to sleep.",
@@ -2443,6 +2520,7 @@ module.exports = [
     power: null,
     type: "psychic",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Raises the user's Attack by one stage.",
@@ -2468,6 +2546,7 @@ module.exports = [
     power: null,
     type: "psychic",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Raises the user's Speed by two stages.",
@@ -2493,6 +2572,7 @@ module.exports = [
     power: 40,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries: "Inflicts regular damage.",
@@ -2518,6 +2598,7 @@ module.exports = [
     power: 20,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -2544,6 +2625,7 @@ module.exports = [
     power: null,
     type: "psychic",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Does nothing. Wild battles end immediately.",
@@ -2569,6 +2651,7 @@ module.exports = [
     power: null,
     type: "ghost",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: null,
       effect_entries:
@@ -2595,6 +2678,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries:
@@ -2621,6 +2705,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Lowers the target's Defense by two stages.",
@@ -2646,6 +2731,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Raises the user's evasion by one stage.",
@@ -2658,7 +2744,7 @@ module.exports = [
       max_turns: null,
       min_hits: null,
       min_turns: null,
-      stat_change: { change: 1, stat: "evasion" },
+      stat_change: { change: -1, stat: "evasion" },
       target: "user",
       index: 32,
     },
@@ -2671,6 +2757,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Heals the user for half its max HP.",
@@ -2696,6 +2783,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Raises the user's Defense by one stage.",
@@ -2721,6 +2809,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries:
@@ -2734,7 +2823,7 @@ module.exports = [
       max_turns: null,
       min_hits: null,
       min_turns: null,
-      stat_change: { change: 2, stat: "evasion" },
+      stat_change: { change: -2, stat: "evasion" },
       target: "user",
       index: 84,
     },
@@ -2747,6 +2836,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Lowers the target's accuracy by one stage.",
@@ -2772,6 +2862,7 @@ module.exports = [
     power: null,
     type: "ghost",
     meta: {
+      status: "confuse",
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Confuses the target.",
@@ -2797,6 +2888,7 @@ module.exports = [
     power: null,
     type: "water",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Raises the user's Defense by one stage.",
@@ -2822,6 +2914,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries:
@@ -2848,6 +2941,7 @@ module.exports = [
     power: null,
     type: "psychic",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Raises the user's Defense by two stages.",
@@ -2873,6 +2967,7 @@ module.exports = [
     power: null,
     type: "psychic",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries:
@@ -2899,6 +2994,7 @@ module.exports = [
     power: null,
     type: "ice",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries:
@@ -2925,6 +3021,7 @@ module.exports = [
     power: null,
     type: "psychic",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries:
@@ -2951,6 +3048,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries:
@@ -2977,6 +3075,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -3003,6 +3102,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries:
@@ -3029,10 +3129,10 @@ module.exports = [
     power: null,
     type: "flying",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
-      effect_entries:
-        "Uses the last move targeted at the user by a Pokémon still on the field.",
+      effect_entries: "Uses the last move targeted at the user by a Pokémon still on the field.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -3055,10 +3155,10 @@ module.exports = [
     power: 200,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
-      effect_entries:
-        "User faints, even if the attack fails or misses. Inflicts regular damage.",
+      effect_entries: "User faints, even if the attack fails or misses. Inflicts regular damage.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -3081,6 +3181,7 @@ module.exports = [
     power: 100,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries: "Inflicts regular damage.",
@@ -3106,6 +3207,7 @@ module.exports = [
     power: 30,
     type: "ghost",
     meta: {
+      status: "paralyze",
       damage_class: "special",
       effect_chance: 30,
       effect_entries:
@@ -3132,10 +3234,10 @@ module.exports = [
     power: 30,
     type: "poison",
     meta: {
+      status: "poison",
       damage_class: "physical",
       effect_chance: 40,
-      effect_entries:
-        "Inflicts regular damage. Has a chance to poison the target.",
+      effect_entries: "Inflicts regular damage. Has a chance to poison the target.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -3158,10 +3260,10 @@ module.exports = [
     power: 65,
     type: "poison",
     meta: {
+      status: "poison",
       damage_class: "physical",
       effect_chance: 30,
-      effect_entries:
-        "Inflicts regular damage. Has a chance to poison the target.",
+      effect_entries: "Inflicts regular damage. Has a chance to poison the target.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -3184,10 +3286,10 @@ module.exports = [
     power: 65,
     type: "ground",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: 10,
-      effect_entries:
-        "Inflicts regular damage. Has a chance to make the target flinch.",
+      effect_entries: "Inflicts regular damage. Has a chance to make the target flinch.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -3210,10 +3312,10 @@ module.exports = [
     power: 110,
     type: "fire",
     meta: {
+      status: "burn",
       damage_class: "special",
       effect_chance: 10,
-      effect_entries:
-        "Inflicts regular damage. Has a $effect_chance% chance to burn the target.",
+      effect_entries: "Inflicts regular damage. Has a $effect_chance% chance to burn the target.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -3236,10 +3338,10 @@ module.exports = [
     power: 80,
     type: "water",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: 20,
-      effect_entries:
-        "Inflicts regular damage. Has a chance to make the target flinch.",
+      effect_entries: "Inflicts regular damage. Has a chance to make the target flinch.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -3262,6 +3364,7 @@ module.exports = [
     power: 35,
     type: "water",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: 100,
       effect_entries:
@@ -3288,10 +3391,10 @@ module.exports = [
     power: 60,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
-      effect_entries:
-        "Inflicts regular damage. Ignores accuracy and evasion modifiers.",
+      effect_entries: "Inflicts regular damage. Ignores accuracy and evasion modifiers.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -3314,6 +3417,7 @@ module.exports = [
     power: 130,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: 100,
       effect_entries:
@@ -3340,6 +3444,7 @@ module.exports = [
     power: 20,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -3366,6 +3471,7 @@ module.exports = [
     power: 10,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: 10,
       effect_entries:
@@ -3392,6 +3498,7 @@ module.exports = [
     power: null,
     type: "psychic",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Raises the user's Special Defense by two stages.",
@@ -3417,6 +3524,7 @@ module.exports = [
     power: null,
     type: "psychic",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Lowers the target's accuracy by one stage.",
@@ -3442,6 +3550,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Heals the user for half its max HP.",
@@ -3467,6 +3576,7 @@ module.exports = [
     power: 130,
     type: "fighting",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -3493,6 +3603,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: "paralyze",
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Paralyzes the target.",
@@ -3518,6 +3629,7 @@ module.exports = [
     power: 100,
     type: "psychic",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: null,
       effect_entries:
@@ -3544,6 +3656,7 @@ module.exports = [
     power: null,
     type: "poison",
     meta: {
+      status: "poison",
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Poisons the target.",
@@ -3569,6 +3682,7 @@ module.exports = [
     power: 15,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -3595,10 +3709,10 @@ module.exports = [
     power: 20,
     type: "bug",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
-      effect_entries:
-        "Inflicts regular damage. Drains half the damage inflicted to heal the user.",
+      effect_entries: "Inflicts regular damage. Drains half the damage inflicted to heal the user.",
       priority: null,
       crit_rate: null,
       drain: 50,
@@ -3621,6 +3735,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: "sleep",
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Puts the target to sleep.",
@@ -3646,6 +3761,7 @@ module.exports = [
     power: 140,
     type: "flying",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: 30,
       effect_entries:
@@ -3672,6 +3788,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries:
@@ -3698,6 +3815,7 @@ module.exports = [
     power: 40,
     type: "water",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: 10,
       effect_entries:
@@ -3724,6 +3842,7 @@ module.exports = [
     power: 70,
     type: "normal",
     meta: {
+      status: "confuse",
       damage_class: "physical",
       effect_chance: 20,
       effect_entries:
@@ -3750,6 +3869,7 @@ module.exports = [
     power: null,
     type: "grass",
     meta: {
+      status: "sleep",
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Puts the target to sleep.",
@@ -3775,6 +3895,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Lowers the target's accuracy by one stage.",
@@ -3800,6 +3921,7 @@ module.exports = [
     power: null,
     type: "psychic",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: null,
       effect_entries:
@@ -3826,10 +3948,10 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
-      effect_entries:
-        "Does nothing. This move cannot be used while gravity is in effect.",
+      effect_entries: "Does nothing. This move cannot be used while gravity is in effect.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -3852,6 +3974,7 @@ module.exports = [
     power: null,
     type: "poison",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Raises the user's Defense by two stages.",
@@ -3877,6 +4000,7 @@ module.exports = [
     power: 100,
     type: "water",
     meta: {
+      status: null,
       damage_class: "special",
       effect_chance: null,
       effect_entries:
@@ -3903,10 +4027,10 @@ module.exports = [
     power: 250,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
-      effect_entries:
-        "User faints, even if the attack fails or misses. Inflicts regular damage.",
+      effect_entries: "User faints, even if the attack fails or misses. Inflicts regular damage.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -3929,6 +4053,7 @@ module.exports = [
     power: 18,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -3955,6 +4080,7 @@ module.exports = [
     power: 50,
     type: "ground",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries: "Inflicts regular damage. Hits twice in one turn.",
@@ -3980,6 +4106,7 @@ module.exports = [
     power: null,
     type: "psychic",
     meta: {
+      status: "sleep",
       damage_class: "status",
       effect_chance: null,
       effect_entries:
@@ -4006,10 +4133,10 @@ module.exports = [
     power: 75,
     type: "rock",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: 30,
-      effect_entries:
-        "Inflicts regular damage. Has a chance to make the target flinch.",
+      effect_entries: "Inflicts regular damage. Has a chance to make the target flinch.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -4032,10 +4159,10 @@ module.exports = [
     power: 80,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: 10,
-      effect_entries:
-        "Inflicts regular damage. Has a chance to make the target flinch.",
+      effect_entries: "Inflicts regular damage. Has a chance to make the target flinch.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -4058,6 +4185,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries: "Raises the user's Attack by one stage.",
@@ -4083,6 +4211,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries:
@@ -4109,6 +4238,7 @@ module.exports = [
     power: 80,
     type: "normal",
     meta: {
+      status: "all",
       damage_class: "physical",
       effect_chance: 20,
       effect_entries:
@@ -4135,10 +4265,10 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
-      effect_entries:
-        "Inflicts typeless damage equal to half the target's remaining HP.",
+      effect_entries: "Inflicts typeless damage equal to half the target's remaining HP.",
       priority: null,
       crit_rate: null,
       drain: null,
@@ -4161,6 +4291,7 @@ module.exports = [
     power: 70,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:
@@ -4187,6 +4318,7 @@ module.exports = [
     power: null,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "status",
       effect_chance: null,
       effect_entries:
@@ -4213,6 +4345,7 @@ module.exports = [
     power: 50,
     type: "normal",
     meta: {
+      status: null,
       damage_class: "physical",
       effect_chance: null,
       effect_entries:

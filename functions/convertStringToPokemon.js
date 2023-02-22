@@ -78,12 +78,12 @@ function getMoves(moveArr) {
     allMoves.forEach((el) => {
       if (myMove.id === el.id) {
         returnArr.push({
-          name: el.name,
           id: el.id,
-          power: el.power,
+          name: el.name,
           accuracy: el.accuracy,
-          pp: myMove.pp,
+          power: el.power,
           type: el.type,
+          pp: myMove.pp,
           meta: el.meta,
         });
       }
