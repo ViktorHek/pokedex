@@ -173,6 +173,7 @@ getbattleCalc = function getbattleCalc(data) {
 // where one does not match the battleDataArray index.
 initBattleAndGetID = function initBattleAndGetID(data) {
   let battleObject = calculator.createBattleObject(data);
+  // add funktion to remove battleObject that are 24H old
   calculator.battleDataArray.push(battleObject);
   return { battleId: battleObject.battleId };
 };

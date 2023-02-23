@@ -1,6 +1,6 @@
-const dbTypes = require("../../dataBase/types");
 const battleCalculator = require("./battleCalculator.js");
 const allMovesArr = require("../../dataBase/AllMovesArr");
+const {format} = require('date-fns')
 
 const battleDataArray = [];
 
@@ -36,7 +36,10 @@ const generateRandomNumber = function generateRandomNumber(min, max) {
 };
 
 function playerAttacksFirst(id) {
-  const { playerMon, opponentMon } = battleDataArray[id];
+  let { playerMon, opponentMon } = battleDataArray.forEach((el) => {
+    if(el.id === id) return el
+  })
+  // const { playerMon, opponentMon } = battleDataArray[id];
   let playerSpeed = playerMon.battleStats.speed;
   let opponentSpeed = opponentMon.battleStats.speed;
   let speedTie = playerSpeed === opponentSpeed && Math.random() < 0.5;
@@ -56,40 +59,41 @@ const getBothPlayersDamageCalc = function getBothPlayersDamageCalc(
   let opponentAttackCalc = {};
   let playerMove = getMoveFromId(moveId);
   let opponentMove = getMoveFromtrainerAI(battleId);
+  let index = battleDataArray.findIndex(el => el.id === battleId);
   if (playerAttacksFirst) {
-    playerAttackCalc = battleCalculator(battleDataArray[battleId], playerMove, true);
-    uppdateBattleDataArray(battleId, playerAttackCalc.statChange);
-    opponentAttackCalc = battleCalculator(battleDataArray[battleId], opponentMove, false);
-    uppdateBattleDataArray(battleId, opponentAttackCalc.statChange);
+    playerAttackCalc = battleCalculator(battleDataArray[index], playerMove, true);
+    uppdateBattleDataArray(index, playerAttackCalc.statChange);
+    opponentAttackCalc = battleCalculator(battleDataArray[index], opponentMove, false);
+    uppdateBattleDataArray(index, opponentAttackCalc.statChange);
   } else {
-    opponentAttackCalc = battleCalculator(battleDataArray[battleId], opponentMove, false);
-    uppdateBattleDataArray(battleId, playerAttackCalc.statChange);
-    playerAttackCalc = battleCalculator(battleDataArray[battleId], playerMove, true);
-    uppdateBattleDataArray(battleId, opponentAttackCalc.statChange);
+    opponentAttackCalc = battleCalculator(battleDataArray[index], opponentMove, false);
+    uppdateBattleDataArray(index, playerAttackCalc.statChange);
+    playerAttackCalc = battleCalculator(battleDataArray[index], playerMove, true);
+    uppdateBattleDataArray(index, opponentAttackCalc.statChange);
   }
   return { playerAttackCalc, opponentAttackCalc };
 };
 
-function uppdateBattleDataArray(battleId, statChange) {
+function uppdateBattleDataArray(index, statChange) {
   if (!statChange) return;
   if (statChange.target === "player") {
-    for (const el in battleDataArray[battleId].playerMon.battleStats) {
-      let newVal = battleDataArray[battleId].playerMon.battleStats[el];
-      let hasBadgeBoost = battleDataArray[battleId].gymBadges[el];
+    for (const el in battleDataArray[index].playerMon.battleStats) {
+      let newVal = battleDataArray[index].playerMon.battleStats[el];
+      let hasBadgeBoost = battleDataArray[index].gymBadges[el];
       if (statChange.type === el) {
         newVal = newVal * statChangesEffectPercent(statChange.value) * (hasBadgeBoost ? 1.125 : 1);
       } else {
         newVal = newVal * (hasBadgeBoost ? 1.125 : 1);
       }
-      battleDataArray[battleId].playerMon.battleStats[el] = newVal;
+      battleDataArray[index].playerMon.battleStats[el] = newVal;
     }
   } else {
-    for (const el in battleDataArray[battleId].opponentMon.battleStats) {
-      let newVal = battleDataArray[battleId].opponentMon.battleStats[el];
+    for (const el in battleDataArray[index].opponentMon.battleStats) {
+      let newVal = battleDataArray[index].opponentMon.battleStats[el];
       if (statChange.type === el) {
         newVal = newVal * statChangesEffectPercent(statChange.value);
       }
-      battleDataArray[battleId].opponentMon.battleStats[el] = newVal;
+      battleDataArray[index].opponentMon.battleStats[el] = newVal;
     }
   }
 }
@@ -143,7 +147,15 @@ function statChangesEffectPercent(statChanges) {
   }
 }
 
+function removeOldBattleObjects() {
+  // add a loop of battleDataArray.
+  // subtract 24 hours from current date.
+  // if battleObj.createdAt if before current date - 24h, then remove that obj.
+  // probaly gonna use battleDataArray.splice()
+}
+
 const createBattleObject = function createBattleObject(data) {
+  removeOldBattleObjects()
   const { playersPokemon, opponentsPokemon, user } = data;
   let returnValue = {
     battleId: battleDataArray.length,
@@ -186,6 +198,7 @@ const createBattleObject = function createBattleObject(data) {
     gymBadges: user.gymBadges,
     extra: [],
     opponentId: 0, // used later to determent if player is facing a wild pokemon or a trainer. and if so, what trainer
+    createdAt: new Date()
   };
 
   return returnValue;
