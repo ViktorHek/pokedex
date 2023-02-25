@@ -35,11 +35,9 @@ const generateRandomNumber = function generateRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-function playerAttacksFirst(id) {
-  let { playerMon, opponentMon } = battleDataArray.forEach((el) => {
-    if(el.id === id) return el
-  })
-  // const { playerMon, opponentMon } = battleDataArray[id];
+function playerAttacksFirst(battleId) {
+  let index = battleDataArray.findIndex(el => el.id === battleId);
+  const { playerMon, opponentMon } = battleDataArray[index];
   let playerSpeed = playerMon.battleStats.speed;
   let opponentSpeed = opponentMon.battleStats.speed;
   let speedTie = playerSpeed === opponentSpeed && Math.random() < 0.5;
@@ -158,7 +156,7 @@ const createBattleObject = function createBattleObject(data) {
   removeOldBattleObjects()
   const { playersPokemon, opponentsPokemon, user } = data;
   let returnValue = {
-    battleId: battleDataArray.length,
+    id: battleDataArray.length,
     playerMon: {
       id: playersPokemon.id,
       level: playersPokemon.level,

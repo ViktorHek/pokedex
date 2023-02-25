@@ -59,10 +59,6 @@ module.exports = function battleCalculator(battleObj, move, playerIsAttacking) {
  */
 function checkIfMoveHitts(move, attackingMonAccuracy, defendingMonEvasion) {
   if (move.accuracy === null) return true; // if accuracy is null then target is always opponent
-  // let accuracy = getChangeForSpecificStat(attackingMon, "accuracy");
-  // let evasion = getChangeForSpecificStat(defendingMon, "evasion");
-  // let accuracyVal = 1 * statChangesEffectPercent(accuracy);
-  // let evasionVal = 1 * statChangesEffectPercent(evasion);
   let moveAccuracy = move.accuracy / 100; // 0 - 1
   let random = generateRandomNumber(1, 255);
   let chance = moveAccuracy * 255 * attackingMonAccuracy * defendingMonEvasion;
@@ -323,40 +319,3 @@ function getAddedEffects(data) {
       return null;
   }
 }
-
-// function applyStatChangesForSpecificStat(pokemonStat, gymBadge, statChanges, type, applyStatsFor) {
-//   if (!statChanges.length) return returnValue * gymBadge ? 1 : 1.125;
-//   let returnValue = 0;
-//   let changedStats = statChanges.filter((el) => el.stat === type);
-//   let statChangeArr = changedStats.filter((el) => el.target === applyStatsFor);
-//   statChangeArr.forEach((element) => {
-//     returnValue = returnValue * statChangesEffectPercent(element.change) * gymBadge ? 1 : 1.125;
-//   });
-//   return returnValue;
-// }
-// function getBattleStats(pokemon, statChanges, gymBadges) {
-//   let stats = {
-//     attack: pokemon.stats.attack,
-//     defense: pokemon.stats.defense,
-//     special: pokemon.stats.special,
-//     speed: pokemon.stats.speed,
-//     evasion: 0,
-//     accuracy: 0,
-//   };
-//   if (!statChanges) return stats;
-//   for (let index = 0; index < statChanges.length; index++) {
-//     const el = statChanges[index];
-//     if (
-//       stats[el.stat] * statChangesEffectPercent(el.change) > pokemon.stats[el.stat] * 6 ||
-//       stats[el.stat] * statChangesEffectPercent(el.change) < pokemon.stats[el.stat] / 6
-//     ) {
-//       stats[el.stat] = stats[el.stat] * statChangesEffectPercent(el.change);
-//       for (const x in gymBadges) {
-//         if (gymBadges[x] === true) {
-//           stats[x] = stats[x] * 1.125;
-//         }
-//       }
-//     }
-//   }
-//   return stats;
-// }
