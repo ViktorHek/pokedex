@@ -1,6 +1,6 @@
 const battleCalculator = require("./battleCalculator.js");
 const allMovesArr = require("../../dataBase/AllMovesArr");
-const {format} = require('date-fns')
+const { format } = require("date-fns");
 
 const battleDataArray = [];
 
@@ -36,7 +36,7 @@ const generateRandomNumber = function generateRandomNumber(min, max) {
 };
 
 function playerAttacksFirst(battleId) {
-  let index = battleDataArray.findIndex(el => el.id === battleId);
+  let index = battleDataArray.findIndex((el) => el.id === battleId);
   const { playerMon, opponentMon } = battleDataArray[index];
   let playerSpeed = playerMon.battleStats.speed;
   let opponentSpeed = opponentMon.battleStats.speed;
@@ -57,7 +57,7 @@ const getBothPlayersDamageCalc = function getBothPlayersDamageCalc(
   let opponentAttackCalc = {};
   let playerMove = getMoveFromId(moveId);
   let opponentMove = getMoveFromtrainerAI(battleId);
-  let index = battleDataArray.findIndex(el => el.id === battleId);
+  let index = battleDataArray.findIndex((el) => el.id === battleId);
   if (playerAttacksFirst) {
     playerAttackCalc = battleCalculator(battleDataArray[index], playerMove, true);
     uppdateBattleDataArray(index, playerAttackCalc.statChange);
@@ -78,6 +78,7 @@ function uppdateBattleDataArray(index, statChange) {
     for (const el in battleDataArray[index].playerMon.battleStats) {
       let newVal = battleDataArray[index].playerMon.battleStats[el];
       let hasBadgeBoost = battleDataArray[index].gymBadges[el];
+      if (el === "accuracy" || el === "evasion") hasBadgeBoost = false;
       if (statChange.type === el) {
         newVal = newVal * statChangesEffectPercent(statChange.value) * (hasBadgeBoost ? 1.125 : 1);
       } else {
@@ -153,7 +154,7 @@ function removeOldBattleObjects() {
 }
 
 const createBattleObject = function createBattleObject(data) {
-  removeOldBattleObjects()
+  removeOldBattleObjects();
   const { playersPokemon, opponentsPokemon, user } = data;
   let returnValue = {
     id: battleDataArray.length,
@@ -196,7 +197,7 @@ const createBattleObject = function createBattleObject(data) {
     gymBadges: user.gymBadges,
     extra: [],
     opponentId: 0, // used later to determent if player is facing a wild pokemon or a trainer. and if so, what trainer
-    createdAt: new Date()
+    createdAt: new Date(),
   };
 
   return returnValue;
