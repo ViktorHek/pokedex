@@ -512,7 +512,7 @@ module.exports = [
     meta: {
       status: null,
       damage_class: "physical",
-      effect_chance: 100,
+      effect_chance: null,
       effect_entries:
         "Inflicts regular damage. For the next 2–5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn. The user continues to use other moves during this time. If the user leaves the field, this effect ends. Has a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times. Averages to 3 hits per use. rapid spin cancels this effect.",
       priority: null,
@@ -589,7 +589,7 @@ module.exports = [
     power: 65,
     type: "normal",
     meta: {
-      status: null,
+      status: "flinch",
       damage_class: "physical",
       effect_chance: 30,
       effect_entries: "Inflicts regular damage. Has a chance to make the target flinch.",
@@ -694,7 +694,7 @@ module.exports = [
     power: 60,
     type: "fighting",
     meta: {
-      status: null,
+      status: "flinch",
       damage_class: "physical",
       effect_chance: 30,
       effect_entries: "Inflicts regular damage. Has a chance to make the target flinch.",
@@ -746,7 +746,7 @@ module.exports = [
     power: 70,
     type: "normal",
     meta: {
-      status: null,
+      status: "flinch",
       damage_class: "physical",
       effect_chance: 30,
       effect_entries:
@@ -1143,7 +1143,7 @@ module.exports = [
     power: 60,
     type: "dark",
     meta: {
-      status: null,
+      status: "flinch",
       damage_class: "special",
       effect_chance: 30,
       effect_entries: "Inflicts regular damage. Has a chance to make the target flinch.",
@@ -3286,7 +3286,7 @@ module.exports = [
     power: 65,
     type: "ground",
     meta: {
-      status: null,
+      status: "flinch",
       damage_class: "physical",
       effect_chance: 10,
       effect_entries: "Inflicts regular damage. Has a chance to make the target flinch.",
@@ -3338,7 +3338,7 @@ module.exports = [
     power: 80,
     type: "water",
     meta: {
-      status: null,
+      status: "flinch",
       damage_class: "special",
       effect_chance: 20,
       effect_entries: "Inflicts regular damage. Has a chance to make the target flinch.",
@@ -3761,13 +3761,13 @@ module.exports = [
     power: 140,
     type: "flying",
     meta: {
-      status: null,
+      status: "flinch",
       damage_class: "physical",
       effect_chance: 30,
       effect_entries:
         "Inflicts regular damage. User charges for one turn before attacking. Critical hit chance is one level higher than normal. Has a $effect_chance% chance to make the target flinch. This move cannot be selected by sleep talk.",
       priority: null,
-      crit_rate: 1,
+      crit_rate: null,
       drain: null,
       flinch_chance: 30,
       healing: null,
@@ -4133,7 +4133,7 @@ module.exports = [
     power: 75,
     type: "rock",
     meta: {
-      status: null,
+      status: "flinch",
       damage_class: "physical",
       effect_chance: 30,
       effect_entries: "Inflicts regular damage. Has a chance to make the target flinch.",
@@ -4159,7 +4159,7 @@ module.exports = [
     power: 80,
     type: "normal",
     meta: {
-      status: null,
+      status: "flinch",
       damage_class: "physical",
       effect_chance: 10,
       effect_entries: "Inflicts regular damage. Has a chance to make the target flinch.",

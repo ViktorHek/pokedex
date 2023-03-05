@@ -1,6 +1,6 @@
 const dbTypes = require("../../dataBase/types");
 const specialMovesList = require("../../dataBase/nameLists/specialMoves");
-// const calculator = require("./calculator.js");
+const global = require('../../global/index')
 
 module.exports = function battleCalculator(battleObj, move, playerIsAttacking) {
   const { battleId, playerMon, opponentMon, gymBadges, extra, opponentId } = battleObj;
@@ -57,6 +57,7 @@ module.exports = function battleCalculator(battleObj, move, playerIsAttacking) {
  * @returns {Boolean} if true the move hitts, if false the move miss
  */
 function checkIfMoveHitts(move, attackingMonAccuracy, defendingMonEvasion) {
+  if(global.alwaysHit) return true
   if (move.accuracy === null) return true; // if accuracy is null then target is always opponent
   let moveAccuracy = move.accuracy / 100; // 0 - 1
   let random = generateRandomNumber(1, 255);
@@ -138,6 +139,7 @@ function useDamageAttack(data) {
  * @returns {1|2} 2 if crit, 1 if normal hit
  */
 function calculateIfCrit(speedStat, move) {
+  if(global.setCrit) return global.setCrit
   let random = generateRandomNumber(0, 255);
   let threshold = speedStat / 2;
   if (move.meta.crit_rate === 1) {
@@ -220,6 +222,7 @@ function calcTyping(moveType, targetType) {
 }
 
 function getRandomDamage() {
+  if(global.setRandomBattleValue) return 1
   let randomNumber = generateRandomNumber(217, 255);
   return randomNumber / 255;
 }
@@ -228,7 +231,7 @@ function generateRandomNumber(min, max) {
 }
 
 function getStatus(data) {
-  const { attackingMon, defendingMon, typeOfMove, move, playerIsAttacking } = data;
+  const { attackingMon, defendingMon, move, playerIsAttacking } = data;
   let target = "opponent";
   const nonReplacableStatus = ["sleep", "paralyze", "poison", "burn", "frozen"];
   // the following if stament is in order to exclude all the moves that inflict status to the user AKA rest.
@@ -253,8 +256,9 @@ function getStatus(data) {
     return { name: move.meta.status, target: target };
   }
   if (specialMovesList.damageMovesWithStatusChange.includes(move.name)) {
-    let chans = generateRandomNumber(1, 100);
-    if (battleObject.move.meta.effect_chance < chans) {
+    let chans = generateRandomNumber(0, 100);
+    if(global.alwaysHitSecondaryEffect) chans = 0
+    if (battleObject.move.meta.effect_chance > chans) {
       let name = move.meta.status;
       if (move.name === "tri-attack") {
         let random = generateRandomNumber(1, 3);
