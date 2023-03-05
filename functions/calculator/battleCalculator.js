@@ -6,7 +6,6 @@ module.exports = function battleCalculator(battleObj, move, playerIsAttacking) {
   const { battleId, playerMon, opponentMon, gymBadges, extra, opponentId } = battleObj;
   let attackingMon = {};
   let defendingMon = {};
-
   if (playerIsAttacking) {
     attackingMon = playerMon;
     defendingMon = opponentMon;
@@ -62,8 +61,6 @@ function checkIfMoveHitts(move, attackingMonAccuracy, defendingMonEvasion) {
   let moveAccuracy = move.accuracy / 100; // 0 - 1
   let random = generateRandomNumber(1, 255);
   let chance = moveAccuracy * 255 * attackingMonAccuracy * defendingMonEvasion;
-  console.log('random: ', random)
-  console.log('chance: ', chance)
   if (random < chance) {
     return true;
   } else {
@@ -175,7 +172,7 @@ function getattackDefenseDifferance(attackingMon, defendingMon, isCrit, move) {
   const buffedDefenseSpecial = defendingMon.battleStats.special;
   const moveDamgageClass = move.meta.damage_class;
 
-  if (isCrit) {
+  if (isCrit === 2) {
     if (moveDamgageClass === "physical") {
       return attack / defense;
     } else {

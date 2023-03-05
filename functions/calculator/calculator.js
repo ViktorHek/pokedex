@@ -61,13 +61,15 @@ const getBothPlayersDamageCalc = function getBothPlayersDamageCalc(
   if (playerAttacksFirst) {
     playerAttackCalc = battleCalculator(battleDataArray[index], playerMove, true);
     uppdateBattleDataArray(index, playerAttackCalc.statChange);
+
     opponentAttackCalc = battleCalculator(battleDataArray[index], opponentMove, false);
     uppdateBattleDataArray(index, opponentAttackCalc.statChange);
   } else {
     opponentAttackCalc = battleCalculator(battleDataArray[index], opponentMove, false);
-    uppdateBattleDataArray(index, playerAttackCalc.statChange);
-    playerAttackCalc = battleCalculator(battleDataArray[index], playerMove, true);
     uppdateBattleDataArray(index, opponentAttackCalc.statChange);
+    
+    playerAttackCalc = battleCalculator(battleDataArray[index], playerMove, true);
+    uppdateBattleDataArray(index, playerAttackCalc.statChange);
   }
   return { playerAttackCalc, opponentAttackCalc };
 };
@@ -79,20 +81,20 @@ function uppdateBattleDataArray(index, statChange) {
       let newVal = battleDataArray[index].playerMon.battleStats[el];
       let hasBadgeBoost = battleDataArray[index].gymBadges[el];
       if (el === "accuracy" || el === "evasion") hasBadgeBoost = false;
-      if (statChange.type === el) {
-        newVal = newVal * statChangesEffectPercent(statChange.value) * (hasBadgeBoost ? 1.125 : 1);
+      if (statChange.stat === el) {
+        newVal = newVal * statChangesEffectPercent(statChange.change) * (hasBadgeBoost ? 1.125 : 1);
       } else {
         newVal = newVal * (hasBadgeBoost ? 1.125 : 1);
       }
-      battleDataArray[index].playerMon.battleStats[el] = newVal;
+      battleDataArray[index].playerMon.battleStats[el] = Math.floor(newVal);
     }
   } else {
     for (const el in battleDataArray[index].opponentMon.battleStats) {
       let newVal = battleDataArray[index].opponentMon.battleStats[el];
-      if (statChange.type === el) {
-        newVal = newVal * statChangesEffectPercent(statChange.value);
+      if (statChange.stat === el) {
+        newVal = newVal * statChangesEffectPercent(statChange.change);
       }
-      battleDataArray[index].opponentMon.battleStats[el] = newVal;
+      battleDataArray[index].opponentMon.battleStats[el] = Math.floor(newVal);
     }
   }
 }
@@ -166,10 +168,10 @@ const createBattleObject = function createBattleObject(data) {
       moves: playersPokemon.moves,
       unBuffedStats: playersPokemon.stats,
       battleStats: {
-        attack: playersPokemon.attack,
-        defense: playersPokemon.defense,
-        special: playersPokemon.special,
-        speed: playersPokemon.speed,
+        attack: playersPokemon.stats.attack,
+        defense: playersPokemon.stats.defense,
+        special: playersPokemon.stats.special,
+        speed: playersPokemon.stats.speed,
         evasion: 1,
         accuracy: 1,
       },
@@ -184,10 +186,10 @@ const createBattleObject = function createBattleObject(data) {
       moves: opponentsPokemon.moves,
       unBuffedStats: opponentsPokemon.stats,
       battleStats: {
-        attack: opponentsPokemon.attack,
-        defense: opponentsPokemon.defense,
-        special: opponentsPokemon.special,
-        speed: opponentsPokemon.speed,
+        attack: opponentsPokemon.stats.attack,
+        defense: opponentsPokemon.stats.defense,
+        special: opponentsPokemon.stats.special,
+        speed: opponentsPokemon.stats.speed,
         evasion: 1,
         accuracy: 1,
       },
@@ -199,7 +201,6 @@ const createBattleObject = function createBattleObject(data) {
     opponentId: 0, // used later to determent if player is facing a wild pokemon or a trainer. and if so, what trainer
     createdAt: new Date(),
   };
-
   return returnValue;
 };
 
